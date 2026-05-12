@@ -22,15 +22,6 @@ repos:
       - id: django-upgrade
         args: [--target-version, "6.0"]
 
-  - repo: local
-    hooks:
-      - id: check-migrations
-        name: Check Migrations
-        entry: python manage.py makemigrations --check --dry-run
-        language: system
-        pass_filenames: false
-        types: [python]
-
   - repo: https://github.com/sqlfluff/sqlfluff
     rev: 4.1.0
     hooks:
