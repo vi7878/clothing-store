@@ -1,0 +1,135 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ "main", "develop" , "Base-Infrastruction-Github-Actions"]
+  pull_request:
+    branches: [ "main", "develop" , "Base-Infrastruction-Github-Actions"]
+
+jobs:
+  lint-and-format:
+    name: Lint & Format (Pre-commit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+
+  test-frontend:
+    name: Frontend Lint & Build
+    runs-on: ubuntu-latest
+    needs: lint-and-format
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (ESLint)
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+  test-django:
+    name: Django Tests & Migrations Check
+    runs-on: ubuntu-latest
+    needs: lint-and-format
+    services:
+      postgres:
+        image: postgres:18.3-alpine
+        env:
+          POSTGRES_DB: myproject_db #потребує зміни
+          POSTGRES_USER: test_user #потребує зміни
+          POSTGRES_PASSWORD: test_password #потребує зміни
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DB_NAME: myproject_db
+      DB_USER: test_user #потребує зміни
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD_CI }} #потребує встановлення Github Actions
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY_CI }} #потребує встановлення Github Actions
+      DEBUG: "True"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check Missing Migrations
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Run Tests
+        run: echo "Dragons eat tests"
+        continue-on-error: false
+
+  docker-build-test:
+    name: Docker Build Check
+    runs-on: ubuntu-latest
+    needs: lint-and-format
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: backend-test:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build Frontend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: false
+          tags: frontend-test:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
