@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop" , "Base-Infrastruction-Github-Actions"]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop" , "Base-Infrastruction-Github-Actions"]
 
 jobs:
   lint-and-format:
