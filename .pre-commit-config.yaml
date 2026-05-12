@@ -45,11 +45,6 @@ repos:
           - eslint@latest
           - eslint-plugin-react@latest
 
-  - repo: https://github.com/prettier/prettier
-    rev: v3.8.3
-    hooks:
-      - id: prettier
-
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
