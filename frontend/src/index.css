@@ -1,5 +1,9 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap');
 
+@theme {
+  --font-kalam: "Kalam", cursive;
+}
 @layer components {
   .animated-icon-link {
     @apply relative flex flex-col items-center justify-center cursor-pointer pb-2
