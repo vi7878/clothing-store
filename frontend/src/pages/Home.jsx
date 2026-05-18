@@ -4,6 +4,9 @@ import { productsData } from '../data/products';
 import NewArrivals from '../components/NewArrivals';
 import SummerBanner from '../components/SummerBanner';
 import SummerSlider from '../components/SummerSlider';
+import CategoriesGrid from '../components/CategoriesGrid';
+import RecommendedSlider from '../components/RecommendedSlider';
+import SaleBanner from '../components/SaleBanner';
 
 const Home = () => {
   return (
@@ -15,6 +18,12 @@ const Home = () => {
       </div>
       <SummerBanner />
       <SummerSlider />
+      <div className="max-w-[1700px] mx-auto px-10">
+        <hr className="border-t border-gray-200 my-10" />
+      </div>
+      <SaleBanner />
+      <CategoriesGrid />
+      <RecommendedSlider />
       <div className="max-w-[1700px] mx-auto px-10">
         <hr className="border-t border-gray-200 my-10" />
       </div>

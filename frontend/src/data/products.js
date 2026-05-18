@@ -263,5 +263,8 @@ export const productsData = [
     colors: ['#FFFFFF', '#F29B9B', '#3E7B9D', '#D4BB2A'],
     gender: 'men',
     collections: ['summer']
+    //категрорія 
+    //sale: true/false
+    //
   },
 ];
