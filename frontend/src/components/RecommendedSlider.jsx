@@ -54,11 +54,11 @@ const RecommendedSlider = () => {
                 spaceBetween: 10,
             },
             1024: { 
-                slidesPerView: 3.5, 
+                slidesPerView: 4, 
                 spaceBetween: 10, 
             },
             1280: { 
-                slidesPerView: 4, 
+                slidesPerView: 5, 
                 spaceBetween: 10,
             },
           }}
