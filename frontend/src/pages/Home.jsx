@@ -7,7 +7,6 @@ import SummerSlider from '../components/SummerSlider';
 import CategoriesGrid from '../components/CategoriesGrid';
 import RecommendedSlider from '../components/RecommendedSlider';
 import SaleBanner from '../components/SaleBanner';
-import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -28,7 +27,6 @@ const Home = () => {
       <div className="max-w-[1700px] mx-auto px-10">
         <hr className="border-t border-gray-200 my-10" />
       </div>
-      <Footer />
     </div>
   )
 }

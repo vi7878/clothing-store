@@ -13,6 +13,7 @@ import Summer from './pages/Summer';
 import Women from './pages/Women';
 import Men from './pages/Men';
 import New from './pages/New';
+import Footer from './components/Footer';
 
 const App = () => {
   const { showUserLogin } = useContext(ShopContext);
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/shop/men' element={<Men/>} />
           <Route path='/shop/new' element={<New/>} />
       </Routes>
+      <Footer />
     </main>
   );
 }
