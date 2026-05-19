@@ -15,7 +15,7 @@ const Summer = () => {
     }
   }, [genderQuery]);
 
-  const filteredProducts = productsData.filter(product => 
+  const filteredProducts = productsData.filter(product =>
     product.gender === activeTab && product.collections?.includes('summer')
   );
 
@@ -33,7 +33,7 @@ const Summer = () => {
           }`}
         > Жінки
         </button>
-        
+
         <button
           onClick={() => setActiveTab('men')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${

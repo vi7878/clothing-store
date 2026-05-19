@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -36,7 +36,7 @@ const New = () => {
           }`}
         > Жінки
         </button>
-        
+
         <button
           onClick={() => setActiveTab('men')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${

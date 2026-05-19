@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiHeart, FiShoppingCart } from "react-icons/fi";
 import { ShopContext } from '../context/ShopContext';
-import wLogoImg from '../assets/logo/W_logo.png'; 
+import wLogoImg from '../assets/logo/W_logo.png';
 
 const Header = () => {
   const { user, getCartCount, setShowUserLogin } = useContext(ShopContext);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const getWishlistCount = () => 0; 
+  const getWishlistCount = () => 0;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -22,16 +22,16 @@ const Header = () => {
     <FiUser className="text-[28px] stroke-[2.5]" />
   </Link>
 
-  const navLinkStyle = ({ isActive }) => 
-    isActive 
-      ? "text-[#0B0035] font-bold" 
+  const navLinkStyle = ({ isActive }) =>
+    isActive
+      ? "text-[#0B0035] font-bold"
       : "text-[#0B0035] font-bold hover:opacity-70 transition-opacity";
 
   return (
     <header className="w-full bg-white min-w-[1024px]">
       <div className="max-w-[1700px] mx-auto px-10">
         <div className="flex justify-between items-center py-6 gap-6">
-          
+
           {/* LOGO */}
           <div className="flex-shrink-0">
             <Link to={'/'} className="flex items-center gap-3">
@@ -62,7 +62,7 @@ const Header = () => {
 
           {/* USER, WISHLIST, CART ICONS */}
           <div className="flex items-end gap-6 text-[#0B0035]">
-            
+
             {/* User */}
            <Link to={'/account'} className="animated-icon-link">
              <FiUser className="text-[28px] stroke-[2.5]" />

@@ -10,7 +10,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 const NewArrivals = () => {
   const [activeTab, setActiveTab] = useState('women');
 
-  const filteredProducts = productsData.filter(product => 
+  const filteredProducts = productsData.filter(product =>
   product.gender === activeTab && product.collections.includes('new'));
 
   return (
@@ -27,7 +27,7 @@ const NewArrivals = () => {
           }`}
         > Жінки
         </button>
-        
+
         <button
           onClick={() => setActiveTab('men')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
@@ -38,8 +38,8 @@ const NewArrivals = () => {
       </div>
 
       <div className="relative">
-        <button className="custom-prev absolute left-2 md:left-4 top-[40%] -translate-y-1/2 z-20 flex items-center 
-        justify-center w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100 
+        <button className="custom-prev absolute left-2 md:left-4 top-[40%] -translate-y-1/2 z-20 flex items-center
+        justify-center w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100
         transition-colors cursor-pointer disabled:hidden">
           <FiChevronLeft className="text-2xl" />
         </button>
@@ -48,8 +48,8 @@ const NewArrivals = () => {
         <Swiper
           modules={[Navigation]}
           navigation={{
-            prevEl: '.custom-prev', 
-            nextEl: '.custom-next', 
+            prevEl: '.custom-prev',
+            nextEl: '.custom-next',
           }}
           breakpoints={{
             320: {
@@ -78,11 +78,11 @@ const NewArrivals = () => {
           ))}
         </Swiper>
 
-        <button className="custom-next absolute right-2 md:right-4 top-[40%] -translate-y-1/2 z-20 flex items-center justify-center 
-        w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100 
+        <button className="custom-next absolute right-2 md:right-4 top-[40%] -translate-y-1/2 z-20 flex items-center justify-center
+        w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100
         transition-colors cursor-pointer disabled:hidden">
           <FiChevronRight className="text-2xl" />
-        </button>    
+        </button>
       </div>
     </div>
   )

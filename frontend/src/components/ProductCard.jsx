@@ -18,10 +18,10 @@ const ProductCard = ({ product }) => {
 
   // "Quick Buy" button logic
   const handleQuickBuy = (e) => {
-    e.stopPropagation(); 
-    
+    e.stopPropagation();
+
     if (!selectedSize || !selectedColor) {
-      setShowError(true); 
+      setShowError(true);
     } else {
       setShowError(false);
 
@@ -41,35 +41,35 @@ const ProductCard = ({ product }) => {
   };
 
   const toggleWishlist = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     setIsWishlisted(!isWishlisted);
   };
 
   return (
-    <div 
-      className="w-full relative cursor-pointer group flex flex-col " 
+    <div
+      className="w-full relative cursor-pointer group flex flex-col "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
-        <img 
-          src={isHovered ? product.images[1] : product.images[0]} 
-          alt={product.title} 
+        <img
+          src={isHovered ? product.images[1] : product.images[0]}
+          alt={product.title}
           className="w-full h-full object-cover transition-opacity duration-300"
         />
 
         {/* WISHLIST HEART */}
-        <div 
+        <div
           className="absolute top-4 right-4 z-10 cursor-pointer"
           onClick={toggleWishlist}
         >
           {isWishlisted ? (
-            <AiFillHeart 
-              className="text-red-500 text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110" 
+            <AiFillHeart
+              className="text-red-500 text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110"
             />
           ) : (
-            <FiHeart 
-              className="text-white text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110" 
+            <FiHeart
+              className="text-white text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110"
             />
           )}
         </div>
@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
         {/* HOVER MENU */}
         {isHovered && (
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4 transition-opacity duration-300">
-            
+
             {showError && (
               <p className="text-red-500 text-xs font-bold mb-2 drop-shadow-md">ОБЕРІТЬ РОЗМІР ТА КОЛІР!</p>
             )}
@@ -109,7 +109,7 @@ const ProductCard = ({ product }) => {
               ))}
             </div>
 
-            <button 
+            <button
               onClick={handleQuickBuy}
               className="w-full bg-[#f3f3f3] text-black font-bold py-2 hover:bg-[#0B0035] hover:text-white transition-colors duration-300" >
               Швидка покупка

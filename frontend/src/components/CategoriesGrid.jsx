@@ -27,18 +27,18 @@ return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {categories.map((cat) => (
-          <Link 
-            key={cat.id} 
+          <Link
+            key={cat.id}
             to={cat.link}
             className="relative group aspect-[4/5] overflow-hidden bg-gray-200 block"
           >
-            <img 
-              src={cat.img} 
-              alt={cat.title} 
+            <img
+              src={cat.img}
+              alt={cat.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div> 
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="absolute bottom-6 left-6 right-6 flex items-center gap-2">
               <h3 className="text-white font-bold text-lg md:text-xl tracking-wide">{cat.title}</h3>
               <FiArrowRight className="text-white text-xl transform transition-transform duration-300 group-hover:translate-x-2" />

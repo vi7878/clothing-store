@@ -45,20 +45,20 @@ const RecommendedSlider = () => {
             nextEl: '.recommended-next',
           }}
           breakpoints={{
-            320: { 
-                slidesPerView: 1.2, 
-                spaceBetween: 10, 
-            },
-            640: { 
-                slidesPerView: 2.5, 
+            320: {
+                slidesPerView: 1.2,
                 spaceBetween: 10,
             },
-            1024: { 
-                slidesPerView: 4, 
-                spaceBetween: 10, 
+            640: {
+                slidesPerView: 2.5,
+                spaceBetween: 10,
             },
-            1280: { 
-                slidesPerView: 5, 
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 10,
+            },
+            1280: {
+                slidesPerView: 5,
                 spaceBetween: 10,
             },
           }}
@@ -73,7 +73,7 @@ const RecommendedSlider = () => {
 
         <button className="recommended-next absolute right-2 md:right-4 top-[40%] -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100 transition-colors cursor-pointer disabled:hidden">
           <FiChevronRight className="text-2xl" />
-        </button>    
+        </button>
       </div>
     </div>
   )

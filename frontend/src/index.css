@@ -7,8 +7,8 @@
 @layer components {
   .animated-icon-link {
     @apply relative flex flex-col items-center justify-center cursor-pointer pb-2
-           after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] 
-           after:bg-[#0B0035] after:scale-x-0 hover:after:scale-x-100 after:origin-center 
+           after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px]
+           after:bg-[#0B0035] after:scale-x-0 hover:after:scale-x-100 after:origin-center
            after:transition-transform after:duration-300;
   }
 }
@@ -17,7 +17,7 @@
     display: none;
   }
   .no-scrollbar {
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
     scrollbar-width: none;
   }
 }

@@ -17,13 +17,13 @@ const HeroBanner = () => {
             Новинки
           </h1>
           <div className="flex justify-start gap-6">
-            <button 
+            <button
               onClick={() => handleNavigate('women')}
               className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-4 px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
             > Для Неї
             </button>
 
-            <button 
+            <button
               onClick={() => handleNavigate('men')}
               className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-4 px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
             > Для Нього

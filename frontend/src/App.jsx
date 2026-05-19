@@ -17,7 +17,7 @@ import Footer from './components/Footer';
 
 const App = () => {
   const { showUserLogin } = useContext(ShopContext);
-  
+
   return (
     <main>
       <Header />
@@ -27,7 +27,7 @@ const App = () => {
           <Route path='/about' element={<About/>} />
           <Route path='/wishlist' element={<Wishlist/>} />
           <Route path='/account' element={<Account/>} />
-          <Route path='/cart' element={<Cart/>} /> 
+          <Route path='/cart' element={<Cart/>} />
           <Route path='/shop/sale' element={<Sale/>} />
           <Route path='/shop/summer' element={<Summer/>} />
           <Route path='/shop/women' element={<Women/>} />

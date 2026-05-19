@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import summerBg from '../assets/banners/summer-bg.jpg'; 
+import summerBg from '../assets/banners/summer-bg.jpg';
 
 const SummerBanner = () => {
   const navigate = useNavigate();
-  
+
   const handleNavigate = (gender) => {
-    navigate(`/shop/summer?gender=${gender}`); 
+    navigate(`/shop/summer?gender=${gender}`);
   };
 
   return (
@@ -18,13 +18,13 @@ const SummerBanner = () => {
                Summer 2026
              </h1>
               <div className="flex justify-start gap-6">
-                <button 
+                <button
                   onClick={() => handleNavigate('women')}
                   className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-4 px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
                 > Для Неї
                 </button>
-    
-                <button 
+
+                <button
                   onClick={() => handleNavigate('men')}
                   className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-4 px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
                 > Для Нього
