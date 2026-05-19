@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiPhone, FiMail, FiClock, FiMapPin, FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi';
 

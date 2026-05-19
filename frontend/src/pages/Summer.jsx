@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -8,12 +8,6 @@ const Summer = () => {
   const genderQuery = searchParams.get('gender');
 
   const [activeTab, setActiveTab] = useState(genderQuery === 'men' ? 'men' : 'women');
-
-  useEffect(() => {
-    if (genderQuery === 'men' || genderQuery === 'women') {
-      setActiveTab(genderQuery);
-    }
-  }, [genderQuery]);
 
   const filteredProducts = productsData.filter(product =>
     product.gender === activeTab && product.collections?.includes('summer')

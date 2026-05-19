@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const New = () => {
   const [searchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
   const [activeTab, setActiveTab] = useState(genderQuery === 'men' ? 'men' : 'women');
-
-  useEffect(() => {
-    if (genderQuery === 'men' || genderQuery === 'women') {
-      setActiveTab(genderQuery);
-    }
-  }, [genderQuery]);
 
   const filteredProducts = productsData.filter(product => product.gender === activeTab);
 

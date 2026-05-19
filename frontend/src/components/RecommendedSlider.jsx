@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductCard from './ProductCard';
 import { productsData } from '../data/products';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +12,10 @@ const RecommendedSlider = () => {
 
   const filteredProducts = productsData.filter(product => product.gender === activeTab);
   //сreate a copy of the filtered array and shuffle products in a random order
-  const randomProducts = [...filteredProducts].sort(() => 0.5 - Math.random());
+  const randomProducts = useMemo(() => {
+    // eslint-disable-next-line react-hooks/purity
+    return [...filteredProducts].sort(() => 0.5 - Math.random());
+  }, [filteredProducts]);
 
   return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-20 relative group overflow-hidden">

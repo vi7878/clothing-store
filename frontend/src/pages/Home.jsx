@@ -1,6 +1,4 @@
-import React from 'react'
 import HeroBanner from '../components/HeroBanner';
-import { productsData } from '../data/products';
 import NewArrivals from '../components/NewArrivals';
 import SummerBanner from '../components/SummerBanner';
 import SummerSlider from '../components/SummerSlider';
