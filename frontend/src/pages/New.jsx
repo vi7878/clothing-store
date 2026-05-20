@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -7,9 +7,18 @@ const New = () => {
   const [searchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
-  const [activeTab, setActiveTab] = useState(genderQuery === 'men' ? 'men' : 'women');
+  const [activeTab, setActiveTab] = useState(() => {
+    if (genderQuery === 'men' || genderQuery === 'women') {
+      return genderQuery;
+    }
+    return 'women';
+  });
 
-  const filteredProducts = productsData.filter(product => product.gender === activeTab);
+  // If we want the tab to change when the URL changes without triggering an effect error,
+  // we can use the genderQuery directly if it exists.
+  const currentTab = (genderQuery === 'men' || genderQuery === 'women') ? genderQuery : activeTab;
+
+  const filteredProducts = productsData.filter(product => product.gender === currentTab);
 
   return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-10 mb-20">
@@ -21,7 +30,7 @@ const New = () => {
         <button
           onClick={() => setActiveTab('women')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
-            activeTab === 'women' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
+            currentTab === 'women' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
         > Жінки
         </button>
@@ -29,7 +38,7 @@ const New = () => {
         <button
           onClick={() => setActiveTab('men')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
-            activeTab === 'men' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
+            currentTab === 'men' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
         > Чоловіки
         </button>

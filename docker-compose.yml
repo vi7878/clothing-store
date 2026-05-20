@@ -1,12 +1,12 @@
 services:
   db:
     image: postgres:18.3-alpine
-    container_name: project_db
+    container_name: clothing_shop_db
     volumes:
       - postgres_data:/var/lib/postgresql/
     env_file: .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -15,41 +15,39 @@ services:
     build:
       context: .
       target: development
-    container_name: django_backend
+    container_name: clothing_shop_backend
     volumes:
       - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
     env_file: .env
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+    entrypoint: /app/backend/scripts/entrypoint.sh
   frontend:
     build:
       context: ./frontend
       target: development
-    container_name: react_frontend
+    container_name: clothing_shop_frontend
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    ports:
-      - "5173:5173"
     environment:
       - VITE_API_URL=http://localhost/api
     depends_on:
       - backend
   redis:
     image: redis:7-alpine
-    container_name: project_redis
+    container_name: clothing_shop_redis
     ports:
       - "6379:6379"
 
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx_proxy
+    container_name: clothing_shop_nginx
     ports:
       - "80:80"
     volumes:
@@ -57,7 +55,10 @@ services:
       - static_volume:/app/static
       - media_volume:/app/media
     depends_on:
-      - backend
+      backend:
+        condition: service_started
+      frontend:
+        condition: service_started
 
 volumes:
   postgres_data:
