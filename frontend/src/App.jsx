@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Routes, Route } from 'react-router-dom';
-import { ShopContext } from './context/ShopContext.js';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
