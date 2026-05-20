@@ -4,13 +4,13 @@ import { ShopContext } from './ShopContext';
 const ShopContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showUserLogin, setShowUserLogin] = useState(false);
-  
-  const getCartCount = () => 0; 
 
-  const contextValue = { 
-    user, setUser, 
-    showUserLogin, setShowUserLogin, 
-    getCartCount 
+  const getCartCount = () => 0;
+
+  const contextValue = {
+    user, setUser,
+    showUserLogin, setShowUserLogin,
+    getCartCount
   };
 
   return (

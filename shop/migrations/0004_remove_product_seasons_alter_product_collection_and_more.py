@@ -5,38 +5,69 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop', '0003_season_alter_product_collection_product_seasons'),
+        ("shop", "0003_season_alter_product_collection_product_seasons"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='product',
-            name='seasons',
+            model_name="product",
+            name="seasons",
         ),
         migrations.AlterField(
-            model_name='product',
-            name='collection',
-            field=models.CharField(blank=True, help_text='Застаріле поле', max_length=50),
+            model_name="product",
+            name="collection",
+            field=models.CharField(
+                blank=True, help_text="Застаріле поле", max_length=50
+            ),
         ),
         migrations.RenameModel(
-            old_name='Season',
-            new_name='Tag',
+            old_name="Season",
+            new_name="Tag",
         ),
         migrations.CreateModel(
-            name='ProductTag',
+            name="ProductTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('added_at', models.DateTimeField(auto_now_add=True)),
-                ('expiry_date', models.DateTimeField(blank=True, help_text="Залиште пустим для тегу 'new' (авто-14 днів)", null=True)),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("added_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "expiry_date",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="Залиште пустим для тегу 'new' (авто-14 днів)",
+                        null=True,
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.product"
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.tag"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='product',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='products', through='shop.ProductTag', to='shop.tag'),
+            model_name="product",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="products",
+                through="shop.ProductTag",
+                to="shop.tag",
+            ),
         ),
     ]

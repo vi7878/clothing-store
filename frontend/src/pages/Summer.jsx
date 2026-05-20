@@ -7,10 +7,17 @@ const Summer = () => {
   const [searchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
-  const [activeTab, setActiveTab] = useState(genderQuery === 'men' ? 'men' : 'women');
+  const [activeTab, setActiveTab] = useState(() => {
+    if (genderQuery === 'men' || genderQuery === 'women') {
+      return genderQuery;
+    }
+    return 'women';
+  });
+
+  const currentTab = (genderQuery === 'men' || genderQuery === 'women') ? genderQuery : activeTab;
 
   const filteredProducts = productsData.filter(product =>
-    product.gender === activeTab && product.collections?.includes('summer')
+    product.gender === currentTab && product.collections?.includes('summer')
   );
 
   return (
@@ -23,7 +30,7 @@ const Summer = () => {
         <button
           onClick={() => setActiveTab('women')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
-            activeTab === 'women' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
+            currentTab === 'women' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
         > Жінки
         </button>
@@ -31,7 +38,7 @@ const Summer = () => {
         <button
           onClick={() => setActiveTab('men')}
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
-            activeTab === 'men' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
+            currentTab === 'men' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
         > Чоловіки
         </button>

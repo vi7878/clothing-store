@@ -5,41 +5,68 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop', '0001_initial'),
+        ("shop", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Size',
+            name="Size",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=20, unique=True)),
             ],
         ),
         migrations.RemoveField(
-            model_name='productimage',
-            name='is_main',
+            model_name="productimage",
+            name="is_main",
         ),
         migrations.AddField(
-            model_name='product',
-            name='has_discount',
+            model_name="product",
+            name="has_discount",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='productimage',
-            name='image_type',
-            field=models.CharField(choices=[('main', 'Головне фото'), ('hover', 'Фото при наведенні'), ('color', 'Фото кольору'), ('gallery', 'Галерея')], default='gallery', max_length=10),
+            model_name="productimage",
+            name="image_type",
+            field=models.CharField(
+                choices=[
+                    ("main", "Головне фото"),
+                    ("hover", "Фото при наведенні"),
+                    ("color", "Фото кольору"),
+                    ("gallery", "Галерея"),
+                ],
+                default="gallery",
+                max_length=10,
+            ),
         ),
         migrations.AddField(
-            model_name='productimage',
-            name='variant',
-            field=models.ForeignKey(blank=True, help_text='Виберіть варіант, якщо це фото конкретного кольору', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='images', to='shop.productvariant'),
+            model_name="productimage",
+            name="variant",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Виберіть варіант, якщо це фото конкретного кольору",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="images",
+                to="shop.productvariant",
+            ),
         ),
         migrations.AlterField(
-            model_name='productvariant',
-            name='size',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='variants', to='shop.size'),
+            model_name="productvariant",
+            name="size",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="variants",
+                to="shop.size",
+            ),
         ),
     ]

@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Routes, Route } from 'react-router-dom';
+import { ShopContext } from './context/ShopContext.js';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -11,7 +13,6 @@ import Summer from './pages/Summer';
 import Women from './pages/Women';
 import Men from './pages/Men';
 import New from './pages/New';
-import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -30,7 +31,6 @@ const App = () => {
           <Route path='/shop/men' element={<Men/>} />
           <Route path='/shop/new' element={<New/>} />
       </Routes>
-      <Footer />
     </main>
   );
 }

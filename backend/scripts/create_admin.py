@@ -1,16 +1,13 @@
 from shop.models import User
 import sys
 
-email = 'admin@wearhouse.com'
-password = 'adminpassword'
+email = "admin@wearhouse.com"
+password = "adminpassword"  # pragma: allowlist secret
 
 try:
     if not User.objects.filter(email=email).exists():
         User.objects.create_superuser(
-            email=email,
-            password=password,
-            first_name='Admin',
-            last_name='Account'
+            email=email, password=password, first_name="Admin", last_name="Account"
         )
         print(f"Superuser {email} created successfully.")
     else:

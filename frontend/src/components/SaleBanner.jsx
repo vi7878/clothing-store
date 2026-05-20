@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom';
 import saleBg from '../assets/banners/sale-bg.jpg';
 

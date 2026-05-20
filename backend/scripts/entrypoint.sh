@@ -15,7 +15,7 @@ python manage.py collectstatic --noinput
 
 # Автоматичне наповнення, якщо база порожня
 echo "Checking if database seeding is needed..."
-python manage.py shell -c "from shop.models import Product; import sys; sys.path.append('/app/backend/scripts'); from seed_from_js import seed_from_js; 
+python manage.py shell -c "from shop.models import Product; import sys; sys.path.append('/app/backend/scripts'); from seed_from_js import seed_from_js;
 if Product.objects.count() == 0:
     print('Database is empty. Starting auto-seed...');
     seed_from_js();

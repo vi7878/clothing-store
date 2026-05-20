@@ -4,27 +4,40 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop', '0002_size_remove_productimage_is_main_and_more'),
+        ("shop", "0002_size_remove_productimage_is_main_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Season',
+            name="Season",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50, unique=True)),
             ],
         ),
         migrations.AlterField(
-            model_name='product',
-            name='collection',
-            field=models.CharField(blank=True, help_text='Застаріле поле, використовуйте Seasons', max_length=50),
+            model_name="product",
+            name="collection",
+            field=models.CharField(
+                blank=True,
+                help_text="Застаріле поле, використовуйте Seasons",
+                max_length=50,
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='seasons',
-            field=models.ManyToManyField(blank=True, related_name='products', to='shop.season'),
+            model_name="product",
+            name="seasons",
+            field=models.ManyToManyField(
+                blank=True, related_name="products", to="shop.season"
+            ),
         ),
     ]
