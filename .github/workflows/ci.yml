@@ -62,9 +62,9 @@ jobs:
       postgres:
         image: postgres:18.3-alpine
         env:
-          POSTGRES_DB: myproject_db #потребує зміни
-          POSTGRES_USER: test_user #потребує зміни
-          POSTGRES_PASSWORD: test_password #потребує зміни
+          POSTGRES_DB: my_awesome_db
+          POSTGRES_USER: dev_user
+          POSTGRES_PASSWORD: dev_password # pragma: allowlist secret
         ports:
           - 5432:5432
         options: >-
@@ -74,13 +74,13 @@ jobs:
           --health-retries 5
 
     env:
-      DB_NAME: myproject_db
-      DB_USER: test_user #потребує зміни
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD_CI }} #потребує встановлення Github Actions
-      DB_HOST: localhost
-      DB_PORT: 5432
-      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY_CI }} #потребує встановлення Github Actions
-      DEBUG: "True"
+      POSTGRES_DB: my_awesome_db
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password # pragma: allowlist secret
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY_CI || 'django-insecure-ci-test-key' }} # pragma: allowlist secret
+      DJANGO_DEBUG: "True"
 
     steps:
       - name: Checkout Code
