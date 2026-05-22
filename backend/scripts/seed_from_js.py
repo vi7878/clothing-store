@@ -28,8 +28,8 @@ def seed_from_js():
         content = f.read()
 
     try:
-        cat_women = Category.objects.get(name="Жінки")
-        cat_men = Category.objects.get(name="Чоловіки")
+        cat_women = Category.objects.get(name="Вона")
+        cat_men = Category.objects.get(name="Він")
         all_sizes = list(Size.objects.all().order_by("id"))
     except Category.DoesNotExist:
         print("Error: Run seed_categories first.")

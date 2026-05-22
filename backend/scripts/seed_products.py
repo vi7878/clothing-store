@@ -8,8 +8,8 @@ import random
 def seed_products():
     # 1. Отримуємо базові дані
     try:
-        category_women = Category.objects.get(name="Жінки")
-        category_men = Category.objects.get(name="Чоловіки")
+        category_women = Category.objects.get(name="Вона")
+        category_men = Category.objects.get(name="Він")
         tag_new = Tag.objects.get(name="new")
         tag_summer = Tag.objects.get(name="summer")
         sizes = list(Size.objects.all())
