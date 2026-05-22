@@ -2,36 +2,63 @@ from shop.models import Category
 
 
 def seed_categories():
+    # Видаляємо всі старі категорії
+    Category.objects.all().delete()
+    print("Old categories deleted.")
+
     structure = {
-        "Жінки": [
-            "Сукні",
-            "Футболки та топи",
-            "Джинси та штани",
-            "Верхній одяг",
-            "Светри",
-        ],
-        "Чоловіки": [
-            "Футболки та поло",
-            "Худі та світшоти",
-            "Джинси",
-            "Верхній одяг",
-            "Светри",
-        ],
-        "Унісекс": ["Аксесуари", "Взуття"],
+        "Вона": {
+            "Новинки": [],
+            "Одяг": [
+                "Сукні",
+                "Футболки та топи",
+                "Худі та світшоти",
+                "Светри та кардигани",
+                "Сорочки",
+                "Штани та легінси",
+                "Джинси",
+                "Спідниці",
+                "Шорти",
+                "Верхній одяг",
+            ],
+            "Аксесуари": [],
+            "Взуття": [],
+        },
+        "Він": {
+            "Новинки": [],
+            "Одяг": [
+                "Футболки та поло",
+                "Худі та світшоти",
+                "Светри",
+                "Сорочки",
+                "Штани",
+                "Джинси",
+                "Шорти",
+                "Верхній одяг",
+            ],
+            "Аксесуари": [],
+            "Взуття": [],
+        },
     }
 
-    for parent_name, subcategories in structure.items():
-        # Створюємо або отримуємо головну категорію
-        parent_cat, created = Category.objects.get_or_create(name=parent_name)
-        if created:
-            print(f"Created parent category: {parent_name}")
+    for parent_name, children in structure.items():
+        # Створюємо головну категорію (Він/Вона)
+        parent_cat = Category.objects.create(name=parent_name)
+        print(f"Created top-level category: {parent_name}")
 
-        for sub_name in subcategories:
-            # Створюємо підкатегорію, прив'язану до батьківської
-            sub_cat, sub_created = Category.objects.get_or_create(
-                name=sub_name, parent=parent_cat
-            )
-            if sub_created:
+        if isinstance(children, dict):
+            for sub_name, sub_subcategories in children.items():
+                # Створюємо підкатегорію (наприклад, Одяг, Новинки)
+                sub_cat = Category.objects.create(name=sub_name, parent=parent_cat)
+                print(f"  Created subcategory: {sub_name} under {parent_name}")
+
+                for ss_name in sub_subcategories:
+                    # Створюємо під-підкатегорію (наприклад, Сукні під Одяг)
+                    Category.objects.create(name=ss_name, parent=sub_cat)
+                    print(f"    Created sub-subcategory: {ss_name} under {sub_name}")
+        elif isinstance(children, list):
+            for sub_name in children:
+                Category.objects.create(name=sub_name, parent=parent_cat)
                 print(f"  Created subcategory: {sub_name} under {parent_name}")
 
 
