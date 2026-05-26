@@ -6,6 +6,7 @@ import CategoriesGrid from '../components/CategoriesGrid';
 import RecommendedSlider from '../components/RecommendedSlider';
 import SaleBanner from '../components/SaleBanner';
 
+
 const Home = () => {
   return (
     <div className="w-full">
