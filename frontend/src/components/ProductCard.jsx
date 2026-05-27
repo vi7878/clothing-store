@@ -3,16 +3,30 @@ import { FiHeart } from 'react-icons/fi';
 import { AiFillHeart } from 'react-icons/ai';
 
 const ProductCard = ({ product }) => {
+  const uniqueSizes = [...new Set(product.variants.map(variant => variant.size))];
+  const uniqueColors = [];
+  const seenHexes = new Set();
+  product.variants.forEach(variant => {
+    if (!seenHexes.has(variant.color_hex)) {
+      seenHexes.add(variant.color_hex);
+      uniqueColors.push({ name: variant.color_name, hex: variant.color_hex });
+    }
+  });
   const [isHovered, setIsHovered] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  // calculate discounted price
+  const finalPrice = product.has_discount
+    ? Math.round(product.base_price * (1 - product.discount_percent / 100))
+    : product.base_price;
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     setSelectedSize(null);
-    setSelectedColor(product.colors[0]);
+    setSelectedColor(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
     setShowError(false);
   };
 
@@ -24,7 +38,7 @@ const ProductCard = ({ product }) => {
       setShowError(true);
     } else {
       setShowError(false);
-
+console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${selectedColor}`);
     }
   };
 
@@ -34,9 +48,9 @@ const ProductCard = ({ product }) => {
     setShowError(false);
   };
 
-  const handleColorSelect = (color, e) => {
+  const handleColorSelect = (hex, e) => {
     e.stopPropagation();
-    setSelectedColor(color);
+    setSelectedColor(hex);
     setShowError(false);
   };
 
@@ -57,6 +71,25 @@ const ProductCard = ({ product }) => {
           alt={product.title}
           className="w-full h-full object-cover transition-opacity duration-300"
         />
+
+        {product.collections && product.collections.length > 0 && (
+          <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-none">
+            {product.collections.map((collection) => (
+              <span
+                key={collection}
+                className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${
+                  collection === 'new' ? 'bg-orange-500' :
+                  collection === 'summer' ? 'bg-indigo-300' :
+                  'bg-gray-500'
+                }`}
+              >
+                {collection === 'new' ? 'Новинка' :
+                 collection === 'summer' ? 'Літо' :
+                 collection}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* WISHLIST HEART */}
         <div
@@ -83,7 +116,7 @@ const ProductCard = ({ product }) => {
             )}
 
             <div className="flex justify-center gap-1 mb-4">
-              {product.sizes.map((size) => (
+              {uniqueSizes.map((size) => (
                 <button
                   key={size}
                   onClick={(e) => handleSizeSelect(size, e)}
@@ -97,14 +130,14 @@ const ProductCard = ({ product }) => {
             </div>
 
             <div className="flex gap-2 mb-4">
-              {product.colors.map((color, index) => (
+              {uniqueColors.map((color, index) => (
                 <button
                   key={index}
-                  onClick={(e) => handleColorSelect(color, e)}
+                  onClick={(e) => handleColorSelect(color.hex, e)}
                   className={`w-4 h-4 rounded-full border border-gray-100 transition-all ${
-                    selectedColor === color ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40' : ''
+                    selectedColor === color.hex ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40' : ''
                   }`}
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: color.hex }}
                 />
               ))}
             </div>
@@ -119,13 +152,20 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="bg-[#fafafa] p-1 flex flex-col">
-        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none mb-1">{product.title}</h3>
+        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none mb-1">{product.name}</h3>
         <div className="flex text-yellow-400 text-base leading-none mb-1.5">
           {[...Array(5)].map((_, i) => (
             <span key={i}>{i < product.rating ? '★' : '☆'}</span>
           ))}
         </div>
-        <p className="font-bold text-[#0B0035] leading-none">{product.price} UAH</p>
+
+        {/* Display discounted price alongside the original base price */}
+        <div className="flex items-center gap-2">
+          <p className="font-bold text-[#0B0035] leading-none">{finalPrice} UAH</p>
+          {product.has_discount && (
+            <p className="text-gray-400 text-xs line-through leading-none">{product.base_price} UAH</p>
+          )}
+        </div>
       </div>
     </div>
   )
