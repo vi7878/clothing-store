@@ -2211,7 +2211,7 @@ export const productsData = [
 
   // --MEN--
 
-  {
+    {
     id: 76,
     name: "Beachwear Item 76",
     description: "Детальний опис цього чудового товару...",
@@ -2226,11 +2226,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Navy", hex: "#1E3A8A" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 77,
     name: "Beachwear Item 77",
     description: "Детальний опис цього чудового товару...",
@@ -2245,11 +2248,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 78,
     name: "Beachwear Item 78",
     description: "Детальний опис цього чудового товару...",
@@ -2264,11 +2270,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L"],
-        [{ name: "Cardinal", hex: "#a20818" }],
+        [
+          { name: "Cardinal", hex: "#a20818" },
+          { name: "Black", hex: "#000000" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 79,
     name: "Coats Item 79",
     description: "Детальний опис цього чудового товару...",
@@ -2283,11 +2292,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL"],
-        [{ name: "Saddle Brown", hex: "#8a5529" }],
+        [
+          { name: "Saddle Brown", hex: "#8a5529" },
+          { name: "Beige", hex: "#D5B895" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 80,
     name: "Coats Item 80",
     description: "Детальний опис цього чудового товару...",
@@ -2302,11 +2314,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["L", "XL", "XXL"],
-        [{ name: "Dark Pine", hex: "#0e1e18" }],
+        [
+          { name: "Dark Pine", hex: "#0e1e18" },
+          { name: "Olive", hex: "#4B5320" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 81,
     name: "Coats Item 81",
     description: "Детальний опис цього чудового товару...",
@@ -2321,11 +2336,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S", "M"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Brown", hex: "#8B4513" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 82,
     name: "Hoodies and Sweatshirt Item 82",
     description: "Детальний опис цього чудового товару...",
@@ -2340,11 +2358,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M", "L"],
-        [{ name: "Harvest Gold", hex: "#c28100" }],
+        [
+          { name: "Harvest Gold", hex: "#c28100" },
+          { name: "Brown", hex: "#8B4513" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 83,
     name: "Hoodies and Sweatshirt Item 83",
     description: "Детальний опис цього чудового товару...",
@@ -2359,11 +2380,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L", "XL"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Light Blue", hex: "#93C5FD" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 84,
     name: "Outerwear Item 84",
     description: "Детальний опис цього чудового товару...",
@@ -2378,11 +2402,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL", "XXL"],
-        [{ name: "Warm Gray", hex: "#947a6c" }],
+        [
+          { name: "Warm Gray", hex: "#947a6c" },
+          { name: "Light Blue", hex: "#93C5FD" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 85,
     name: "Outerwear Item 85",
     description: "Детальний опис цього чудового товару...",
@@ -2397,11 +2424,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S"],
-        [{ name: "Desert Sand", hex: "#ae9387" }],
+        [
+          { name: "Desert Sand", hex: "#ae9387" },
+          { name: "Mustard", hex: "#EAB308" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 86,
     name: "Shirts Item 86",
     description: "Детальний опис цього чудового товару...",
@@ -2416,11 +2446,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M"],
-        [{ name: "Pale Gray", hex: "#809696" }],
+        [
+          { name: "Pale Gray", hex: "#809696" },
+          { name: "Navy", hex: "#1E3A8A" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 87,
     name: "Shirts Item 87",
     description: "Детальний опис цього чудового товару...",
@@ -2433,10 +2466,13 @@ export const productsData = [
     category: "Shirts",
     collections: [],
     variants: [
-      ...generateVariants(["S", "M", "L"], [{ name: "Tiara", hex: "#bed0d2" }]),
+      ...generateVariants(["S", "M", "L"], [
+          { name: "Tiara", hex: "#bed0d2" },
+          { name: "Black", hex: "#000000" },
+        ]),
     ],
   },
-  {
+    {
     id: 88,
     name: "Shirts Item 88",
     description: "Детальний опис цього чудового товару...",
@@ -2451,11 +2487,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL"],
-        [{ name: "Golden Sand", hex: "#d8b54e" }],
+        [
+          { name: "Golden Sand", hex: "#d8b54e" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 89,
     name: "Suits and Blazers Item 89",
     description: "Детальний опис цього чудового товару...",
@@ -2470,11 +2509,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["L", "XL", "XXL"],
-        [{ name: "Maroon", hex: "#762d3a" }],
+        [
+          { name: "Maroon", hex: "#762d3a" },
+          { name: "Black", hex: "#000000" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 90,
     name: "Suits and Blazers Item 90",
     description: "Детальний опис цього чудового товару...",
@@ -2489,11 +2531,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S", "M"],
-        [{ name: "Teal Blue", hex: "#1d2a32" }],
+        [
+          { name: "Teal Blue", hex: "#1d2a32" },
+          { name: "Beige", hex: "#D5B895" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 91,
     name: "Suits and Blazers Item 91",
     description: "Детальний опис цього чудового товару...",
@@ -2508,11 +2553,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M", "L"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Brown", hex: "#8B4513" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 92,
     name: "Sweater Item 92",
     description: "Детальний опис цього чудового товару...",
@@ -2527,11 +2575,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L", "XL"],
-        [{ name: "Dusty Slate", hex: "#595e70" }],
+        [
+          { name: "Dusty Slate", hex: "#595e70" },
+          { name: "White", hex: "#FFFFFF" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 93,
     name: "Sweater Item 93",
     description: "Детальний опис цього чудового товару...",
@@ -2546,11 +2597,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL", "XXL"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Light Blue", hex: "#93C5FD" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 94,
     name: "Sweater Item 94",
     description: "Детальний опис цього чудового товару...",
@@ -2565,11 +2619,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S"],
-        [{ name: "Reddish Brown", hex: "#965007" }],
+        [
+          { name: "Reddish Brown", hex: "#965007" },
+          { name: "Red", hex: "#DC2626" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 95,
     name: "T-shirts and Polos Item 95",
     description: "Детальний опис цього чудового товару...",
@@ -2584,11 +2641,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Navy", hex: "#1E3A8A" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 96,
     name: "T-shirts and Polos Item 96",
     description: "Детальний опис цього чудового товару...",
@@ -2601,10 +2661,13 @@ export const productsData = [
     category: "T-shirts & Polos",
     collections: ["summer"],
     variants: [
-      ...generateVariants(["S", "M", "L"], [{ name: "White", hex: "#ffffff" }]),
+      ...generateVariants(["S", "M", "L"], [
+          { name: "White", hex: "#ffffff" },
+          { name: "Gray", hex: "#808080" },
+        ]),
     ],
   },
-  {
+    {
     id: 97,
     name: "T-shirts and Polos Item 97",
     description: "Детальний опис цього чудового товару...",
@@ -2619,11 +2682,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 98,
     name: "T-shirts and Polos Item 98",
     description: "Детальний опис цього чудового товару...",
@@ -2638,11 +2704,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["L", "XL", "XXL"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Black", hex: "#000000" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 99,
     name: "T-shirts and Polos Item 99",
     description: "Детальний опис цього чудового товару...",
@@ -2657,11 +2726,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S", "M"],
-        [{ name: "Limed Ash", hex: "#727862" }],
+        [
+          { name: "Limed Ash", hex: "#727862" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 100,
     name: "Jeans Item 100",
     description: "Детальний опис цього чудового товару...",
@@ -2676,11 +2748,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M", "L"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "White", hex: "#FFFFFF" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 101,
     name: "Jeans Item 101",
     description: "Детальний опис цього чудового товару...",
@@ -2695,11 +2770,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L", "XL"],
-        [{ name: "Mirage", hex: "#063461" }],
+        [
+          { name: "Mirage", hex: "#063461" },
+          { name: "Beige", hex: "#D5B895" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 102,
     name: "Pants Item 102",
     description: "Детальний опис цього чудового товару...",
@@ -2714,11 +2792,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL", "XXL"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Red", hex: "#DC2626" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 103,
     name: "Pants Item 103",
     description: "Детальний опис цього чудового товару...",
@@ -2733,11 +2814,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Light Blue", hex: "#93C5FD" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 104,
     name: "Pants Item 104",
     description: "Детальний опис цього чудового товару...",
@@ -2752,11 +2836,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Mustard", hex: "#EAB308" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 105,
     name: "Pants Item 105",
     description: "Детальний опис цього чудового товару...",
@@ -2778,7 +2865,7 @@ export const productsData = [
       ),
     ],
   },
-  {
+    {
     id: 106,
     name: "Pants Item 106",
     description: "Детальний опис цього чудового товару...",
@@ -2800,7 +2887,7 @@ export const productsData = [
       ),
     ],
   },
-  {
+    {
     id: 107,
     name: "Pants Item 107",
     description: "Детальний опис цього чудового товару...",
@@ -2815,11 +2902,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Navy", hex: "#1E3A8A" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 108,
     name: "Shorts Item 108",
     description: "Детальний опис цього чудового товару...",
@@ -2834,11 +2924,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["L", "XL", "XXL"],
-        [{ name: "Warm Earthy Brown", hex: "#9a755a" }],
+        [
+          { name: "Warm Earthy Brown", hex: "#9a755a" },
+          { name: "Light Blue", hex: "#93C5FD" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 109,
     name: "Shorts Item 109",
     description: "Детальний опис цього чудового товару...",
@@ -2853,11 +2946,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S", "M"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Beige", hex: "#D5B895" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 110,
     name: "Shorts Item 110",
     description: "Детальний опис цього чудового товару...",
@@ -2872,11 +2968,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M", "L"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Olive", hex: "#4B5320" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 111,
     name: "Shorts Item 111",
     description: "Детальний опис цього чудового товару...",
@@ -2891,11 +2990,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L", "XL"],
-        [{ name: "Rust Red", hex: "#d20120" }],
+        [
+          { name: "Rust Red", hex: "#d20120" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 112,
     name: "Socks Item 112",
     description: "Детальний опис цього чудового товару...",
@@ -2917,7 +3019,7 @@ export const productsData = [
       ),
     ],
   },
-  {
+    {
     id: 113,
     name: "Socks Item 113",
     description: "Детальний опис цього чудового товару...",
@@ -2932,11 +3034,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Navy", hex: "#1E3A8A" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 114,
     name: "Tracksuits Item 114",
     description: "Детальний опис цього чудового товару...",
@@ -2951,11 +3056,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XS", "S", "M"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "Gray", hex: "#808080" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 115,
     name: "Tracksuits Item 115",
     description: "Детальний опис цього чудового товару...",
@@ -2970,11 +3078,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["S", "M", "L"],
-        [{ name: "Deep Blue", hex: "#0f233a" }],
+        [
+          { name: "Deep Blue", hex: "#0f233a" },
+          { name: "Black", hex: "#000000" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 116,
     name: "Tracksuits Item 116",
     description: "Детальний опис цього чудового товару...",
@@ -2989,11 +3100,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["M", "L", "XL"],
-        [{ name: "Lite Green", hex: "#01904a" }],
+        [
+          { name: "Lite Green", hex: "#01904a" },
+          { name: "Beige", hex: "#D5B895" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 117,
     name: "Tracksuits Item 117",
     description: "Детальний опис цього чудового товару...",
@@ -3008,11 +3122,14 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["L", "XL", "XXL"],
-        [{ name: "Black", hex: "#000000" }],
+        [
+          { name: "Black", hex: "#000000" },
+          { name: "White", hex: "#FFFFFF" },
+        ],
       ),
     ],
   },
-  {
+    {
     id: 118,
     name: "Tracksuits Item 118",
     description: "Детальний опис цього чудового товару...",
@@ -3027,7 +3144,10 @@ export const productsData = [
     variants: [
       ...generateVariants(
         ["XXS", "XS", "S", "M"],
-        [{ name: "White", hex: "#ffffff" }],
+        [
+          { name: "White", hex: "#ffffff" },
+          { name: "Brown", hex: "#8B4513" },
+        ],
       ),
     ],
   },
