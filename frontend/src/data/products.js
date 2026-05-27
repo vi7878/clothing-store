@@ -2570,7 +2570,7 @@ export const productsData = [
     rating: 5,
     images: [Main71_1, Main71_2],
     gender: "men",
-    category: "Sweater",
+    category: "Sweaters",
     collections: [],
     variants: [
       ...generateVariants(
@@ -2592,7 +2592,7 @@ export const productsData = [
     rating: 5,
     images: [Main72_1, Main72_2],
     gender: "men",
-    category: "Sweater",
+    category: "Sweaters",
     collections: ["new"],
     variants: [
       ...generateVariants(
@@ -2614,7 +2614,7 @@ export const productsData = [
     rating: 5,
     images: [Main73_1, Main73_2],
     gender: "men",
-    category: "Sweater",
+    category: "Sweaters",
     collections: [],
     variants: [
       ...generateVariants(
