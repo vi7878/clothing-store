@@ -223,6 +223,151 @@ import Hover742 from '../assets/products/74_2w.jpg';
 import Main751 from '../assets/products/75_1w.jpg';
 import Hover752 from '../assets/products/75_2w.jpg';
 
+import Main55_1 from "../assets/products/1_1m.jpg";
+import Main55_2 from "../assets/products/1_2m.jpg";
+
+import Main56_1 from "../assets/products/2_1m.jpg";
+import Main56_2 from "../assets/products/2_2m.jpg";
+
+import Main57_1 from "../assets/products/3_1m.jpg";
+import Main57_2 from "../assets/products/3_2m.jpg";
+
+import Main58_1 from "../assets/products/4_1m.jpg";
+import Main58_2 from "../assets/products/4_2m.jpg";
+
+import Main59_1 from "../assets/products/5_1m.jpg";
+import Main59_2 from "../assets/products/5_2m.jpg";
+
+import Main60_1 from "../assets/products/6_1m.jpg";
+import Main60_2 from "../assets/products/6_2m.jpg";
+
+import Main61_1 from "../assets/products/7_1m.jpg";
+import Main61_2 from "../assets/products/7_2m.jpg";
+
+import Main62_1 from ".../assets/products/8_1m.jpg";
+import Main62_2 from "../assets/products/8_2m.jpg";
+
+import Main63_1 from "../assets/products/9_1m.jpg";
+import Main63_2 from "../assets/products/9_2m.jpg";
+
+import Main64_1 from "../assets/products/10_1m.jpg";
+import Main64_2 from "../assets/products/10_2m.jpg";
+
+import Main65_1 from "../assets/products/11_1m.jpg";
+import Main65_2 from "../assets/products/11_2m.jpg";
+
+import Main66_1 from "../assets/products/12_1m.jpg";
+import Main66_2 from "../assets/products/12_2m.jpg";
+
+import Main67_1 from "../assets/products/13_1m.jpg";
+import Main67_2 from "../assets/products/13_2m.jpg";
+// import Main67_3 from "../assets/products/13_3m.jpg";
+
+import Main68_1 from "../assets/products/14_1m.jpg";
+import Main68_2 from "../assets/products/14_2m.jpg";
+
+import Main69_1 from "../assets/products/15_1m.jpg";
+import Main69_2 from "../assets/products/15_2m.jpg";
+
+import Main70_1 from "../assets/products/16_1m.jpg";
+import Main70_2 from "../assets/products/16_2m.jpg";
+
+import Main71_1 from "../assets/products/17_1m.jpg";
+import Main71_2 from "../assets/products/17_2m.jpg";
+
+import Main72_1 from "../assets/products/18_1m.jpg";
+import Main72_2 from "../assets/products/18_2m.jpg";
+
+import Main73_1 from "../assets/products/19_1m.jpg";
+import Main73_2 from "../assets/products/19_2m.jpg";
+
+import Main74_1 from "../assets/products/20_1m.jpg";
+import Main74_2 from "../assets/products/20_2m.jpg";
+// import Main74_3 from "../assets/products/20_3m.jpg";
+// import Main74_4 from "../assets/products/20_4m.jpg";
+
+import Main75_1 from "../assets/products/21_1m.jpg";
+import Main75_2 from "../assets/products/21_2m.jpg";
+
+import Main76_1 from "../assets/products/22_1m.jpg";
+import Main76_2 from "../assets/products/22_2m.jpg";
+
+import Main77_1 from "../assets/products/23_1m.jpg";
+import Main77_2 from "../assets/products/23_2m.jpg";
+// import Main77_3 from "../assets/products/23_3m.jpg";
+// import Main77_4 from "../assets/products/23_4m.jpg";
+// import Main77_5 from "../assets/products/23_5m.jpg";
+
+import Main78_1 from "../assets/products/24_1m.jpg";
+import Main78_2 from "../assets/products/24_2m.jpg";
+// import Main78_3 from "../assets/products/24_3m.jpg";
+
+import Main79_1 from "../assets/products/25_1m.jpg";
+import Main79_2 from "../assets/products/25_2m.jpg";
+
+import Main80_1 from "../assets/products/26_1m.jpg";
+import Main80_2 from "../assets/products/26_2m.jpg";
+
+import Main81_1 from "../assets/products/27_1m.jpg";
+import Main81_2 from "../assets/products/27_2m.jpg";
+
+import Main82_1 from ".../assets/products/28_1m.jpg";
+import Main82_2 from "../assets/products/28_2m.jpg";
+
+import Main83_1 from "../assets/products/29_1m.jpg";
+import Main83_2 from "../assets/products/29_2m.jpg";
+
+import Main84_1 from "../assets/products/30_1m.jpg";
+import Main84_2 from "../assets/products/30_2m.jpg";
+// import Main84_3 from "../assets/products/31_1m.jpg";
+// import Main84_4 from "../assets/products/31_2m.jpg";
+
+import Main86_1 from "../assets/products/32_1m.jpg";
+import Main86_2 from "../assets/products/32_2m.jpg";
+
+import Main87_1 from "../assets/products/33_1m.jpg";
+import Main87_2 from "../assets/products/33_2m.jpg";
+
+import Main88_1 from "../assets/products/34_1m.jpg";
+import Main88_2 from "../assets/products/34_2m.jpg";
+import Main88_3 from "../assets/products/34_3m.jpg";
+
+import Main89_1 from "../assets/products/35_1m.jpg";
+import Main89_2 from "../assets/products/35_2m.jpg";
+
+import Main90_1 from "../assets/products/36_1m.jpg";
+import Main90_2 from "../assets/products/36_2m.jpg";
+
+import Main91_1 from "../assets/products/37_1m.jpg";
+import Main91_2 from "../assets/products/37_2m.jpg";
+
+import Main92_1 from "../assets/products/38_1m.jpg";
+import Main92_2 from "../assets/products/38_2m.jpg";
+// import Main92_3 from "../assets/products/38_3m.jpg";
+
+import Main93_1 from "../assets/products/39_1m.jpg";
+import Main93_2 from "../assets/products/39_2m.jpg";
+// import Main93_3 from "../assets/products/39_3m.jpg";
+// import Main93_4 from "../assets/products/39_4m.jpg";
+
+import Main94_1 from "../assets/products/40_1m.jpeg";
+import Main94_2 from "../assets/products/40_2m.jpg";
+// import Main94_3 from "../assets/products/40_3m.jpg";
+// import Main94_4 from "../assets/products/40_4m.jpg";
+// import Main94_5 from "../assets/products/40_5m.jpg";
+
+import Main95_1 from "../assets/products/41_1m.jpg";
+import Main95_2 from "../assets/products/41_2m.jpg";
+
+import Main96_1 from "../assets/products/42_1m.jpg";
+import Main96_2 from "../assets/products/42_2m.jpg";
+
+import Main97_1 from "../assets/products/43_1m.jpg";
+import Main97_2 from "../assets/products/43_2m.jpg";
+
+import Main98_1 from "../assets/products/44_1m.jpg";
+import Main98_2 from "../assets/products/44_2m.jpg";
+
 // -SIZES-
 //sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']
 
@@ -1982,5 +2127,828 @@ export const productsData = [
         ]
       )
     ]
-  }
+  },
+
+  // --MEN--
+
+  {
+      id: 76,
+      title: "Beachwear Item 76",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1150,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 4,
+      images: [Main55_1, Main55_2],
+      gender: "men",
+      category: "Beachwear",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 77,
+      title: "Beachwear Item 77",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1190,
+      has_discount: true,
+      discount_percent: 39,
+      rating: 5,
+      images: [Main56_1, Main56_2],
+      gender: "men",
+      category: "Beachwear",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 78,
+      title: "Beachwear Item 78",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 990,
+      has_discount: true,
+      discount_percent: 11,
+      rating: 4,
+      images: [Main57_1, Main57_2],
+      gender: "men",
+      category: "Beachwear",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L"],
+          [{ name: "Cardinal", hex: "#a20818" }],
+        ),
+      ],
+    },
+    {
+      id: 79,
+      title: "Coats Item 79",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 7450,
+      has_discount: true,
+      discount_percent: 15,
+      rating: 5,
+      images: [Main58_1, Main58_2],
+      gender: "men",
+      category: "Coats",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL"],
+          [{ name: "Saddle Brown", hex: "#8a5529" }],
+        ),
+      ],
+    },
+    {
+      id: 80,
+      title: "Coats Item 80",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 4010,
+      has_discount: true,
+      discount_percent: 25,
+      rating: 5,
+      images: [Main59_1, Main59_2],
+      gender: "men",
+      category: "Coats",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["L", "XL", "XXL"],
+          [{ name: "Dark Pine", hex: "#0e1e18" }],
+        ),
+      ],
+    },
+    {
+      id: 81,
+      title: "Coats Item 81",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 6650,
+      has_discount: true,
+      discount_percent: 10,
+      rating: 5,
+      images: [Main60_1, Main60_2],
+      gender: "men",
+      category: "Coats",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S", "M"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 82,
+      title: "Hoodies and Sweatshirt Item 82",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1850,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main61_1, Main61_2],
+      gender: "men",
+      category: "Hoodies & Sweatshirt",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M", "L"],
+          [{ name: "Harvest Gold", hex: "#c28100" }],
+        ),
+      ],
+    },
+    {
+      id: 83,
+      title: "Hoodies and Sweatshirt Item 83",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1690,
+      has_discount: true,
+      discount_percent: 13,
+      rating: 5,
+      images: [Main62_1, Main62_2],
+      gender: "men",
+      category: "Hoodies & Sweatshirt",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L", "XL"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 84,
+      title: "Outwear Item 84",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 4150,
+      has_discount: true,
+      discount_percent: 31,
+      rating: 5,
+      images: [Main63_1, Main63_2],
+      gender: "men",
+      category: "Outwear",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL", "XXL"],
+          [{ name: "Warm Gray", hex: "#947a6c" }],
+        ),
+      ],
+    },
+    {
+      id: 85,
+      title: "Outwear Item 85",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 3050,
+      has_discount: true,
+      discount_percent: 38,
+      rating: 5,
+      images: [Main64_1, Main64_2],
+      gender: "men",
+      category: "Outwear",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S"],
+          [{ name: "Desert Sand", hex: "#ae9387" }],
+        ),
+      ],
+    },
+    {
+      id: 86,
+      title: "Shirts Item 86",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1050,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main65_1, Main65_2],
+      gender: "men",
+      category: "Shirts",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M"],
+          [{ name: "Pale Gray", hex: "#809696" }],
+        ),
+      ],
+    },
+    {
+      id: 87,
+      title: "Shirts Item 87",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1390,
+      has_discount: true,
+      discount_percent: 39,
+      rating: 5,
+      images: [Main66_1, Main66_2],
+      gender: "men",
+      category: "Shirts",
+      collections: [],
+      variants: [
+        ...generateVariants(["S", "M", "L"], [{ name: "Tiara", hex: "#bed0d2" }]),
+      ],
+    },
+    {
+      id: 88,
+      title: "Shirts Item 88",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1160,
+      has_discount: true,
+      discount_percent: 10,
+      rating: 5,
+      images: [Main67_1, Main67_2], //, Main67_3
+      gender: "men",
+      category: "Shirts",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL"],
+          [{ name: "Golden Sand", hex: "#d8b54e" }],
+        ),
+      ],
+    },
+    {
+      id: 89,
+      title: "Suits and Blazers Item 89",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 5880,
+      has_discount: true,
+      discount_percent: 40,
+      rating: 5,
+      images: [Main68_1, Main68_2],
+      gender: "men",
+      category: "Suits & Blazers",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["L", "XL", "XXL"],
+          [{ name: "Maroon", hex: "#762d3a" }],
+        ),
+      ],
+    },
+    {
+      id: 90,
+      title: "Suits and Blazers Item 90",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 5630,
+      has_discount: true,
+      discount_percent: 17,
+      rating: 5,
+      images: [Main69_1, Main69_2],
+      gender: "men",
+      category: "Suits & Blazers",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S", "M"],
+          [{ name: "Teal Blue", hex: "#1d2a32" }],
+        ),
+      ],
+    },
+    {
+      id: 91,
+      title: "Suits and Blazers Item 91",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 5690,
+      has_discount: true,
+      discount_percent: 10,
+      rating: 5,
+      images: [Main70_1, Main70_2],
+      gender: "men",
+      category: "Suits & Blazers",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M", "L"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 92,
+      title: "Sweater Item 92",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1810,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main71_1, Main71_2],
+      gender: "men",
+      category: "Sweater",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L", "XL"],
+          [{ name: "Dusty Slate", hex: "#595e70" }],
+        ),
+      ],
+    },
+    {
+      id: 93,
+      title: "Sweater Item 93",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2080,
+      has_discount: true,
+      discount_percent: 24,
+      rating: 5,
+      images: [Main72_1, Main72_2],
+      gender: "men",
+      category: "Sweater",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL", "XXL"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 94,
+      title: "Sweater Item 94",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1350,
+      has_discount: true,
+      discount_percent: 37,
+      rating: 5,
+      images: [Main73_1, Main73_2],
+      gender: "men",
+      category: "Sweater",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S"],
+          [{ name: "Reddish Brown", hex: "#965007" }],
+        ),
+      ],
+    },
+    {
+      id: 95,
+      title: "T-shirts and Polos Item 95",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 950,
+      has_discount: true,
+      discount_percent: 37,
+      rating: 5,
+      images: [Main74_1, Main74_2], //, Main74_3, Main74_4
+      gender: "men",
+      category: "T-shirts & Polos",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 96,
+      title: "T-shirts and Polos Item 96",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 650,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main75_1, Main75_2],
+      gender: "men",
+      category: "T-shirts & Polos",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(["S", "M", "L"], [{ name: "White", hex: "#ffffff" }]),
+      ],
+    },
+    {
+      id: 97,
+      title: "T-shirts and Polos Item 97",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 940,
+      has_discount: true,
+      discount_percent: 10,
+      rating: 5,
+      images: [Main76_1, Main76_2],
+      gender: "men",
+      category: "T-shirts & Polos",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 98,
+      title: "T-shirts and Polos Item 98",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1050,
+      has_discount: true,
+      discount_percent: 31,
+      rating: 5,
+      images: [Main77_1, Main77_2], //, Main77_3, Main77_4, Main77_5
+      gender: "men",
+      category: "T-shirts & Polos",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["L", "XL", "XXL"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 99,
+      title: "T-shirts and Polos Item 99",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 690,
+      has_discount: true,
+      discount_percent: 32,
+      rating: 5,
+      images: [Main78_1, Main78_2], //, Main78_3
+      gender: "men",
+      category: "T-shirts & Polos",
+      collections: ["summer"],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S", "M"],
+          [{ name: "Limed Ash", hex: "#727862" }],
+        ),
+      ],
+    },
+    {
+      id: 100,
+      title: "Jeans Item 100",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2350,
+      has_discount: true,
+      discount_percent: 17,
+      rating: 5,
+      images: [Main79_1, Main79_2],
+      gender: "men",
+      category: "jeans",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M", "L"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 101,
+      title: "Jeans Item 101",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2390,
+      has_discount: true,
+      discount_percent: 37,
+      rating: 5,
+      images: [Main80_1, Main80_2],
+      gender: "men",
+      category: "jeans",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L", "XL"],
+          [{ name: "Mirage", hex: "#063461" }],
+        ),
+      ],
+    },
+    {
+      id: 102,
+      title: "Pants Item 102",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1290,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main81_1, Main81_2],
+      gender: "men",
+      category: "pants",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL", "XXL"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 103,
+      title: "Pants Item 103",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1650,
+      has_discount: true,
+      discount_percent: 32,
+      rating: 5,
+      images: [Main82_1, Main82_2],
+      gender: "men",
+      category: "pants",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 104,
+      title: "Pants Item 104",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1220,
+      has_discount: true,
+      discount_percent: 20,
+      rating: 5,
+      images: [Main83_1, Main83_2],
+      gender: "men",
+      category: "pants",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 105,
+      title: "Pants Item 105",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1200,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main84_1, Main84_2],
+      gender: "men",
+      category: "pants",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L"],
+          [
+            { name: "Black", hex: "#000000" },
+            { name: "Navy", hex: "#1E3A8A" },
+          ],
+        ),
+      ],
+    },
+    {
+      id: 106,
+      title: "Pants Item 106",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1200,
+      has_discount: true,
+      discount_percent: 38,
+      rating: 5,
+      images: [Main84_3, Main84_4],
+      gender: "men",
+      category: "pants",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L"],
+          [
+            { name: "Black", hex: "#000000" },
+            { name: "Navy", hex: "#1E3A8A" },
+          ],
+        ),
+      ],
+    },
+    {
+      id: 107,
+      title: "Pants Item 107",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1790,
+      has_discount: true,
+      discount_percent: 30,
+      rating: 5,
+      images: [Main87_1, Main87_2],
+      gender: "men",
+      category: "pants",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 108,
+      title: "Shorts Item 108",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 900,
+      has_discount: true,
+      discount_percent: 11,
+      rating: 5,
+      images: [Main88_1, Main88_2],//, Main88_3
+      gender: "men",
+      category: "shorts",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["L", "XL", "XXL"],
+          [{ name: "Warm Earthy Brown", hex: "#9a755a" }],
+        ),
+      ],
+    },
+    {
+      id: 109,
+      title: "Shorts Item 109",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 750,
+      has_discount: true,
+      discount_percent: 14,
+      rating: 5,
+      images: [Main89_1, Main89_2],
+      gender: "men",
+      category: "shorts",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S", "M"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 110,
+      title: "Shorts Item 110",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 860,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main90_1, Main90_2],
+      gender: "men",
+      category: "shorts",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M", "L"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 111,
+      title: "Shorts Item 111",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1090,
+      has_discount: true,
+      discount_percent: 27,
+      rating: 5,
+      images: [Main91_1, Main91_2],
+      gender: "men",
+      category: "shorts",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L", "XL"],
+          [{ name: "Rust Red", hex: "#d20120" }],
+        ),
+      ],
+    },
+    {
+      id: 112,
+      title: "Socks Item 112",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 390,
+      has_discount: true,
+      discount_percent: 14,
+      rating: 5,
+      images: [Main92_1, Main92_2],//Main92_3
+      gender: "men",
+      category: "socks",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL", "XXL"],
+          [
+            { name: "White", hex: "#ffffff" },
+            { name: "Black", hex: "#000000" },
+          ],
+        ),
+      ],
+    },
+    {
+      id: 113,
+      title: "Socks Item 113",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 270,
+      has_discount: true,
+      discount_percent: 12,
+      rating: 5,
+      images: [Main93_1, Main93_2], // Main93_3, Main93_4]
+      gender: "men",
+      category: "socks",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    },
+    {
+      id: 114,
+      title: "Tracksuits Item 114",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2130,
+      has_discount: true,
+      discount_percent: 34,
+      rating: 5,
+      images: [Main94_1, Main94_2],// Main94_3, Main94_4, Main94_5],
+      gender: "men",
+      category: "tracksuits",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["XS", "S", "M"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 115,
+      title: "Tracksuits Item 115",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 3050,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main95_1, Main95_2],
+      gender: "men",
+      category: "tracksuits",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["S", "M", "L"],
+          [{ name: "Deep Blue", hex: "#0f233a" }],
+        ),
+      ],
+    },
+    {
+      id: 116,
+      title: "Tracksuits Item 116",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2720,
+      has_discount: true,
+      discount_percent: 26,
+      rating: 5,
+      images: [Main96_1, Main96_2],
+      gender: "men",
+      category: "tracksuits",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["M", "L", "XL"],
+          [{ name: "Lite Green", hex: "#01904a" }],
+        ),
+      ],
+    },
+    {
+      id: 117,
+      title: "Tracksuits Item 117",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 1930,
+      has_discount: true,
+      discount_percent: 25,
+      rating: 5,
+      images: [Main97_1, Main97_2],
+      gender: "men",
+      category: "tracksuits",
+      collections: [],
+      variants: [
+        ...generateVariants(
+          ["L", "XL", "XXL"],
+          [{ name: "Black", hex: "#000000" }],
+        ),
+      ],
+    },
+    {
+      id: 118,
+      title: "Tracksuits Item 118",
+      description: "Детальний опис цього чудового товару...",
+      base_price: 2220,
+      has_discount: false,
+      discount_percent: 0,
+      rating: 5,
+      images: [Main98_1, Main98_2],
+      gender: "men",
+      category: "tracksuits",
+      collections: ["new"],
+      variants: [
+        ...generateVariants(
+          ["XXS", "XS", "S", "M"],
+          [{ name: "White", hex: "#ffffff" }],
+        ),
+      ],
+    }
 ];
