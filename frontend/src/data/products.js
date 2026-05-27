@@ -323,15 +323,15 @@ import Main84_2 from "../assets/products/30_2m.jpg";
 import Main85_1 from "../assets/products/31_1m.jpg";
 import Main85_2 from "../assets/products/31_2m.jpg";
 
-import Main86_1 from "../assets/products/32_1m.jpg";
-import Main86_2 from "../assets/products/32_2m.jpg";
+// import Main86_1 from "../assets/products/32_1m.jpg";
+// import Main86_2 from "../assets/products/32_2m.jpg";
 
 import Main87_1 from "../assets/products/33_1m.jpg";
 import Main87_2 from "../assets/products/33_2m.jpg";
 
 import Main88_1 from "../assets/products/34_1m.jpg";
 import Main88_2 from "../assets/products/34_2m.jpg";
-import Main88_3 from "../assets/products/34_3m.jpg";
+// import Main88_3 from "../assets/products/34_3m.jpg";
 
 import Main89_1 from "../assets/products/35_1m.jpg";
 import Main89_2 from "../assets/products/35_2m.jpg";
