@@ -19,10 +19,10 @@ const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   // calculate discounted price
-  const finalPrice = product.has_discount 
+  const finalPrice = product.has_discount
     ? Math.round(product.base_price * (1 - product.discount_percent / 100))
     : product.base_price;
-    
+
   const handleMouseLeave = () => {
     setIsHovered(false);
     setSelectedSize(null);
@@ -78,19 +78,19 @@ console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${sel
               <span
                 key={collection}
                 className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${
-                  collection === 'new' ? 'bg-orange-500' : 
-                  collection === 'summer' ? 'bg-indigo-300' : 
-                  'bg-gray-500' 
+                  collection === 'new' ? 'bg-orange-500' :
+                  collection === 'summer' ? 'bg-indigo-300' :
+                  'bg-gray-500'
                 }`}
               >
-                {collection === 'new' ? 'Новинка' : 
-                 collection === 'summer' ? 'Літо' : 
+                {collection === 'new' ? 'Новинка' :
+                 collection === 'summer' ? 'Літо' :
                  collection}
               </span>
             ))}
           </div>
         )}
-        
+
         {/* WISHLIST HEART */}
         <div
           className="absolute top-4 right-4 z-10 cursor-pointer"
