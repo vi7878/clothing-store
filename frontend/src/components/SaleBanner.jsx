@@ -7,11 +7,13 @@ const SaleBanner = () => {
 
   const handleBannerClick = () => {
     navigate('/shop/sale');
+    window.scrollTo(0, 0); 
   };
 
   const handleButtonClick = (gender, e) => {
     e.stopPropagation();
     navigate(`/shop/sale?gender=${gender}`);
+    window.scrollTo(0, 0);
   };
 
   return (

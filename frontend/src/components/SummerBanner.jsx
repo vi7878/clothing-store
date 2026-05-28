@@ -7,6 +7,7 @@ const SummerBanner = () => {
 
   const handleNavigate = (gender) => {
     navigate(`/shop/summer?gender=${gender}`);
+    window.scrollTo(0, 0);
   };
 
   return (

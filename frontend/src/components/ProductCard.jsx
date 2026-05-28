@@ -69,6 +69,7 @@ console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${sel
         <img
           src={isHovered ? product.images[1] : product.images[0]}
           alt={product.title}
+          loading="lazy"
           className="w-full h-full object-cover transition-opacity duration-300"
         />
 

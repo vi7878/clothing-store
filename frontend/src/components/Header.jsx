@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiHeart, FiShoppingCart } from "react-icons/fi";
 import { ShopContext } from '../context/ShopContext.js';
@@ -8,6 +9,7 @@ const Header = () => {
   const { getCartCount } = useContext(ShopContext);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const scrollDirection = useScrollDirection();
 
   const getWishlistCount = () => 0;
 
@@ -18,17 +20,19 @@ const Header = () => {
     }
   };
 
-  <Link to={'/account'} className="animated-icon-link">
-    <FiUser className="text-[28px] stroke-[2.5]" />
-  </Link>
-
+  // <Link to={'/account'} className="animated-icon-link">
+  //   <FiUser className="text-[28px] stroke-[2.5]" />
+  // </Link>
   const navLinkStyle = ({ isActive }) =>
     isActive
       ? "text-[#0B0035] font-bold"
       : "text-[#0B0035] font-bold hover:opacity-70 transition-opacity";
 
   return (
-    <header className="w-full bg-white min-w-[1024px]">
+    <>
+    <header className={`fixed top-0 left-0 w-full z-50 bg-white transition-transform duration-300 ease-in-out ${
+        scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
+      }`}>
       <div className="max-w-[1700px] mx-auto px-10">
         <div className="flex justify-between items-center py-6 gap-6">
 
@@ -111,6 +115,9 @@ const Header = () => {
         </div>
       </nav>
     </header>
+
+    <div className="h-[160px] w-full"></div>
+    </>
   );
 };
 

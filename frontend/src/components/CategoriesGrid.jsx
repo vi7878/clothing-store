@@ -11,14 +11,14 @@ import outMen from '../assets/categories/outerwear-men.jpg';
 
 //temporary data for cards
 const categories = [
-  { id: 1, title: "ФУТБОЛКИ ДЛЯ НЕЇ", link: "/shop/women/tshirts", img: tshirtsWomen },
-  { id: 2, title: "ФУТБОЛКИ ДЛЯ НЬОГО", link: "/shop/men/tshirts", img: tshirtsMen },
-  { id: 3, title: "СВЕТРИ ДЛЯ НЕЇ", link: "/shop/women/sweaters", img: sweatersWomen },
-  { id: 4, title: "СВЕТРИ ДЛЯ НЬОГО", link: "/shop/men/sweaters", img: sweatersMen },
-  { id: 5, title: "СУКНІ ТА СПІДНИЦІ", link: "/shop/women/dresses", img: dresses },
-  { id: 6, title: "ШТАНИ ДЛЯ НЬОГО", link: "/shop/men/pants", img: pantsMen },
-  { id: 7, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЕЇ", link: "/shop/women/outerwear", img: outWomen },
-  { id: 8, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЬОГО", link: "/shop/men/outerwear", img: outMen },
+  { id: 1, title: "ФУТБОЛКИ ДЛЯ НЕЇ", link: "/shop/women?category=T-shirts %26 Tank Tops", img: tshirtsWomen },
+  { id: 2, title: "ФУТБОЛКИ ДЛЯ НЬОГО", link: "/shop/men?category=T-shirts %26 Polos", img: tshirtsMen },
+  { id: 3, title: "СВЕТРИ ДЛЯ НЕЇ", link: "/shop/women?category=Sweaters %26 Cardigans", img: sweatersWomen },
+  { id: 4, title: "СВЕТРИ ДЛЯ НЬОГО", link: "/shop/men?category=Sweaters", img: sweatersMen },
+  { id: 5, title: "СУКНІ", link: "/shop/women?category=Dresses", img: dresses },
+  { id: 6, title: "ШТАНИ ДЛЯ НЬОГО", link: "/shop/men?category=Pants", img: pantsMen },
+  { id: 7, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЕЇ", link: "/shop/women?category=Outerwear", img: outWomen },
+  { id: 8, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЬОГО", link: "/shop/men?category=Outerwear", img: outMen },
 ];
 
 const CategoriesGrid = () => {
@@ -29,6 +29,9 @@ return (
           <Link
             key={cat.id}
             to={cat.link}
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            }}
             className="relative group aspect-[4/5] overflow-hidden bg-gray-200 block"
           >
             <img
