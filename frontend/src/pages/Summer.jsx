@@ -11,7 +11,7 @@ const Summer = () => {
   const filteredProducts = productsData.filter(product =>
     product.gender === currentTab && product.collections?.includes('summer')
   );
-  
+
   const handleTabChange = (gender) => {
     setSearchParams({ gender });
   };

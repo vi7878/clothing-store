@@ -28,7 +28,7 @@ const Sale = () => {
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
             currentTab === 'women' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
-        > 
+        >
           Жінки
         </button>
 
@@ -37,7 +37,7 @@ const Sale = () => {
           className={`text-[15px] font-bold pb-1.5 animated-icon-link ${
             currentTab === 'men' ? 'text-black after:scale-x-100' : 'text-gray-400 hover:text-black'
           }`}
-        > 
+        >
           Чоловіки
         </button>
       </div>

@@ -32,12 +32,12 @@ const allCategoriesMap = [
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get('q') || ''; 
+  const query = searchParams.get('q') || '';
   const [genderFilter, setGenderFilter] = useState('all');
 
   const searchResults = useMemo(() => {
     if (!query) return [];
-    
+
     const lowerQuery = query.toLowerCase().trim();
     // trimming the ending for flexibility (e.g., "спідниця" -> "спідниц")
     const baseQuery = lowerQuery.length > 4 ? lowerQuery.slice(0, -2) : lowerQuery;
@@ -59,7 +59,7 @@ const SearchPage = () => {
 
   return (
     <div className="max-w-[1700px] mx-auto px-4 md:px-10 py-10 min-h-[60vh]">
-      
+
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-4 uppercase">
           Результати пошуку
@@ -71,7 +71,7 @@ const SearchPage = () => {
 
       {query && (
         <div className="flex justify-center items-center gap-4 mb-12">
-          <button 
+          <button
             onClick={() => setGenderFilter('all')}
             className={`px-6 py-2 rounded-full font-bold text-sm uppercase transition-colors ${
               genderFilter === 'all' ? 'bg-[#0B0035] text-white' : 'bg-gray-100 text-black hover:bg-gray-200'
@@ -79,7 +79,7 @@ const SearchPage = () => {
           >
             Усі
           </button>
-          <button 
+          <button
             onClick={() => setGenderFilter('women')}
             className={`px-6 py-2 rounded-full font-bold text-sm uppercase transition-colors ${
               genderFilter === 'women' ? 'bg-[#0B0035] text-white' : 'bg-gray-100 text-black hover:bg-gray-200'
@@ -87,7 +87,7 @@ const SearchPage = () => {
           >
             Жінки
           </button>
-          <button 
+          <button
             onClick={() => setGenderFilter('men')}
             className={`px-6 py-2 rounded-full font-bold text-sm uppercase transition-colors ${
               genderFilter === 'men' ? 'bg-[#0B0035] text-white' : 'bg-gray-100 text-black hover:bg-gray-200'

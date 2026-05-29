@@ -3,7 +3,7 @@ import heroBg from '../assets/banners/hero-new-bg.jpg';
 
 const HeroBanner = () => {
  const navigate = useNavigate();
- 
+
  const handleNavigate = (gender) => {
     navigate(`/shop/new?gender=${gender}`);
     window.scrollTo(0, 0);

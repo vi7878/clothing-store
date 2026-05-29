@@ -8,7 +8,7 @@ const New = () => {
 
   const currentTab = genderQuery === 'men' ? 'men' : 'women';
 
-  const filteredProducts = productsData.filter(product => 
+  const filteredProducts = productsData.filter(product =>
     product.gender === currentTab
     && product.collections?.includes('new')
   );

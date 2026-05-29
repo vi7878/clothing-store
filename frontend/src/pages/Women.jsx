@@ -21,7 +21,7 @@ const categoriesMap = [
   { id: 'Jackets & Vests', label: 'Піджаки та жилетки' },
   { id: 'Coats', label: 'Пальта' },
   { id: 'Outerwear', label: 'Верхній одяг' },
-  { id: 'Hoodies & Sweatshirts', label: 'Кофти' }, 
+  { id: 'Hoodies & Sweatshirts', label: 'Кофти' },
   { id: 'Co-ords', label: 'Комплекти' },
   { id: 'Jumpsuits', label: 'Комбінезони' },
   { id: 'Jeans', label: 'Джинси' },
@@ -30,16 +30,16 @@ const categoriesMap = [
 const Women = () => {
   const scrollDirection = useScrollDirection();
   const [activeCollection, setActiveCollection] = useState('all');
-  
-  // Read category from URL query parameters with Home page and set it as active category 
+
+  // Read category from URL query parameters with Home page and set it as active category
   const [searchParams] = useSearchParams();
   const categoryQuery = searchParams.get('category') || 'all';
   const searchQuery = searchParams.get('search') || '';
 
   const [activeCategory, setActiveCategory] = useState(categoryQuery);
   const [isSalesActive, setIsSalesActive] = useState(false);
-  
-  const [sortOption, setSortOption] = useState('popular'); 
+
+  const [sortOption, setSortOption] = useState('popular');
   const [sizeOption, setSizeOption] = useState([]);
   const [colorOption, setColorOption] = useState([]);
 
@@ -58,7 +58,7 @@ const Women = () => {
   }
 
   const womenProducts = useMemo(() => productsData.filter(p => p.gender === 'women'), []);
-  
+
   const newCategories = useMemo(() => {
     const newProds = womenProducts.filter(p => p.collections?.includes('new'));
     const availableCategoryIds = [...new Set(newProds.map(p => p.category))];
@@ -86,21 +86,21 @@ const Women = () => {
 
   const handleFilterChange = (setter) => (value) => {
     setter(value);
-    setVisibleCount(9); 
+    setVisibleCount(9);
   };
 
   const { minCatalogPrice, maxCatalogPrice } = useMemo(() => {
     if (womenProducts.length === 0) return { minCatalogPrice: 0, maxCatalogPrice: 99999 };
-    
+
     const prices = womenProducts.map(p => {
       const base = p.base_price || p.price || 0;
       const discount = p.discount_percent || (p.has_discount ? 20 : 0);
       return p.has_discount ? base - (base * (discount / 100)) : base;
     });
-    
-    return { 
-      minCatalogPrice: Math.floor(Math.min(...prices)), 
-      maxCatalogPrice: Math.ceil(Math.max(...prices)) 
+
+    return {
+      minCatalogPrice: Math.floor(Math.min(...prices)),
+      maxCatalogPrice: Math.ceil(Math.max(...prices))
     };
   }, [womenProducts]);
 
@@ -145,7 +145,7 @@ const Women = () => {
       <div className="flex flex-col md:flex-row gap-8">
 
         {/* SIDEBAR */}
-        <CatalogSidebar 
+        <CatalogSidebar
           scrollDirection={scrollDirection}
           activeCollection={activeCollection}
           activeCategory={activeCategory}
@@ -169,7 +169,7 @@ const Women = () => {
           </div>
 
           {/* FILTER BAR */}
-          <CatalogFilterBar 
+          <CatalogFilterBar
             scrollDirection={scrollDirection}
             isSalesActive={isSalesActive} setIsSalesActive={handleFilterChange(setIsSalesActive)}
             sort={sortOption} setSort={handleFilterChange(setSortOption)}
@@ -196,7 +196,7 @@ const Women = () => {
 
           {/* PAGINATION */}
           {filteredProducts.length > 0 && (
-            <CatalogPagination 
+            <CatalogPagination
               visibleCount={visibleCount}
               totalCount={filteredProducts.length}
               onLoadMore={handleLoadMore}

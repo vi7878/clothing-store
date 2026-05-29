@@ -25,8 +25,8 @@ const colorOptions = [
   { id: 'Mustard', label: 'гірчичний', hex: '#EAB308' },
 ];
 
-const CatalogFilterBar = ({ 
-  scrollDirection, 
+const CatalogFilterBar = ({
+  scrollDirection,
   isSalesActive, setIsSalesActive,
   sort, setSort,
   size, setSize,
@@ -64,13 +64,13 @@ const CatalogFilterBar = ({
       setTempColor(color || []);
       setTempPriceMin(priceMin);
       setTempPriceMax(priceMax);
-      
+
       setOpenDropdown(dropdownName);
     }
   };
-  
+
   const applySort = () => { setSort(tempSort); setOpenDropdown(null); };
-  
+
   const toggleSize = (s) => setTempSize(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s]);
   const applySize = () => { setSize(tempSize); setOpenDropdown(null); };
   const clearSize = () => { setSize([]); setOpenDropdown(null); };
@@ -95,7 +95,7 @@ const CatalogFilterBar = ({
       if (tempPriceMax !== '' && val > Number(tempPriceMax)) val = Number(tempPriceMax);
       setTempPriceMin(val.toString());
     }
-    
+
     if (type === 'max' && tempPriceMax !== '') {
       let val = Number(tempPriceMax);
       if (val > maxAllowed) val = maxAllowed;
@@ -109,7 +109,7 @@ const CatalogFilterBar = ({
     setPriceMax(tempPriceMax);
     setOpenDropdown(null);
   };
-  
+
   const clearPrice = () => {
     setPriceMin('');
     setPriceMax('');
@@ -127,14 +127,14 @@ const CatalogFilterBar = ({
   const getActiveColorLabel = () => color?.length > 0 ? (color.length === 1 ? 'Колір: 1' : `Кольорів: ${color.length}`) : 'Кольори';
 
   return (
-    <div 
+    <div
       ref={barRef}
-      style={{ overflow: 'visible', zIndex: 20 }} 
+      style={{ overflow: 'visible', zIndex: 20 }}
       className={`sticky bg-white top-[150px] transition-transform duration-300 ease-in-out pt-4 pb-5 border-b border-gray-300 mb-8 flex flex-wrap items-center gap-4 ${
-        scrollDirection === 'down' && !openDropdown ? '-translate-y-[150px]' : 'translate-y-0' 
+        scrollDirection === 'down' && !openDropdown ? '-translate-y-[150px]' : 'translate-y-0'
       }`}
     >
-      
+
       {/* SORTING */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
         <button onClick={() => toggleDropdown('sort')} className={btnStyle}>
@@ -193,8 +193,8 @@ const CatalogFilterBar = ({
                   <div className={checkboxStyle}>
                     {tempColor.includes(c.id) && <div className="w-3 h-3 bg-[#0B0035]"></div>}
                   </div>
-                  <div 
-                    className={`w-5 h-5 rounded-full flex-shrink-0 ${c.border ? 'border border-gray-300' : ''}`} 
+                  <div
+                    className={`w-5 h-5 rounded-full flex-shrink-0 ${c.border ? 'border border-gray-300' : ''}`}
                     style={{ backgroundColor: c.hex }}
                   ></div>
                   <span className="text-[15px] group-hover:text-gray-600 transition-colors">{c.label}</span>
@@ -216,9 +216,9 @@ const CatalogFilterBar = ({
           <div className={`${popupStyle} w-[340px]`} style={{ zIndex: 20 }}>
             <div className="flex items-center gap-4 mb-4">
               <div className="border border-gray-300 px-4 py-2 flex flex-1 items-center justify-between">
-                <input 
-                  type="text" 
-                  value={tempPriceMin} 
+                <input
+                  type="text"
+                  value={tempPriceMin}
                   onChange={handlePriceInput(setTempPriceMin)}
                   onBlur={() => handlePriceBlur('min')}
                   placeholder={availableMinPrice || 0}
@@ -227,9 +227,9 @@ const CatalogFilterBar = ({
                 <span className="text-[15px] text-black font-medium ml-2">грн</span>
               </div>
               <div className="border border-gray-300 px-4 py-2 flex flex-1 items-center justify-between">
-                <input 
-                  type="text" 
-                  value={tempPriceMax} 
+                <input
+                  type="text"
+                  value={tempPriceMax}
                   onChange={handlePriceInput(setTempPriceMax)}
                   onBlur={() => handlePriceBlur('max')}
                   placeholder={availableMaxPrice || 20}
@@ -252,7 +252,7 @@ const CatalogFilterBar = ({
       </div>
 
       {/* SALES TOGGLE */}
-      <div 
+      <div
         className="flex items-center gap-2 ml-auto cursor-pointer group flex-shrink-0 pl-4"
         onClick={() => setIsSalesActive(!isSalesActive)}
       >

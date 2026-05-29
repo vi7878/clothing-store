@@ -42,10 +42,10 @@ export const useScrollDirection = () => {
         ticking = true;
       }
     };
-    
+
     // Passive listener for better mobile performance
     window.addEventListener('scroll', onScroll, { passive: true });
-    
+
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollDirection]);
 

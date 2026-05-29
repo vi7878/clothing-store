@@ -28,11 +28,11 @@ const categoriesMap = [
 const Men = () => {
   const scrollDirection = useScrollDirection();
   const [activeCollection, setActiveCollection] = useState('all');
-  // Read category from URL query parameters with Home page and set it as active category 
+  // Read category from URL query parameters with Home page and set it as active category
   const [searchParams] = useSearchParams();
   const categoryQuery = searchParams.get('category') || 'all';
   const searchQuery = searchParams.get('search') || '';
-  
+
   const [activeCategory, setActiveCategory] = useState(categoryQuery);
   const [isSalesActive, setIsSalesActive] = useState(false);
   const [visibleCount, setVisibleCount] = useState(9);
@@ -54,7 +54,7 @@ const Men = () => {
 
   // Filter products specifically for men
   const menProducts = useMemo(() => productsData.filter(p => p.gender === 'men'), []);
-  
+
   const newCategories = useMemo(() => {
     const newProds = menProducts.filter(p => p.collections?.includes('new'));
     const availableCategoryIds = [...new Set(newProds.map(p => p.category))];
@@ -82,7 +82,7 @@ const Men = () => {
 
   const handleFilterChange = (setter) => (value) => {
     setter(value);
-    setVisibleCount(9); 
+    setVisibleCount(9);
   };
 
   // Slice only the visible products (for example, the first 9)
@@ -92,16 +92,16 @@ const Men = () => {
 
   const { minCatalogPrice, maxCatalogPrice } = useMemo(() => {
     if (menProducts.length === 0) return { minCatalogPrice: 0, maxCatalogPrice: 99999 };
-    
+
     const prices = menProducts.map(p => {
       const base = p.base_price || p.price || 0;
       const discount = p.discount_percent || (p.has_discount ? 20 : 0);
       return p.has_discount ? base - (base * (discount / 100)) : base;
     });
-    
-    return { 
-      minCatalogPrice: Math.floor(Math.min(...prices)), 
-      maxCatalogPrice: Math.ceil(Math.max(...prices)) 
+
+    return {
+      minCatalogPrice: Math.floor(Math.min(...prices)),
+      maxCatalogPrice: Math.ceil(Math.max(...prices))
     };
   }, [menProducts]);
 
@@ -141,7 +141,7 @@ const Men = () => {
       <div className="flex flex-col md:flex-row gap-8">
 
         {/* SIDEBAR */}
-        <CatalogSidebar 
+        <CatalogSidebar
           scrollDirection={scrollDirection}
           activeCollection={activeCollection}
           activeCategory={activeCategory}
@@ -165,7 +165,7 @@ const Men = () => {
           </div>
 
           {/* FILTER BAR */}
-          <CatalogFilterBar 
+          <CatalogFilterBar
             scrollDirection={scrollDirection}
             isSalesActive={isSalesActive}
             setIsSalesActive={handleFilterChange(setIsSalesActive)}
@@ -193,7 +193,7 @@ const Men = () => {
 
           {/* PAGINATION */}
           {filteredProducts.length > 0 && (
-            <CatalogPagination 
+            <CatalogPagination
               visibleCount={visibleCount}
               totalCount={filteredProducts.length}
               onLoadMore={handleLoadMore}

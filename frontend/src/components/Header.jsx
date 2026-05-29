@@ -72,9 +72,9 @@ const Header = () => {
                   />
                   {/* Кнопка "Очистити", якщо вікно відкрите і є текст */}
                   {isSearchModalOpen && (
-                    <button 
-                      type="button" 
-                      onClick={clearSearch} 
+                    <button
+                      type="button"
+                      onClick={clearSearch}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0B0035] hover:text-red-600 transition-colors"
                     >
                       <FiX className="text-xl stroke-[3]" />
@@ -135,9 +135,9 @@ const Header = () => {
         </div>
       </nav>
     </header>
-    <SearchModal 
-        isOpen={isSearchModalOpen} 
-        onClose={() => setIsSearchModalOpen(false)} 
+    <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
         query={searchQuery}
       />
     <div className="h-[160px] w-full"></div>

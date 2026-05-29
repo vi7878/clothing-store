@@ -7,7 +7,7 @@ const SaleBanner = () => {
 
   const handleBannerClick = () => {
     navigate('/shop/sale');
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   };
 
   const handleButtonClick = (gender, e) => {

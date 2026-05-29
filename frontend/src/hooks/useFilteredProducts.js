@@ -61,7 +61,7 @@ export const useFilteredProducts = ({
       if (priceMin !== '' && currentPrice < Number(priceMin)) return false;
       if (priceMax !== '' && currentPrice > Number(priceMax)) return false;
 
-      return true; 
+      return true;
     });
 
     // SORTING
@@ -74,14 +74,14 @@ export const useFilteredProducts = ({
 
       if (sortOption === 'price-asc') return getPrice(a) - getPrice(b);
       if (sortOption === 'price-desc') return getPrice(b) - getPrice(a);
-      if (sortOption === 'popular') return (b.rating || 0) - (a.rating || 0); 
-      if (sortOption === 'newest') return b.id - a.id; 
+      if (sortOption === 'popular') return (b.rating || 0) - (a.rating || 0);
+      if (sortOption === 'newest') return b.id - a.id;
       return 0;
     });
 
     return result;
   }, [
-    products, activeCollection, activeCategory, isSalesActive, 
+    products, activeCollection, activeCategory, isSalesActive,
     sortOption, sizeOption, colorOption, priceMin, priceMax, searchQuery
   ]);
 };

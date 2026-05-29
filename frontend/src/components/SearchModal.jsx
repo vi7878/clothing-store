@@ -19,7 +19,7 @@ const SearchModal = ({ isOpen, onClose, query }) => {
   return (
     <>
       <div className="fixed inset-0 bg-black/40 z-30" onClick={onClose}></div>
-      
+
       <div className="absolute top-[100%] left-0 w-full bg-white z-40 shadow-2xl py-10 px-4 md:px-10 border-t border-gray-200 max-h-[75vh] overflow-y-auto cursor-default">
         {query.length < 2 ? (
           <div className="max-w-[1400px] mx-auto">
