@@ -390,13 +390,13 @@ import Main98_2 from "../assets/products/44_2m.jpg";
 //categories: ['Tracksuits', 'Pants & Leggings', 'Shorts', 'Socks',
 // 'T-shirts & Tank Tops', 'Blouses & Shirts', 'Dresses', 'Skirts',
 // 'Sweaters & Cardigans', 'Jackets & Vests', 'Coats', 'Outerwear',
-// 'Hoodies & Sweatshirtss', 'Co-ords', 'Jumpsuits', 'Jeans']
+// 'Hoodies & Sweatshirts', 'Co-ords', 'Jumpsuits', 'Jeans']
 
 // -CATEGORIES_Men-
 //categories: ['Tracksuits', 'Pants', 'Shorts', 'Socks',
 // 'T-shirts & Polos', 'Shirts', 'Sweaters', 'Beachwear',
 // 'Suits & Blazers', 'Coats', 'Outerwear',
-// 'Hoodies & Sweatshirtss', 'Sets', 'Jeans']
+// 'Hoodies & Sweatshirts', 'Sets', 'Jeans']
 
 // Function to automatically generate product variants
 const generateVariants = (sizes, colors, stock = 5) => {
@@ -1199,7 +1199,7 @@ export const productsData = [
     rating: 5,
     images: [Main331, Hover332],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: ["new"],
     variants: [
       ...generateVariants(
@@ -1223,7 +1223,7 @@ export const productsData = [
     rating: 4,
     images: [Main341, Hover342],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: [],
     variants: [
       ...generateVariants(
@@ -1247,7 +1247,7 @@ export const productsData = [
     rating: 5,
     images: [Main351, Hover352],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: ["new"],
     variants: [
       ...generateVariants(
@@ -1271,7 +1271,7 @@ export const productsData = [
     rating: 4,
     images: [Main361, Hover362],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: [],
     variants: [
       ...generateVariants(
@@ -1295,7 +1295,7 @@ export const productsData = [
     rating: 5,
     images: [Main371, Hover372],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: [],
     variants: [
       ...generateVariants(
@@ -1319,7 +1319,7 @@ export const productsData = [
     rating: 4,
     images: [Main381, Hover382],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: [],
     variants: [
       ...generateVariants(
@@ -1343,7 +1343,7 @@ export const productsData = [
     rating: 5,
     images: [Main391, Hover392],
     gender: "women",
-    category: "Hoodies & Sweatshirtss",
+    category: "Hoodies & Sweatshirts",
     collections: ["new"],
     variants: [
       ...generateVariants(

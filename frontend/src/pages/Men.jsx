@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useScrollDirection } from '../hooks/useScrollDirection';
+import { useFilteredProducts } from '../hooks/useFilteredProducts';
 import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import CatalogSidebar from '../components/CatalogSidebar';
@@ -19,7 +20,7 @@ const categoriesMap = [
   { id: 'Suits & Blazers', label: 'Костюми та піджаки' },
   { id: 'Coats', label: 'Пальта' },
   { id: 'Outerwear', label: 'Верхній одяг' },
-  { id: 'Hoodies & Sweatshirtss', label: 'Худі та кофти' },
+  { id: 'Hoodies & Sweatshirts', label: 'Худі та кофти' },
   { id: 'Sets', label: 'Комплекти' },
   { id: 'Jeans', label: 'Джинси' },
 ];
@@ -27,14 +28,21 @@ const categoriesMap = [
 const Men = () => {
   const scrollDirection = useScrollDirection();
   const [activeCollection, setActiveCollection] = useState('all');
-
   // Read category from URL query parameters with Home page and set it as active category 
   const [searchParams] = useSearchParams();
   const categoryQuery = searchParams.get('category') || 'all';
+  const searchQuery = searchParams.get('search') || '';
   
   const [activeCategory, setActiveCategory] = useState(categoryQuery);
   const [isSalesActive, setIsSalesActive] = useState(false);
   const [visibleCount, setVisibleCount] = useState(9);
+
+  const [sortOption, setSortOption] = useState('popular');
+  const [sizeOption, setSizeOption] = useState([]);
+  const [colorOption, setColorOption] = useState([]);
+
+  const [priceMin, setPriceMin] = useState('');
+  const [priceMax, setPriceMax] = useState('');
 
   // Sync URL query without triggering cascading renders in useEffect and without reading refs during render
   const [prevCategoryQuery, setPrevCategoryQuery] = useState(categoryQuery);
@@ -59,25 +67,43 @@ const Men = () => {
     return categoriesMap.filter(c => availableCategoryIds.includes(c.id));
   }, [menProducts]);
 
-  const filteredProducts = useMemo(() => {
-    return menProducts.filter(p => {
-      let matchesCollection = true;
-      if (activeCollection === 'new') matchesCollection = p.collections?.includes('new');
-      if (activeCollection === 'summer') matchesCollection = p.collections?.includes('summer');
+  const filteredProducts = useFilteredProducts({
+    products: menProducts,
+    searchQuery,
+    activeCollection,
+    activeCategory,
+    isSalesActive,
+    sizeOption,
+    colorOption,
+    priceMin,
+    priceMax,
+    sortOption
+  });
 
-      let matchesCategory = true;
-      if (activeCategory !== 'all') matchesCategory = p.category === activeCategory;
-
-      if (isSalesActive && !p.has_discount) return false;
-
-      return matchesCollection && matchesCategory;
-    });
-  }, [menProducts, activeCollection, activeCategory, isSalesActive]);
+  const handleFilterChange = (setter) => (value) => {
+    setter(value);
+    setVisibleCount(9); 
+  };
 
   // Slice only the visible products (for example, the first 9)
   const displayedProducts = useMemo(() => {
     return filteredProducts.slice(0, visibleCount);
   }, [filteredProducts, visibleCount]);
+
+  const { minCatalogPrice, maxCatalogPrice } = useMemo(() => {
+    if (menProducts.length === 0) return { minCatalogPrice: 0, maxCatalogPrice: 99999 };
+    
+    const prices = menProducts.map(p => {
+      const base = p.base_price || p.price || 0;
+      const discount = p.discount_percent || (p.has_discount ? 20 : 0);
+      return p.has_discount ? base - (base * (discount / 100)) : base;
+    });
+    
+    return { 
+      minCatalogPrice: Math.floor(Math.min(...prices)), 
+      maxCatalogPrice: Math.ceil(Math.max(...prices)) 
+    };
+  }, [menProducts]);
 
   const getActiveTitle = () => {
     let title;
@@ -103,11 +129,6 @@ const Men = () => {
     setActiveCategory(categoryId);
     setVisibleCount(9);
     window.scrollTo({ top: 0, behavior: 'auto' });
-  };
-
-  const handleSalesToggle = (newState) => {
-    setIsSalesActive(newState);
-    setVisibleCount(9);
   };
 
   // FUNCTION: Add 9 more products to the visible products when "Load More" is clicked
@@ -147,7 +168,14 @@ const Men = () => {
           <CatalogFilterBar 
             scrollDirection={scrollDirection}
             isSalesActive={isSalesActive}
-            setIsSalesActive={handleSalesToggle}
+            setIsSalesActive={handleFilterChange(setIsSalesActive)}
+            sort={sortOption} setSort={handleFilterChange(setSortOption)}
+            size={sizeOption} setSize={handleFilterChange(setSizeOption)}
+            color={colorOption} setColor={handleFilterChange(setColorOption)}
+            priceMin={priceMin} setPriceMin={handleFilterChange(setPriceMin)}
+            priceMax={priceMax} setPriceMax={handleFilterChange(setPriceMax)}
+            availableMinPrice={minCatalogPrice}
+            availableMaxPrice={maxCatalogPrice}
           />
 
           {/* PRODUCT GRID */}
