@@ -19,7 +19,7 @@ const Sale = () => {
   return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-10 mb-20">
       <h2 className="text-[30px] md:text-[40px] font-black text-[#B2412E] mb-6 tracking-tight uppercase">
-        -20% НА ТОВАРИ
+        ВІД -10% ДО -20% НА ТОВАРИ
       </h2>
 
       <div className="flex gap-6 mb-8 border-b border-gray-200">

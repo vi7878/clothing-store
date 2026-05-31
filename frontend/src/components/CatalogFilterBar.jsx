@@ -38,6 +38,7 @@ const CatalogFilterBar = ({
 }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const barRef = useRef(null);
+  const trackRef = useRef(null);
 
   const [tempSort, setTempSort] = useState(sort);
   const [tempSize, setTempSize] = useState(size || []);
@@ -79,32 +80,57 @@ const CatalogFilterBar = ({
   const applyColor = () => { setColor(tempColor); setOpenDropdown(null); };
   const clearColor = () => { setColor([]); setOpenDropdown(null); };
 
+  const minAllowed = availableMinPrice || 0;
+  const maxAllowed = availableMaxPrice || 99999; 
+
+  const parsedMin = tempPriceMin !== '' ? Number(tempPriceMin) : minAllowed;
+  const parsedMax = tempPriceMax !== '' ? Number(tempPriceMax) : maxAllowed;
+
+  const isPriceError = parsedMin > parsedMax || parsedMin > maxAllowed;
+  
+  const safeMin = Math.max(minAllowed, Math.min(parsedMin, maxAllowed));
+  const safeMax = Math.min(maxAllowed, Math.max(parsedMax, minAllowed));
+  
+  const range = maxAllowed - minAllowed || 1;
+  
+  const leftPercent = Math.max(0, Math.min(100, ((safeMin - minAllowed) / range) * 100));
+  const rightPercent = Math.max(0, Math.min(100, 100 - (((safeMax - minAllowed) / range) * 100)));
+
   //VALIDATION LOGIC
   const handlePriceInput = (setter) => (e) => {
     const val = e.target.value.replace(/[^0-9]/g, '');
     setter(val);
   };
 
-  const handlePriceBlur = (type) => {
-    const minAllowed = availableMinPrice || 0;
-    const maxAllowed = availableMaxPrice || 20;
+  const handleTrackClick = (e) => {
+    if (!trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
+    const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const clickPercent = clickX / rect.width;
+    const clickedValue = Math.round(minAllowed + clickPercent * (maxAllowed - minAllowed));
+    const distToMin = Math.abs(safeMin - clickedValue);
+    const distToMax = Math.abs(safeMax - clickedValue);
 
+    if (distToMin <= distToMax) {
+      setTempPriceMin(clickedValue.toString());
+    } else {
+      setTempPriceMax(clickedValue.toString());
+    }
+  };
+
+  const handlePriceBlur = (type) => {
     if (type === 'min' && tempPriceMin !== '') {
       let val = Number(tempPriceMin);
-      if (val < minAllowed) val = minAllowed;
-      if (tempPriceMax !== '' && val > Number(tempPriceMax)) val = Number(tempPriceMax);
-      setTempPriceMin(val.toString());
+      if (val < minAllowed) setTempPriceMin(minAllowed.toString());
     }
-
     if (type === 'max' && tempPriceMax !== '') {
       let val = Number(tempPriceMax);
-      if (val > maxAllowed) val = maxAllowed;
-      if (tempPriceMin !== '' && val < Number(tempPriceMin)) val = Number(tempPriceMin);
-      setTempPriceMax(val.toString());
+      if (val > maxAllowed) setTempPriceMax(maxAllowed.toString());
     }
   };
 
   const applyPrice = () => {
+    if (isPriceError) return;
     setPriceMin(tempPriceMin);
     setPriceMax(tempPriceMax);
     setOpenDropdown(null);
@@ -121,7 +147,7 @@ const CatalogFilterBar = ({
   const okBtnStyle = "w-full bg-[#0B0035] hover:opacity-90 text-white font-medium py-2.5 mt-5 transition-opacity";
   const clearBtnStyle = "text-sm text-black underline text-center block mt-3 cursor-pointer hover:text-gray-600";
   const checkboxStyle = "w-5 h-5 flex-shrink-0 border border-black flex items-center justify-center bg-white cursor-pointer";
-
+  
   const getActiveSortLabel = () => sortOptions.find(o => o.id === sort)?.label || 'Сортувати за';
   const getActiveSizeLabel = () => size?.length > 0 ? (size.length === 1 ? `Розмір: ${size[0]}` : `Розмірів: ${size.length}`) : 'Розміри';
   const getActiveColorLabel = () => color?.length > 0 ? (color.length === 1 ? 'Колір: 1' : `Кольорів: ${color.length}`) : 'Кольори';
@@ -142,7 +168,7 @@ const CatalogFilterBar = ({
         </button>
         {openDropdown === 'sort' && (
           <div className={popupStyle} style={{ zIndex: 20 }}>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-2">
               {sortOptions.map((opt) => (
                 <div key={opt.id} onClick={() => setTempSort(opt.id)} className="flex items-center gap-3 cursor-pointer group">
                   <div className={checkboxStyle}>
@@ -175,7 +201,7 @@ const CatalogFilterBar = ({
               ))}
             </div>
             <button onClick={applySize} className={okBtnStyle}>Ок</button>
-            <span onClick={clearSize} className={clearBtnStyle}>Усунути фільтри</span>
+            <span onClick={clearSize} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
       </div>
@@ -202,7 +228,7 @@ const CatalogFilterBar = ({
               ))}
             </div>
             <button onClick={applyColor} className={okBtnStyle}>Ок</button>
-            <span onClick={clearColor} className={clearBtnStyle}>Усунути фільтри</span>
+            <span onClick={clearColor} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
       </div>
@@ -221,10 +247,10 @@ const CatalogFilterBar = ({
                   value={tempPriceMin}
                   onChange={handlePriceInput(setTempPriceMin)}
                   onBlur={() => handlePriceBlur('min')}
-                  placeholder={availableMinPrice || 0}
+                  placeholder={minAllowed}
                   className="w-full outline-none text-[15px] text-black placeholder-gray-400"
                 />
-                <span className="text-[15px] text-black font-medium ml-2">грн</span>
+                <span className="text-[15px] text-black font-medium ml-2"> UAH </span>
               </div>
               <div className="border border-gray-300 px-4 py-2 flex flex-1 items-center justify-between">
                 <input
@@ -232,21 +258,53 @@ const CatalogFilterBar = ({
                   value={tempPriceMax}
                   onChange={handlePriceInput(setTempPriceMax)}
                   onBlur={() => handlePriceBlur('max')}
-                  placeholder={availableMaxPrice || 20}
+                  placeholder={maxAllowed}
                   className="w-full outline-none text-[15px] text-black placeholder-gray-400"
                 />
-                <span className="text-[15px] text-black font-medium ml-2">грн</span>
-              </div>
-            </div>
-            <div className="px-2 mb-6 mt-1">
-              <div className="w-full h-[3px] bg-black relative flex-shrink-0">
-                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-[18px] h-[18px] bg-black rounded-full"></div>
-                <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-[18px] h-[18px] bg-black rounded-full"></div>
+                <span className="text-[15px] text-black font-medium ml-2"> UAH </span>
               </div>
             </div>
 
-            <button onClick={applyPrice} className={okBtnStyle}>Ок</button>
-            <span onClick={clearPrice} className={clearBtnStyle}>Усунути фільтри</span>
+            <div 
+              ref={trackRef}
+              onClick={handleTrackClick}
+              className="relative w-full h-[3px] bg-gray-300 rounded-full mt-7 mb-6 cursor-pointer hover:bg-gray-400 transition-colors"
+            >
+              <div 
+                className={`absolute h-[3px] rounded-full transition-colors ${isPriceError ? 'bg-red-500' : 'bg-black'}`} 
+                style={{ left: `${leftPercent}%`, right: `${rightPercent}%` }}
+              ></div>
+
+              <input 
+                type="range" 
+                min={minAllowed} 
+                max={maxAllowed} 
+                value={safeMin} 
+                onChange={(e) => setTempPriceMin(Math.min(Number(e.target.value), safeMax - 1).toString())}
+                className="custom-range-slider z-10" 
+              />
+              <input 
+                type="range" 
+                min={minAllowed} 
+                max={maxAllowed} 
+                value={safeMax} 
+                onChange={(e) => setTempPriceMax(Math.max(Number(e.target.value), safeMin + 1).toString())}
+                className="custom-range-slider z-20"
+              />
+            </div>
+
+            <button 
+              onClick={applyPrice} 
+              disabled={isPriceError}
+              className={`w-full py-2.5 mt-5 font-medium transition-colors ${
+                isPriceError 
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                  : 'bg-[#0B0035] hover:opacity-90 text-white'
+              }`}
+            >
+              {isPriceError ? 'Невірний діапазон' : 'Ок'}
+            </button>
+            <span onClick={clearPrice} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
       </div>

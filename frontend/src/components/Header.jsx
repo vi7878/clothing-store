@@ -55,7 +55,6 @@ const Header = () => {
           </div>
 
           {/* SEARCH BAR */}
-          {/* SEARCH BAR (Твій оригінальний дизайн з робочим інпутом) */}
             <div className="flex flex-1 justify-end pr-8">
               <form onSubmit={handleSearchSubmit} className="w-full max-w-[300px]">
                 <div className={`relative flex items-center w-full h-11 rounded-full border-[2px] border-[#0B0035] bg-white overflow-hidden transition-all ${isSearchModalOpen ? 'ring-2 ring-[#0B0035]/20' : ''}`}>
@@ -70,7 +69,6 @@ const Header = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setIsSearchModalOpen(true)}
                   />
-                  {/* Кнопка "Очистити", якщо вікно відкрите і є текст */}
                   {isSearchModalOpen && (
                     <button
                       type="button"
@@ -123,7 +121,7 @@ const Header = () => {
           <ul className="flex justify-center items-center gap-12 py-5 text-[15px] uppercase tracking-wide">
             <li>
               <NavLink to="/shop/sale" className={({ isActive }) => isActive ? "text-[#B2412E] font-bold" : "text-[#B2412E] font-bold hover:opacity-70 transition-opacity"}>
-                -20% на товари
+                SALE: ВІД 10% ДО 20%
               </NavLink>
             </li>
             <li><NavLink to="/shop/summer" className={navLinkStyle}>Summer</NavLink></li>
