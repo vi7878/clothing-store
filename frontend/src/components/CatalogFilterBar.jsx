@@ -81,18 +81,18 @@ const CatalogFilterBar = ({
   const clearColor = () => { setColor([]); setOpenDropdown(null); };
 
   const minAllowed = availableMinPrice || 0;
-  const maxAllowed = availableMaxPrice || 99999; 
+  const maxAllowed = availableMaxPrice || 99999;
 
   const parsedMin = tempPriceMin !== '' ? Number(tempPriceMin) : minAllowed;
   const parsedMax = tempPriceMax !== '' ? Number(tempPriceMax) : maxAllowed;
 
   const isPriceError = parsedMin > parsedMax || parsedMin > maxAllowed;
-  
+
   const safeMin = Math.max(minAllowed, Math.min(parsedMin, maxAllowed));
   const safeMax = Math.min(maxAllowed, Math.max(parsedMax, minAllowed));
-  
+
   const range = maxAllowed - minAllowed || 1;
-  
+
   const leftPercent = Math.max(0, Math.min(100, ((safeMin - minAllowed) / range) * 100));
   const rightPercent = Math.max(0, Math.min(100, 100 - (((safeMax - minAllowed) / range) * 100)));
 
@@ -147,7 +147,7 @@ const CatalogFilterBar = ({
   const okBtnStyle = "w-full bg-[#0B0035] hover:opacity-90 text-white font-medium py-2.5 mt-5 transition-opacity";
   const clearBtnStyle = "text-sm text-black underline text-center block mt-3 cursor-pointer hover:text-gray-600";
   const checkboxStyle = "w-5 h-5 flex-shrink-0 border border-black flex items-center justify-center bg-white cursor-pointer";
-  
+
   const getActiveSortLabel = () => sortOptions.find(o => o.id === sort)?.label || 'Сортувати за';
   const getActiveSizeLabel = () => size?.length > 0 ? (size.length === 1 ? `Розмір: ${size[0]}` : `Розмірів: ${size.length}`) : 'Розміри';
   const getActiveColorLabel = () => color?.length > 0 ? (color.length === 1 ? 'Колір: 1' : `Кольорів: ${color.length}`) : 'Кольори';
@@ -265,40 +265,40 @@ const CatalogFilterBar = ({
               </div>
             </div>
 
-            <div 
+            <div
               ref={trackRef}
               onClick={handleTrackClick}
               className="relative w-full h-[3px] bg-gray-300 rounded-full mt-7 mb-6 cursor-pointer hover:bg-gray-400 transition-colors"
             >
-              <div 
-                className={`absolute h-[3px] rounded-full transition-colors ${isPriceError ? 'bg-red-500' : 'bg-black'}`} 
+              <div
+                className={`absolute h-[3px] rounded-full transition-colors ${isPriceError ? 'bg-red-500' : 'bg-black'}`}
                 style={{ left: `${leftPercent}%`, right: `${rightPercent}%` }}
               ></div>
 
-              <input 
-                type="range" 
-                min={minAllowed} 
-                max={maxAllowed} 
-                value={safeMin} 
+              <input
+                type="range"
+                min={minAllowed}
+                max={maxAllowed}
+                value={safeMin}
                 onChange={(e) => setTempPriceMin(Math.min(Number(e.target.value), safeMax - 1).toString())}
-                className="custom-range-slider z-10" 
+                className="custom-range-slider z-10"
               />
-              <input 
-                type="range" 
-                min={minAllowed} 
-                max={maxAllowed} 
-                value={safeMax} 
+              <input
+                type="range"
+                min={minAllowed}
+                max={maxAllowed}
+                value={safeMax}
                 onChange={(e) => setTempPriceMax(Math.max(Number(e.target.value), safeMin + 1).toString())}
                 className="custom-range-slider z-20"
               />
             </div>
 
-            <button 
-              onClick={applyPrice} 
+            <button
+              onClick={applyPrice}
               disabled={isPriceError}
               className={`w-full py-2.5 mt-5 font-medium transition-colors ${
-                isPriceError 
-                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                isPriceError
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                   : 'bg-[#0B0035] hover:opacity-90 text-white'
               }`}
             >
