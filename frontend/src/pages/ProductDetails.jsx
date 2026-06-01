@@ -8,10 +8,10 @@ import { colorOptions } from '../data/colors';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext); 
-  
+  const { products, currency, addToCart } = useContext(ShopContext);
+
   const product = products?.find((p) => String(p.id) === String(id));
-  
+
   const [mainImage, setMainImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -26,14 +26,14 @@ const ProductDetails = () => {
     setSelectedSize('');
     setSelectedColor('');
     setIsWishlisted(false);
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, [product]);
 
   if (!product) {
     return <div className="min-h-screen flex items-center justify-center font-medium">Завантаження товару...</div>;
   }
 
-  const finalPrice = product.has_discount 
+  const finalPrice = product.has_discount
     ? Math.round(product.base_price * (1 - product.discount_percent / 100))
     : product.base_price;
 
@@ -88,7 +88,7 @@ const ProductDetails = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24">
-      
+
       {/* BREADCRUMBS */}
       <div className="text-sm text-gray-500 mb-8 flex items-center gap-2 uppercase tracking-wide">
         <Link to="/" className="hover:text-black transition-colors">Головна</Link>
@@ -101,32 +101,32 @@ const ProductDetails = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-12">
-        
+
         {/* LEFT COLUMN: IMAGE GALLERY */}
         <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-3/5">
           <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible no-scrollbar">
             {product.images.map((imgSrc, index) => (
-              <img 
+              <img
                 key={index}
-                onClick={() => setMainImage(imgSrc)} 
-                src={imgSrc} 
-                alt={`${product.name} thumbnail ${index}`} 
+                onClick={() => setMainImage(imgSrc)}
+                src={imgSrc}
+                alt={`${product.name} thumbnail ${index}`}
                 className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${
                   mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
                 }`}
               />
             ))}
           </div>
-          
+
           <div className="flex-1 bg-gray-50 flex items-center justify-center relative group">
             {product.has_discount && (
               <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 uppercase z-10">
                 -{product.discount_percent}%
               </div>
             )}
-            
+
             {product.images.length > 1 && (
-              <button 
+              <button
                 onClick={handlePrevImage}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#eaf0f6] rounded-full flex items-center justify-center shadow-md hover:bg-[#d5e0eb] transition-colors z-10"
               >
@@ -134,14 +134,14 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <img 
-              src={mainImage} 
-              alt={product.name} 
+            <img
+              src={mainImage}
+              alt={product.name}
               className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
             />
 
             {product.images.length > 1 && (
-              <button 
+              <button
                 onClick={handleNextImage}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#eaf0f6] rounded-full flex items-center justify-center shadow-md hover:bg-[#d5e0eb] transition-colors z-10"
               >
@@ -157,7 +157,7 @@ const ProductDetails = () => {
           <h1 className="text-2xl md:text-3xl font-medium mb-3 text-gray-900 leading-tight">
             {product.name}
           </h1>
-          
+
           <div className="flex items-baseline gap-4 mb-8">
             <span className="text-2xl font-medium text-black">
               {finalPrice} {currency || 'UAH'}
@@ -187,11 +187,11 @@ const ProductDetails = () => {
                     } ${!isAvailable ? 'cursor-not-allowed opacity-50' : ''}`}
                     title={color.name}
                   >
-                    <div 
+                    <div
                       className="w-full h-full border border-gray-200"
                       style={{ backgroundColor: color.hex }}
                     ></div>
-                    
+
                     {!isAvailable && (
                       <div className="absolute top-1/2 left-1/2 w-[150%] h-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45 z-10"></div>
                     )}
@@ -215,15 +215,15 @@ const ProductDetails = () => {
                     onClick={() => isAvailable && setSelectedSize(size)}
                     disabled={!isAvailable}
                     className={`py-3 text-sm font-medium border transition-colors relative overflow-hidden ${
-                      selectedSize === size 
-                        ? 'border-black bg-black text-white' 
-                        : isAvailable 
+                      selectedSize === size
+                        ? 'border-black bg-black text-white'
+                        : isAvailable
                           ? 'border-gray-300 text-gray-900 hover:border-black'
                           : 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
                     }`}
                   >
                     {size}
-                    
+
                     {!isAvailable && (
                       <div className="absolute top-1/2 left-1/2 w-[150%] h-[1.5px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
                     )}
@@ -235,39 +235,39 @@ const ProductDetails = () => {
 
           {/* ACTION BUTTONS */}
           <div className="flex gap-3 mb-8">
-            <button 
+            <button
               onClick={handleAddToCart}
               className="flex-1 bg-black text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 border-2 border-black hover:border-[#B2412E] hover:bg-[#0B0035] transition-all duration-300 uppercase text-sm"
             >
               <TbShoppingBagPlus className="text-xl"/>
               Додати у кошик
             </button>
-            
+
             {/* КНОПКА WISHLIST З РОЖЕВИМ СЕРДЕЧКОМ */}
-            <button 
+            <button
               onClick={() => setIsWishlisted(!isWishlisted)}
               className="w-14 border-2 border-black flex items-center justify-center bg-white group hover:bg-[#eaf0f6] hover:border-[#B2412E] transition-all duration-300"
             >
-              <FiHeart 
+              <FiHeart
                 className={`text-2xl transition-all duration-300 ${
-                  isWishlisted 
-                    ? 'fill-red-500 text-red-500 scale-125' 
-                    : 'text-black group-hover:text-black' 
-                }`} 
+                  isWishlisted
+                    ? 'fill-red-500 text-red-500 scale-125'
+                    : 'text-black group-hover:text-black'
+                }`}
               />
             </button>
           </div>
 
           {/* DESCRIPTION ACCORDION */}
           <div className="mt-8 border border-gray-300">
-            <button 
+            <button
               onClick={() => setIsDescOpen(!isDescOpen)}
               className="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
             >
               <span className="font-bold uppercase text-sm tracking-wider">Опис</span>
               {isDescOpen ? <FiChevronUp /> : <FiChevronDown />}
             </button>
-            
+
             {isDescOpen && (
               <div className="p-4 text-sm text-gray-600 bg-gray-50 border-t border-gray-300">
                 <p className="mb-2">ID: {product.id}</p>
