@@ -283,7 +283,7 @@ const ProductDetails = () => {
       <RecommendedSlider currentProduct={product} />
 
     </div>
-  );
-};
+  )
+}
 
 export default ProductDetails;
