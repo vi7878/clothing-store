@@ -7,11 +7,13 @@ const SaleBanner = () => {
 
   const handleBannerClick = () => {
     navigate('/shop/sale');
+    window.scrollTo(0, 0);
   };
 
   const handleButtonClick = (gender, e) => {
     e.stopPropagation();
     navigate(`/shop/sale?gender=${gender}`);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -23,14 +25,14 @@ const SaleBanner = () => {
       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
       <div className="relative z-10 max-w-[1200px] mx-auto w-full px-5 flex flex-col md:flex-row items-center justify-center md:gap-16">
 
-        <h2 className="text-white font-black text-[150px] md:text-[220px] leading-none tracking-tighter">
-          20%
+        <h2 className="text-white font-black text-[120px] md:text-[150px] leading-none tracking-tighter">
+          10%-20%
         </h2>
 
         <div className="flex flex-col items-center md:items-start text-white max-w-[400px] text-center md:text-left">
           <h3 className="text-3xl md:text-4xl font-bold mb-3">Offer Of The Month</h3>
           <p className="text-sm md:text-base text-gray-200 mb-8 leading-relaxed">
-            Оновіть свій гардероб вигідно. Тільки цього місяця діє спеціальна знижка 20% на обрані моделі для неї та для нього.
+            Оновіть свій гардероб вигідно. Тільки цього місяця діє спеціальна знижка від 10% до 20% на обрані моделі для неї та для нього.
           </p>
 
           <div className="flex gap-4">

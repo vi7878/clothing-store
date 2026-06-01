@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Wishlist from './pages/Wishlist';
 import Account from './pages/Account';
+import SearchPage from './pages/SearchPage';
 import Cart from './pages/Cart';
 import Sale from './pages/Sale';
 import Summer from './pages/Summer';
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/about' element={<About/>} />
           <Route path='/wishlist' element={<Wishlist/>} />
           <Route path='/account' element={<Account/>} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path='/cart' element={<Cart/>} />
           <Route path='/shop/sale' element={<Sale/>} />
           <Route path='/shop/summer' element={<Summer/>} />

@@ -1,34 +1,46 @@
 import { useContext, useState } from 'react';
+import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { FiSearch, FiUser, FiHeart, FiShoppingCart } from "react-icons/fi";
+import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX} from "react-icons/fi";
 import { ShopContext } from '../context/ShopContext.js';
 import wLogoImg from '../assets/logo/W_logo.png';
+import SearchModal from './SearchModal';
 
 const Header = () => {
   const { getCartCount } = useContext(ShopContext);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const scrollDirection = useScrollDirection();
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const getWishlistCount = () => 0;
 
-  const handleSearch = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/shop?search=${searchQuery}`);
+    if (searchQuery.trim().length >= 2) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchModalOpen(false);
+      setSearchQuery('');
     }
   };
 
-  <Link to={'/account'} className="animated-icon-link">
-    <FiUser className="text-[28px] stroke-[2.5]" />
-  </Link>
-
+  const clearSearch = () => {
+    setSearchQuery('');
+    setIsSearchModalOpen(false);
+  };
+  // <Link to={'/account'} className="animated-icon-link">
+  //   <FiUser className="text-[28px] stroke-[2.5]" />
+  // </Link>
   const navLinkStyle = ({ isActive }) =>
     isActive
       ? "text-[#0B0035] font-bold"
       : "text-[#0B0035] font-bold hover:opacity-70 transition-opacity";
 
   return (
-    <header className="w-full bg-white min-w-[1024px]">
+    <>
+    <header className={`fixed top-0 left-0 w-full z-50 bg-white transition-transform duration-300 ease-in-out ${
+        scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
+      }`}>
       <div className="max-w-[1700px] mx-auto px-10">
         <div className="flex justify-between items-center py-6 gap-6">
 
@@ -43,22 +55,32 @@ const Header = () => {
           </div>
 
           {/* SEARCH BAR */}
-          <div className="flex flex-1 justify-end pr-8">
-            <form onSubmit={handleSearch} className="w-full max-w-[300px]">
-              <div className="relative flex items-center w-full h-11 rounded-full border-[2px] border-[#0B0035] bg-white overflow-hidden">
-                <button type="submit" className="grid place-items-center h-full w-14 text-[#0B0035]">
-                  <FiSearch className="text-[22px] stroke-[2.5]" />
-                </button>
-                <input
-                  className="peer h-full w-full outline-none text-[15px] text-[#0B0035] pr-4 bg-transparent placeholder-[#0B0035] font-semibold"
-                  type="text"
-                  placeholder="Пошук"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </form>
-          </div>
+            <div className="flex flex-1 justify-end pr-8">
+              <form onSubmit={handleSearchSubmit} className="w-full max-w-[300px]">
+                <div className={`relative flex items-center w-full h-11 rounded-full border-[2px] border-[#0B0035] bg-white overflow-hidden transition-all ${isSearchModalOpen ? 'ring-2 ring-[#0B0035]/20' : ''}`}>
+                  <button type="submit" className="grid place-items-center h-full w-14 text-[#0B0035]">
+                    <FiSearch className="text-[22px] stroke-[2.5]" />
+                  </button>
+                  <input
+                    className="peer h-full w-full outline-none text-[15px] text-[#0B0035] pr-10 bg-transparent placeholder-[#0B0035] font-semibold"
+                    type="text"
+                    placeholder="Пошук"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsSearchModalOpen(true)}
+                  />
+                  {isSearchModalOpen && (
+                    <button
+                      type="button"
+                      onClick={clearSearch}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0B0035] hover:text-red-600 transition-colors"
+                    >
+                      <FiX className="text-xl stroke-[3]" />
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
 
           {/* USER, WISHLIST, CART ICONS */}
           <div className="flex items-end gap-6 text-[#0B0035]">
@@ -99,7 +121,7 @@ const Header = () => {
           <ul className="flex justify-center items-center gap-12 py-5 text-[15px] uppercase tracking-wide">
             <li>
               <NavLink to="/shop/sale" className={({ isActive }) => isActive ? "text-[#B2412E] font-bold" : "text-[#B2412E] font-bold hover:opacity-70 transition-opacity"}>
-                -20% на товари
+                SALE: ВІД 10% ДО 20%
               </NavLink>
             </li>
             <li><NavLink to="/shop/summer" className={navLinkStyle}>Summer</NavLink></li>
@@ -111,6 +133,13 @@ const Header = () => {
         </div>
       </nav>
     </header>
+    <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+        query={searchQuery}
+      />
+    <div className="h-[160px] w-full"></div>
+    </>
   );
 };
 
