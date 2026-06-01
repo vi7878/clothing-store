@@ -373,18 +373,7 @@ import Main98_2 from "../assets/products/44_2m.jpg";
 //sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 // -COLORS-
-//color_Black: [color_name: "Black", color_hex: "#000000"]
-//color_White: [color_name: "White", color_hex: "#FFFFFF"]
-//color_Gray: [color_name: "Gray", color_hex: "#808080"]
-//color_Navy: [color_name: "Navy", color_hex: "#1E3A8A"]
-//color_Beige: [color_name: "Beige", color_hex: "#D5B895"]
-//color_Brown: [color_name: "Brown", color_hex: "#8B4513"]
-//color_Olive: [color_name: "Olive", color_hex: "#4B5320"]
-//color_Red: [color_name: "Red", color_hex: "#DC2626"]
-//color_Burgundy: [color_name: "Burgundy", color_hex: "#722F37"]
-//color_Pink: [color_name: "Pink", color_hex: "#E79E9E"]
-//color_Light_Blue: [color_name: "Light Blue", color_hex: "#93C5FD"]
-//color_Mustard: [color_name: "Mustard", color_hex: "#EAB308"]
+// src/data/colors.js
 
 // -CATEGORIES_Women-
 //categories: ['Tracksuits', 'Pants & Leggings', 'Shorts', 'Socks',
@@ -419,6 +408,7 @@ export const productsData = [
   //--WOMEN--
   {
     id: 1,
+    //код
     name: "Спортивний костюм оверсайз",
     description: "Детальний опис цього чудового товару...",
     base_price: 1500,
@@ -933,7 +923,6 @@ export const productsData = [
         [
           { name: "Light Blue", hex: "#93C5FD" },
           { name: "White", hex: "#FFFFFF" },
-          { name: "Blue", hex: "#3E7B9D" },
         ],
       ),
     ],

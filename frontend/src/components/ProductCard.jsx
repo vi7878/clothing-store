@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { AiFillHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
   const uniqueSizes = [...new Set(product.variants.map(variant => variant.size))];
@@ -32,35 +33,40 @@ const ProductCard = ({ product }) => {
 
   // "Quick Buy" button logic
   const handleQuickBuy = (e) => {
+    e.preventDefault();
     e.stopPropagation();
 
     if (!selectedSize || !selectedColor) {
       setShowError(true);
     } else {
       setShowError(false);
-console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${selectedColor}`);
+      console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${selectedColor}`);
     }
   };
 
   const handleSizeSelect = (size, e) => {
+    e.preventDefault();
     e.stopPropagation();
     setSelectedSize(size);
     setShowError(false);
   };
 
   const handleColorSelect = (hex, e) => {
+    e.preventDefault();
     e.stopPropagation();
     setSelectedColor(hex);
     setShowError(false);
   };
 
   const toggleWishlist = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsWishlisted(!isWishlisted);
   };
 
   return (
-    <div
+    <Link
+      to={`/product/${product.id}`}
       className="w-full relative cursor-pointer group flex flex-col "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -94,7 +100,7 @@ console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${sel
 
         {/* WISHLIST HEART */}
         <div
-          className="absolute top-4 right-4 z-10 cursor-pointer"
+          className="absolute top-4 right-4 z-20 cursor-pointer"
           onClick={toggleWishlist}
         >
           {isWishlisted ? (
@@ -110,7 +116,7 @@ console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${sel
 
         {/* HOVER MENU */}
         {isHovered && (
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4 transition-opacity duration-300">
+          <div className="absolute inset-0 z-10 bg-black/40 flex flex-col justify-end p-4 transition-opacity duration-300">
 
             {showError && (
               <p className="text-red-500 text-xs font-bold mb-2 drop-shadow-md">ОБЕРІТЬ РОЗМІР ТА КОЛІР!</p>
@@ -168,7 +174,7 @@ console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${sel
           )}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
