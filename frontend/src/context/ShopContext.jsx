@@ -12,6 +12,22 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  const [wishlistItems, setWishlistItems] = useState([]);
+
+  const toggleWishlist = (productId) => {
+    setWishlistItems((prev) => {
+      if (prev.includes(productId)) {
+        return prev.filter((id) => id !== productId);
+      } else {
+        return [...prev, productId];
+      }
+    });
+  };
+
+  const getWishlistCount = () => {
+    return wishlistItems.length;
+  };
+
   const addToCart = (productId, size, color) => {
     const product = productsData.find(p => p.id === productId);
     const variant = product?.variants.find(v => v.size === size && v.color_hex === color);
@@ -104,7 +120,10 @@ const ShopContextProvider = (props) => {
     removeFromCart,
     isCartModalOpen,
     setIsCartModalOpen,
-    addToCart
+    addToCart,
+    wishlistItems,
+    toggleWishlist,
+    getWishlistCount
   };
 
   return (

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
 
   const uniqueSizes = [...new Set(product.variants.map(variant => variant.size))];
   const uniqueColors = [];
@@ -19,8 +19,8 @@ const ProductCard = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
 
+  const isWishlisted = wishlistItems.includes(product.id);
   // calculate discounted price
   const finalPrice = product.has_discount
     ? Math.round(product.base_price * (1 - product.discount_percent / 100))
@@ -59,11 +59,10 @@ const ProductCard = ({ product }) => {
     setSelectedColor(hex);
     setShowError(false);
   };
-
-  const toggleWishlist = (e) => {
+  const handleToggleWishlist = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
+    toggleWishlist(product.id);
   };
 
   return (
@@ -103,7 +102,7 @@ const ProductCard = ({ product }) => {
         {/* WISHLIST HEART */}
         <div
           className="absolute top-4 right-4 z-20 cursor-pointer group/heart"
-          onClick={toggleWishlist} >
+          onClick={handleToggleWishlist} >
           <FiHeart
             className={`text-2xl drop-shadow-md transition-all duration-300 ${
               isWishlisted

@@ -7,13 +7,11 @@ import wLogoImg from '../assets/logo/W_logo.png';
 import SearchModal from './SearchModal';
 
 const Header = () => {
-  const { getCartCount } = useContext(ShopContext);
+  const { getCartCount, getWishlistCount } = useContext(ShopContext);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const scrollDirection = useScrollDirection();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-
-  const getWishlistCount = () => 0;
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
