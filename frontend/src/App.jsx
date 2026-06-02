@@ -7,6 +7,7 @@ import Wishlist from './pages/Wishlist';
 import Account from './pages/Account';
 import SearchPage from './pages/SearchPage';
 import Cart from './pages/Cart';
+import CartModal from './components/CartModal';
 import Sale from './pages/Sale';
 import Summer from './pages/Summer';
 import Women from './pages/Women';
@@ -20,6 +21,7 @@ const App = () => {
     <main>
       <Header />
       <Toaster position='bottom-right'/>
+      <CartModal />
       <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/about' element={<About/>} />
