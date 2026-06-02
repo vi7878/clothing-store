@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX} from "react-icons/fi";
-import { ShopContext } from '../context/ShopContext.js';
+import { ShopContext } from '../context/ShopContext';
 import wLogoImg from '../assets/logo/W_logo.png';
 import SearchModal from './SearchModal';
 

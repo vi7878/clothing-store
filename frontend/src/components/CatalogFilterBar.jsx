@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import { colorOptions } from '../data/colors';
 
 const sortOptions = [
   { id: 'popular', label: 'Від популярного' },
@@ -9,21 +10,6 @@ const sortOptions = [
 ];
 
 const sizeOptions = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-
-const colorOptions = [
-  { id: 'Black', label: 'чорний', hex: '#000000' },
-  { id: 'White', label: 'білий', hex: '#FFFFFF', border: true },
-  { id: 'Gray', label: 'сірий', hex: '#808080' },
-  { id: 'Navy', label: 'темно-синій', hex: '#1E3A8A' },
-  { id: 'Beige', label: 'бежевий', hex: '#F5F5DC', border: true },
-  { id: 'Brown', label: 'коричневий', hex: '#8B4513' },
-  { id: 'Olive', label: 'оливковий', hex: '#4B5320' },
-  { id: 'Red', label: 'червоний', hex: '#DC2626' },
-  { id: 'Burgundy', label: 'бордо', hex: '#722F37' },
-  { id: 'Pink', label: 'рожевий', hex: '#FFC0CB' },
-  { id: 'Light Blue', label: 'блакитний', hex: '#ADD8E6' },
-  { id: 'Mustard', label: 'гірчичний', hex: '#EAB308' },
-];
 
 const CatalogFilterBar = ({
   scrollDirection,
@@ -168,7 +154,7 @@ const CatalogFilterBar = ({
         </button>
         {openDropdown === 'sort' && (
           <div className={popupStyle} style={{ zIndex: 20 }}>
-            <div className="flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-2">
+            <div className="flex flex-col gap-3 ">
               {sortOptions.map((opt) => (
                 <div key={opt.id} onClick={() => setTempSort(opt.id)} className="flex items-center gap-3 cursor-pointer group">
                   <div className={checkboxStyle}>

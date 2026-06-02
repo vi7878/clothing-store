@@ -13,6 +13,7 @@ import Women from './pages/Women';
 import Men from './pages/Men';
 import New from './pages/New';
 import Footer from './components/Footer';
+import ProductDetails from './pages/ProductDetails';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path='/shop/women' element={<Women/>} />
           <Route path='/shop/men' element={<Men/>} />
           <Route path='/shop/new' element={<New/>} />
+          <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </main>

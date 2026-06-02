@@ -26,6 +26,7 @@ const Home = () => {
       <div className="max-w-[1700px] mx-auto px-10">
         <hr className="border-t border-gray-200 my-10" />
       </div>
+      <RecommendedSlider isHomePage={true} />
     </div>
   )
 }
