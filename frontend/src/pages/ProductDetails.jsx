@@ -22,8 +22,21 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       // 1. Try to find in context (static data)
       const found = products?.find((p) => String(p.id) === String(id));
+      
+      const initializeProduct = (prodData) => {
+        setProduct(prodData);
+        if (prodData && prodData.images && prodData.images.length > 0) {
+          const firstImg = prodData.images[0];
+          setMainImage(typeof firstImg === 'object' ? firstImg.image : firstImg);
+        }
+        setSelectedSize('');
+        setSelectedColor('');
+        setIsWishlisted(false);
+        window.scrollTo(0, 0);
+      };
+
       if (found) {
-        setProduct(found);
+        initializeProduct(found);
         setLoading(false);
         return;
       }
@@ -35,7 +48,7 @@ const ProductDetails = () => {
         const response = await fetch(`${apiUrl}/products/${id}/`);
         if (response.ok) {
           const data = await response.json();
-          setProduct(data);
+          initializeProduct(data);
         } else {
           console.error('Product not found');
         }
@@ -48,17 +61,6 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id, products]);
-
-  useEffect(() => {
-    if (product && product.images && product.images.length > 0) {
-      const firstImg = product.images[0];
-      setMainImage(typeof firstImg === 'object' ? firstImg.image : firstImg);
-    }
-    setSelectedSize('');
-    setSelectedColor('');
-    setIsWishlisted(false);
-    window.scrollTo(0, 0);
-  }, [product]);
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center font-medium">Завантаження товару...</div>;
