@@ -3,9 +3,10 @@
 from django.db import migrations
 import random
 
+
 def update_skus(apps, schema_editor):
-    Product = apps.get_model('shop', 'Product')
-    ProductVariant = apps.get_model('shop', 'ProductVariant')
+    Product = apps.get_model("shop", "Product")
+    ProductVariant = apps.get_model("shop", "ProductVariant")
 
     def get_unique_sku(model):
         while True:
@@ -23,10 +24,10 @@ def update_skus(apps, schema_editor):
         variant.sku = get_unique_sku(ProductVariant)
         variant.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
-        ('shop', '0006_product_sku_alter_productvariant_sku.py'),
+        ("shop", "0006_product_sku_alter_productvariant_sku.py"),
     ]
 
     operations = [
