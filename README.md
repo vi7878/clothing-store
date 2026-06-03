@@ -6,8 +6,6 @@
 
 ## Галерея (Visuals)
 
-> **Примітка:** Тут мають бути скріншоти вашого застосунку.
-
 1.  **Головна сторінка:**
 <img width="1920" height="913" alt="image" src="https://github.com/user-attachments/assets/81922718-3779-40f2-a7ff-5213fb886be2" />
 
