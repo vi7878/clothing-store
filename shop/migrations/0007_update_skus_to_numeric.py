@@ -27,7 +27,7 @@ def update_skus(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("shop", "0006_product_sku_alter_productvariant_sku.py"),
+        ("shop", "0006_product_sku_alter_productvariant_sku"),
     ]
 
     operations = [
