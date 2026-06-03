@@ -10,8 +10,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
 
-  const product = products?.find((p) => String(p.id) === String(id));
-
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -19,9 +19,40 @@ const ProductDetails = () => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      // 1. Try to find in context (static data)
+      const found = products?.find((p) => String(p.id) === String(id));
+      if (found) {
+        setProduct(found);
+        setLoading(false);
+        return;
+      }
+
+      // 2. If not found, fetch from API
+      setLoading(true);
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
+        const response = await fetch(`${apiUrl}/products/${id}/`);
+        if (response.ok) {
+          const data = await response.json();
+          setProduct(data);
+        } else {
+          console.error('Product not found');
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id, products]);
+
+  useEffect(() => {
     if (product && product.images && product.images.length > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setMainImage(product.images[0]);
+      const firstImg = product.images[0];
+      setMainImage(typeof firstImg === 'object' ? firstImg.image : firstImg);
     }
     setSelectedSize('');
     setSelectedColor('');
@@ -29,8 +60,12 @@ const ProductDetails = () => {
     window.scrollTo(0, 0);
   }, [product]);
 
-  if (!product) {
+  if (loading) {
     return <div className="min-h-screen flex items-center justify-center font-medium">Завантаження товару...</div>;
+  }
+
+  if (!product) {
+    return <div className="min-h-screen flex items-center justify-center font-medium text-red-500">Товар не знайдено</div>;
   }
 
   const finalPrice = product.has_discount
@@ -74,18 +109,6 @@ const ProductDetails = () => {
     return hex;
   };
 
-  const handlePrevImage = () => {
-    const currentIndex = product.images.indexOf(mainImage);
-    const prevIndex = currentIndex === 0 ? product.images.length - 1 : currentIndex - 1;
-    setMainImage(product.images[prevIndex]);
-  };
-
-  const handleNextImage = () => {
-    const currentIndex = product.images.indexOf(mainImage);
-    const nextIndex = currentIndex === product.images.length - 1 ? 0 : currentIndex + 1;
-    setMainImage(product.images[nextIndex]);
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24">
 
@@ -97,7 +120,7 @@ const ProductDetails = () => {
           {product.gender}
         </Link>
         <span>/</span>
-        <span className="text-gray-900">{product.category}</span>
+        <span className="text-gray-900">{product.category_name || product.category}</span>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-12">
@@ -105,17 +128,20 @@ const ProductDetails = () => {
         {/* LEFT COLUMN: IMAGE GALLERY */}
         <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-3/5">
           <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible no-scrollbar">
-            {product.images.map((imgSrc, index) => (
-              <img
-                key={index}
-                onClick={() => setMainImage(imgSrc)}
-                src={imgSrc}
-                alt={`${product.name} thumbnail ${index}`}
-                className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${
-                  mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
-                }`}
-              />
-            ))}
+            {product.images.map((img, index) => {
+              const imgSrc = typeof img === 'object' ? img.image : img;
+              return (
+                <img
+                  key={index}
+                  onClick={() => setMainImage(imgSrc)}
+                  src={imgSrc}
+                  alt={`${product.name} thumbnail ${index}`}
+                  className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${
+                    mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
+                  }`}
+                />
+              );
+            })}
           </div>
 
           <div className="flex-1 bg-gray-50 flex items-center justify-center relative group">
@@ -127,7 +153,12 @@ const ProductDetails = () => {
 
             {product.images.length > 1 && (
               <button
-                onClick={handlePrevImage}
+                onClick={() => {
+                  const currentIndex = product.images.findIndex(img => (typeof img === 'object' ? img.image : img) === mainImage);
+                  const prevIndex = currentIndex <= 0 ? product.images.length - 1 : currentIndex - 1;
+                  const nextImg = product.images[prevIndex];
+                  setMainImage(typeof nextImg === 'object' ? nextImg.image : nextImg);
+                }}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#eaf0f6] rounded-full flex items-center justify-center shadow-md hover:bg-[#d5e0eb] transition-colors z-10"
               >
                 <FiChevronLeft className="text-2xl text-black pr-0.5" />
@@ -142,7 +173,12 @@ const ProductDetails = () => {
 
             {product.images.length > 1 && (
               <button
-                onClick={handleNextImage}
+                onClick={() => {
+                  const currentIndex = product.images.findIndex(img => (typeof img === 'object' ? img.image : img) === mainImage);
+                  const nextIndex = currentIndex === product.images.length - 1 ? 0 : currentIndex + 1;
+                  const nextImg = product.images[nextIndex];
+                  setMainImage(typeof nextImg === 'object' ? nextImg.image : nextImg);
+                }}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#eaf0f6] rounded-full flex items-center justify-center shadow-md hover:bg-[#d5e0eb] transition-colors z-10"
               >
                 <FiChevronRight className="text-2xl text-black pl-0.5" />
@@ -243,7 +279,6 @@ const ProductDetails = () => {
               Додати у кошик
             </button>
 
-            {/* КНОПКА WISHLIST З РОЖЕВИМ СЕРДЕЧКОМ */}
             <button
               onClick={() => setIsWishlisted(!isWishlisted)}
               className="w-14 border-2 border-black flex items-center justify-center bg-white group hover:bg-[#eaf0f6] hover:border-[#B2412E] transition-all duration-300"
@@ -271,6 +306,7 @@ const ProductDetails = () => {
             {isDescOpen && (
               <div className="p-4 text-sm text-gray-600 bg-gray-50 border-t border-gray-300">
                 <p className="mb-2">ID: {product.id}</p>
+                <p className="mb-2">SKU: {product.sku}</p>
                 <p className="mb-4">{product.description}</p>
                 <p><strong>Колекція:</strong> {product.collections?.join(', ') || '-'}</p>
               </div>

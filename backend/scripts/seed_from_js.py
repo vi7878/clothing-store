@@ -28,8 +28,6 @@ def seed_from_js():
         content = f.read()
 
     try:
-        cat_women = Category.objects.get(name="Вона")
-        cat_men = Category.objects.get(name="Він")
         all_sizes = list(Size.objects.all().order_by("id"))
     except Category.DoesNotExist:
         print("Error: Run seed_categories first.")
@@ -46,12 +44,43 @@ def seed_from_js():
     print("Old products and media files deleted. Starting clean seed...")
 
     # Покращений regex для витягування блоків об'єктів
-    product_blocks = re.findall(r"\{[\s\S]*?id: \d+[\s\S]*?\}", content)
+    product_blocks = re.findall(r"\{\s*id: \d+[\s\S]*?\n\s{2}\},", content)
 
     import_map = {}
-    imports = re.findall(r"import (\w+) from '\.\.\/assets\/products\/(.*?)';", content)
+    # Підтримка як одинарних, так і подвійних лапок в імпортах
+    imports = re.findall(
+        r"import\s+(\w+)\s+from\s+['\"](?:\.\.\/)+assets\/products\/(.*?)['\"];",
+        content,
+    )
     for var_name, file_name in imports:
         import_map[var_name] = file_name
+
+    # Мапінг категорій з JS у БД
+    cat_map = {
+        "Tracksuits": "Спортивні штани з лампасами",  # Тимчасово, краще додати таку категорію
+        "Pants": "Штани",
+        "Pants & Leggings": "Штани та легінси",
+        "Shorts": "Шорти",
+        "Socks": "Базові сірі шкарпетки",  # Теж краще додати категорію Шкарпетки
+        "T-shirts & Polos": "Футболки та поло",
+        "T-shirts & Tank Tops": "Футболки та топи",
+        "Shirts": "Сорочки",
+        "Blouses & Shirts": "Сорочки",
+        "Sweaters": "Светри",
+        "Sweaters & Cardigans": "Светри та кардигани",
+        "Beachwear": "Одяг",
+        "Suits & Blazers": "Одяг",
+        "Jackets & Vests": "Верхній одяг",
+        "Coats": "Верхній одяг",
+        "Outerwear": "Верхній одяг",
+        "Hoodies & Sweatshirts": "Худі та світшоти",
+        "Sets": "Одяг",
+        "Co-ords": "Одяг",
+        "Jumpsuits": "Одяг",
+        "Jeans": "Джинси",
+        "Dresses": "Сукні",
+        "Skirts": "Спідниці",
+    }
 
     for block in product_blocks:
         id_match = re.search(r"id:\s*(\d+)", block)
@@ -59,14 +88,24 @@ def seed_from_js():
             continue
         p_id = id_match.group(1)
 
-        title_match = re.search(r'title:\s*["\'](.*?)["\']', block)
+        title_match = re.search(r'name:\s*["\'](.*?)["\']', block)
         title = title_match.group(1) if title_match else f"Product {p_id}"
+
+        description_match = re.search(r'description:\s*["\']([\s\S]*?)["\']', block)
+        description = (
+            description_match.group(1).strip()
+            if description_match
+            else f"Опис для {title}."
+        )
 
         price_match = re.search(r"price:\s*(\d+)", block)
         price = price_match.group(1) if price_match else "1000"
 
         gender_match = re.search(r'gender:\s*[\'"](.*?)[\'"]', block)
         gender = gender_match.group(1) if gender_match else "unisex"
+
+        category_match = re.search(r'category:\s*["\'](.*?)["\']', block)
+        js_category = category_match.group(1) if category_match else "Clothing"
 
         # Tags
         tags = []
@@ -80,13 +119,9 @@ def seed_from_js():
 
         # Colors
         colors = []
-        colors_match = re.search(r"colors:\s*\[(.*?)\]", block)
-        if colors_match:
-            colors = [
-                c.strip().strip("'").strip('"')
-                for c in colors_match.group(1).split(",")
-                if c.strip()
-            ]
+        color_matches = re.findall(r'hex:\s*["\'](#[0-9a-fA-F]{3,6})["\']', block)
+        if color_matches:
+            colors = list(set(color_matches))
 
         # Images
         imgs = []
@@ -94,36 +129,66 @@ def seed_from_js():
         if imgs_match:
             imgs = [i.strip() for i in imgs_match.group(1).split(",") if i.strip()]
 
-        # Створення
-        cat = cat_women if gender == "women" else cat_men
+        # Створення / Пошук категорії
+        parent_name = "Вона" if gender == "women" else "Він"
+        target_cat_name = cat_map.get(js_category, "Одяг")
+
+        try:
+            # Шукаємо категорію з правильним батьком
+            cat = Category.objects.get(
+                name=target_cat_name, parent__parent__name=parent_name
+            )
+        except Category.DoesNotExist:
+            try:
+                cat = Category.objects.get(
+                    name=target_cat_name, parent__name=parent_name
+                )
+            except Category.DoesNotExist:
+                cat = Category.objects.get(name=parent_name)
+
         product = Product.objects.create(
             name=title,
             category=cat,
             base_price=Decimal(price),
             gender=gender,
-            description=f"Опис для {title}.",
+            description=description,
         )
 
         for t_name in tags:
             tag, _ = Tag.objects.get_or_create(name=t_name)
             ProductTag.objects.create(product=product, tag=tag)
 
-        # 3 послідовні розміри
-        if len(all_sizes) >= 3:
-            idx = random.randint(0, len(all_sizes) - 3)
-            selected_sizes = all_sizes[idx : idx + 3]
+        # Розміри
+        size_match = re.search(r"\[\s*[\"'](XXS|XS|S|M|L|XL|XXL)[\"']", block)
+        if size_match:
+            size_array_match = re.search(
+                r"\[\s*((?:[\"'](?:XXS|XS|S|M|L|XL|XXL)[\"']\s*,?\s*)+)\]", block
+            )
+            if size_array_match:
+                size_names = re.findall(
+                    r"[\"'](XXS|XS|S|M|L|XL|XXL)[\"']", size_array_match.group(1)
+                )
+                selected_sizes = [s for s in all_sizes if s.name in size_names]
+            else:
+                selected_sizes = all_sizes[:3]
         else:
-            selected_sizes = all_sizes
+            selected_sizes = all_sizes[:3]
+
+        if not colors:
+            colors = ["#FFFFFF"]
 
         for color_hex in colors:
             for size in selected_sizes:
-                sku = f"W-{p_id}-{color_hex.replace('#', '')}-{size.name}"
+                sku = f"{random.randint(10000, 99999)}"
+                while ProductVariant.objects.filter(sku=sku).exists():
+                    sku = f"{random.randint(10000, 99999)}"
+
                 ProductVariant.objects.create(
                     product=product,
                     size=size,
                     color_name=f"Color {color_hex}",
                     color_hex=color_hex,
-                    stock_quantity=random.randint(1, 100),
+                    stock_quantity=random.randint(10, 50),
                     sku=sku,
                 )
 

@@ -1,60 +1,42 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { productsData } from '../data/products';
 import ProductCard from '../components/ProductCard';
-
-const allCategoriesMap = [
-  { id: 'Tracksuits', label: 'Спортивні костюми' },
-  { id: 'Pants', label: 'Штани' },
-  { id: 'Pants & Leggings', label: 'Штани та легінси' },
-  { id: 'Shorts', label: 'Шорти' },
-  { id: 'Socks', label: 'Шкарпетки' },
-  { id: 'T-shirts & Polos', label: 'Футболки та поло' },
-  { id: 'T-shirts & Tank Tops', label: 'Футболки і майки' },
-  { id: 'Shirts', label: 'Сорочки' },
-  { id: 'Blouses & Shirts', label: 'Блузки та сорочки' },
-  { id: 'Sweaters', label: 'Светри' },
-  { id: 'Sweaters & Cardigans', label: 'Светри та кардигани' },
-  { id: 'Beachwear', label: 'Пляжний одяг' },
-  { id: 'Suits & Blazers', label: 'Костюми та піджаки' },
-  { id: 'Jackets & Vests', label: 'Піджаки та жилетки' },
-  { id: 'Coats', label: 'Пальта' },
-  { id: 'Outerwear', label: 'Верхній одяг' },
-  { id: 'Hoodies & Sweatshirts', label: 'Кофти' },
-  { id: 'Hoodies & Sweatshirts', label: 'Худі та кофти' },
-  { id: 'Sets', label: 'Комплекти' },
-  { id: 'Co-ords', label: 'Комплекти' },
-  { id: 'Jumpsuits', label: 'Комбінезони' },
-  { id: 'Jeans', label: 'Джинси' },
-  { id: 'Dresses', label: 'Сукні' },
-  { id: 'Skirts', label: 'Спідниці' }
-];
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const [genderFilter, setGenderFilter] = useState('all');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const searchResults = useMemo(() => {
-    if (!query) return [];
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (!query) return;
 
-    const lowerQuery = query.toLowerCase().trim();
-    // trimming the ending for flexibility (e.g., "спідниця" -> "спідниц")
-    const baseQuery = lowerQuery.length > 4 ? lowerQuery.slice(0, -2) : lowerQuery;
+      setLoading(true);
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
+        let url = `${apiUrl}/products/?search=${encodeURIComponent(query)}`;
+        if (genderFilter !== 'all') {
+          url += `&gender=${genderFilter}`;
+        }
 
-    return productsData.filter(p => {
-      //searching for matches only in the name (description removed to avoid "junk" results)
-      const matchName = p.name?.toLowerCase().includes(baseQuery);
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(Array.isArray(data) ? data : (data.results || []));
+        } else {
+          setProducts([]);
+        }
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      const cat = allCategoriesMap.find(c => c.id === p.category);
-      const matchCategory = cat ? cat.label.toLowerCase().includes(baseQuery) : false;
-
-      if (!matchName && !matchCategory) return false;
-
-      if (genderFilter !== 'all' && p.gender !== genderFilter) return false;
-
-      return true;
-    });
+    fetchSearchResults();
   }, [query, genderFilter]);
 
   return (
@@ -65,7 +47,7 @@ const SearchPage = () => {
           Результати пошуку
         </h1>
         <p className="text-lg text-gray-600">
-          За запитом <span className="font-bold text-black">"{query}"</span> знайдено {searchResults.length} товарів
+          За запитом <span className="font-bold text-black">"{query}"</span> знайдено {products.length} товарів
         </p>
       </div>
 
@@ -97,9 +79,14 @@ const SearchPage = () => {
         </div>
       )}
 
-      {searchResults.length > 0 ? (
+      {loading ? (
+        <div className="py-20 text-center">
+           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0B0035] mx-auto"></div>
+           <p className="mt-4 text-gray-500">Шукаємо найкращі пропозиції...</p>
+        </div>
+      ) : products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 mb-12">
-          {searchResults.map(product => (
+          {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
