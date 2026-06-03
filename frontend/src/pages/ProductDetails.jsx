@@ -22,7 +22,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       // 1. Try to find in context (static data)
       const found = products?.find((p) => String(p.id) === String(id));
-      
+
       const initializeProduct = (prodData) => {
         setProduct(prodData);
         if (prodData && prodData.images && prodData.images.length > 0) {
