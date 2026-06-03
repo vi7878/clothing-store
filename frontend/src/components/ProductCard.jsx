@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FiHeart } from 'react-icons/fi';
-import { AiFillHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { ShopContext } from '../context/ShopContext';
 
 const ProductCard = ({ product }) => {
+  const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
+
   const uniqueSizes = [...new Set(product.variants.map(variant => variant.size))];
   const uniqueColors = [];
   const seenHexes = new Set();
@@ -17,8 +19,8 @@ const ProductCard = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
 
+  const isWishlisted = wishlistItems.includes(product.id);
   // calculate discounted price
   const finalPrice = product.has_discount
     ? Math.round(product.base_price * (1 - product.discount_percent / 100))
@@ -40,7 +42,7 @@ const ProductCard = ({ product }) => {
       setShowError(true);
     } else {
       setShowError(false);
-      console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Color: ${selectedColor}`);
+      addToCart(product.id, selectedSize, selectedColor);
     }
   };
 
@@ -57,11 +59,10 @@ const ProductCard = ({ product }) => {
     setSelectedColor(hex);
     setShowError(false);
   };
-
-  const toggleWishlist = (e) => {
+  const handleToggleWishlist = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
+    toggleWishlist(product.id);
   };
 
   return (
@@ -100,18 +101,15 @@ const ProductCard = ({ product }) => {
 
         {/* WISHLIST HEART */}
         <div
-          className="absolute top-4 right-4 z-20 cursor-pointer"
-          onClick={toggleWishlist}
-        >
-          {isWishlisted ? (
-            <AiFillHeart
-              className="text-red-500 text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110"
-            />
-          ) : (
-            <FiHeart
-              className="text-white text-2xl drop-shadow-md transition-transform duration-300 hover:scale-110"
-            />
-          )}
+          className="absolute top-4 right-4 z-20 cursor-pointer group/heart"
+          onClick={handleToggleWishlist} >
+          <FiHeart
+            className={`text-2xl drop-shadow-md transition-all duration-300 ${
+              isWishlisted
+                ? 'fill-red-500 text-red-500 scale-125'
+                : 'text-white group-hover/heart:scale-110'
+            }`}
+          />
         </div>
 
         {/* HOVER MENU */}
