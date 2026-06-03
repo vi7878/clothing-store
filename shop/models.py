@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from datetime import timedelta
 from decimal import Decimal
+import uuid
 
 
 class UserRole(models.TextChoices):
@@ -88,6 +89,7 @@ class Product(models.Model):
         Category, on_delete=models.CASCADE, related_name="products"
     )
     name = models.CharField(max_length=255)
+    sku = models.CharField(max_length=100, unique=True, blank=True)
     description = models.TextField(blank=True)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -111,6 +113,22 @@ class Product(models.Model):
     tags = models.ManyToManyField(
         Tag, through="ProductTag", blank=True, related_name="products"
     )
+
+    def generate_sku(self):
+        # Приклад: CAT-NAME-RANDOM
+        cat_prefix = self.category.name[:3].upper() if self.category else "PRD"
+        name_part = self.name[:3].upper().replace(" ", "")
+        unique_part = str(uuid.uuid4())[:8].upper()
+        return f"{cat_prefix}-{name_part}-{unique_part}"
+
+    def save(self, *args, **kwargs):
+        if not self.sku:
+            # Спробуємо згенерувати унікальний SKU
+            new_sku = self.generate_sku()
+            while Product.objects.filter(sku=new_sku).exists():
+                new_sku = self.generate_sku()
+            self.sku = new_sku
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -143,7 +161,22 @@ class ProductVariant(models.Model):
     color_name = models.CharField(max_length=50)
     color_hex = models.CharField(max_length=7, blank=True)
     stock_quantity = models.IntegerField(default=0)
-    sku = models.CharField(max_length=100, unique=True)
+    sku = models.CharField(max_length=100, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.sku:
+            # Створення SKU на основі батьківського товару, розміру та кольору
+            color_part = self.color_name[:3].upper().replace(" ", "")
+            size_part = self.size.name.upper()
+            self.sku = f"{self.product.sku}-{size_part}-{color_part}"
+
+            # Перевірка на унікальність
+            base_sku = self.sku
+            counter = 1
+            while ProductVariant.objects.filter(sku=self.sku).exists():
+                self.sku = f"{base_sku}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.product.name} - {self.size.name} - {self.color_name}"
