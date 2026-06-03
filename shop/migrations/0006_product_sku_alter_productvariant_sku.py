@@ -3,8 +3,9 @@
 from django.db import migrations, models
 import uuid
 
+
 def gen_sku(apps, schema_editor):
-    Product = apps.get_model('shop', 'Product')
+    Product = apps.get_model("shop", "Product")
     for p in Product.objects.all():
         if not p.sku:
             cat_prefix = p.category.name[:3].upper() if p.category else "PRD"
@@ -13,7 +14,7 @@ def gen_sku(apps, schema_editor):
             p.sku = f"{cat_prefix}-{name_part}-{unique_part}"
             p.save()
 
-    ProductVariant = apps.get_model('shop', 'ProductVariant')
+    ProductVariant = apps.get_model("shop", "ProductVariant")
     for pv in ProductVariant.objects.all():
         if not pv.sku:
             color_part = pv.color_name[:3].upper().replace(" ", "")
@@ -21,28 +22,28 @@ def gen_sku(apps, schema_editor):
             pv.sku = f"{pv.product.sku}-{size_part}-{color_part}"
             pv.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
-        ('shop', '0005_remove_product_collection'),
+        ("shop", "0005_remove_product_collection"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='sku',
+            model_name="product",
+            name="sku",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.RunPython(gen_sku),
         migrations.AlterField(
-            model_name='product',
-            name='sku',
-            field=models.CharField(blank=True, default='', max_length=100, unique=True),
+            model_name="product",
+            name="sku",
+            field=models.CharField(blank=True, default="", max_length=100, unique=True),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='productvariant',
-            name='sku',
+            model_name="productvariant",
+            name="sku",
             field=models.CharField(blank=True, max_length=100, unique=True),
         ),
     ]
