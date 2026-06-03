@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from datetime import timedelta
 from decimal import Decimal
-import uuid
+import random
 
 
 class UserRole(models.TextChoices):
@@ -115,15 +115,11 @@ class Product(models.Model):
     )
 
     def generate_sku(self):
-        # Приклад: CAT-NAME-RANDOM
-        cat_prefix = self.category.name[:3].upper() if self.category else "PRD"
-        name_part = self.name[:3].upper().replace(" ", "")
-        unique_part = str(uuid.uuid4())[:8].upper()
-        return f"{cat_prefix}-{name_part}-{unique_part}"
+        # Геруємо випадковий 5-значний цифровий код
+        return f"{random.randint(10000, 99999)}"
 
     def save(self, *args, **kwargs):
         if not self.sku:
-            # Спробуємо згенерувати унікальний SKU
             new_sku = self.generate_sku()
             while Product.objects.filter(sku=new_sku).exists():
                 new_sku = self.generate_sku()
@@ -165,17 +161,11 @@ class ProductVariant(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.sku:
-            # Створення SKU на основі батьківського товару, розміру та кольору
-            color_part = self.color_name[:3].upper().replace(" ", "")
-            size_part = self.size.name.upper()
-            self.sku = f"{self.product.sku}-{size_part}-{color_part}"
-
-            # Перевірка на унікальність
-            base_sku = self.sku
-            counter = 1
-            while ProductVariant.objects.filter(sku=self.sku).exists():
-                self.sku = f"{base_sku}-{counter}"
-                counter += 1
+            # Генеруємо унікальний 5-значний цифровий код
+            new_sku = f"{random.randint(10000, 99999)}"
+            while ProductVariant.objects.filter(sku=new_sku).exists():
+                new_sku = f"{random.randint(10000, 99999)}"
+            self.sku = new_sku
         super().save(*args, **kwargs)
 
     def __str__(self):
