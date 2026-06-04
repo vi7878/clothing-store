@@ -35,6 +35,7 @@ ALLOWED_HOSTS = os.environ.get(
 # Application definition
 
 INSTALLED_APPS = [
+    "django.contrib.postgres",
     "shop",
     "django.contrib.admin",
     "django.contrib.auth",

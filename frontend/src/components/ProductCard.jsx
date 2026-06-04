@@ -6,10 +6,10 @@ import { ShopContext } from '../context/ShopContext';
 const ProductCard = ({ product }) => {
   const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
 
-  const uniqueSizes = [...new Set(product.variants.map(variant => variant.size))];
+  const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
   const uniqueColors = [];
   const seenHexes = new Set();
-  product.variants.forEach(variant => {
+  product.variants?.forEach(variant => {
     if (!seenHexes.has(variant.color_hex)) {
       seenHexes.add(variant.color_hex);
       uniqueColors.push({ name: variant.color_name, hex: variant.color_hex });
@@ -21,10 +21,21 @@ const ProductCard = ({ product }) => {
   const [showError, setShowError] = useState(false);
 
   const isWishlisted = wishlistItems.includes(product.id);
+
   // calculate discounted price
   const finalPrice = product.has_discount
     ? Math.round(product.base_price * (1 - product.discount_percent / 100))
     : product.base_price;
+
+  // Helper for images (API object vs static string)
+  const getProductImage = (index) => {
+    if (!product.images || product.images.length === 0) return '/placeholder.jpg';
+    const img = product.images[index] || product.images[0];
+    return typeof img === 'object' ? img.image : img;
+  };
+
+  const mainImg = getProductImage(0);
+  const hoverImg = getProductImage(1);
 
   const handleMouseLeave = () => {
     setIsHovered(false);
@@ -59,6 +70,7 @@ const ProductCard = ({ product }) => {
     setSelectedColor(hex);
     setShowError(false);
   };
+
   const handleToggleWishlist = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -74,8 +86,8 @@ const ProductCard = ({ product }) => {
     >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <img
-          src={isHovered ? product.images[1] : product.images[0]}
-          alt={product.title}
+          src={isHovered ? hoverImg : mainImg}
+          alt={product.name || product.title}
           loading="lazy"
           className="w-full h-full object-cover transition-opacity duration-300"
         />
@@ -157,10 +169,13 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="bg-[#fafafa] p-1 flex flex-col">
-        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none mb-1">{product.name}</h3>
+        <div className="flex justify-between items-start mb-1">
+          <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none">{product.name}</h3>
+          <span className="text-[10px] text-gray-400 font-mono">#{product.sku || `S-${String(product.id).padStart(3, '0')}`}</span>
+        </div>
         <div className="flex text-yellow-400 text-base leading-none mb-1.5">
           {[...Array(5)].map((_, i) => (
-            <span key={i}>{i < product.rating ? '★' : '☆'}</span>
+            <span key={i}>{i < (product.rating || product.average_rating) ? '★' : '☆'}</span>
           ))}
         </div>
 
@@ -176,4 +191,4 @@ const ProductCard = ({ product }) => {
   )
 }
 
-export default ProductCard
+export default ProductCard;
