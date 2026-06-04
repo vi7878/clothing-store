@@ -5,9 +5,12 @@ from django.contrib.postgres.search import (
     SearchRank,
     TrigramSimilarity,
 )
-from django.db.models import Q
+from django.db.models import Q, Case, When, Value, IntegerField
 from .models import Category, Product
-from .serializers import CategorySerializer, ProductSerializer
+from .serializers import (
+    CategorySerializer,
+    ProductSerializer,
+)
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -43,7 +46,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                 if eng in query_text:
                     expanded_query += " " + " ".join(ukr_list)
 
-            # Використовуємо 'simple' конфігурацію, якщо немає українського словника
+            # Повнотекстовий пошук за назвою, категорією, тегами та описом (без SKU)
             vector = (
                 SearchVector("name", weight="A", config="simple")
                 + SearchVector("category__name", weight="B", config="simple")
@@ -56,24 +59,34 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                 expanded_query, search_type="websearch", config="simple"
             )
 
-            # Тріграмна схожість для кількох полів
+            # Тріграмна схожість для тексту
             name_similarity = TrigramSimilarity("name", query_text)
             cat_similarity = TrigramSimilarity("category__name", query_text)
 
+            # Пріоритет для SKU (чистий збіг цифр без fuzzy noise)
             queryset = (
                 queryset.annotate(
                     rank=SearchRank(vector, query),
                     name_sim=name_similarity,
                     cat_sim=cat_similarity,
+                    sku_priority=Case(
+                        When(sku=query_text, then=Value(2)),  # Точний збіг
+                        When(
+                            sku__icontains=query_text, then=Value(1)
+                        ),  # Частковий збіг
+                        default=Value(0),
+                        output_field=IntegerField(),
+                    ),
                 )
                 .filter(
                     Q(rank__gte=0.01)
                     | Q(name_sim__gt=0.1)
                     | Q(cat_sim__gt=0.1)
+                    | Q(sku_priority__gt=0)
                     | Q(name__icontains=query_text)
                     | Q(category__name__icontains=query_text)
                 )
-                .order_by("-rank", "-name_sim", "-cat_sim")
+                .order_by("-sku_priority", "-rank", "-name_sim", "-cat_sim")
                 .distinct()
             )
 

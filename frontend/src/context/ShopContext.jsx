@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState } from 'react';
-import { productsData } from '../data/products';
+import { createContext, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 export const ShopContext = createContext(null);
@@ -8,6 +7,30 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showUserLogin, setShowUserLogin] = useState(false);
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const baseUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
+        const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+        const response = await fetch(`${apiUrl}/products/`);
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(Array.isArray(data) ? data : (data.results || []));
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
@@ -29,8 +52,8 @@ const ShopContextProvider = (props) => {
   };
 
   const addToCart = (productId, size, color) => {
-    const product = productsData.find(p => p.id === productId);
-    const variant = product?.variants.find(v => v.size === size && v.color_hex === color);
+    const product = products.find(p => p.id === productId);
+    const variant = product?.variants?.find(v => v.size === size && v.color_hex === color);
     const maxStock = variant ? variant.stock_quantity : 0;
 
     let addedSuccessfully = false;
@@ -65,8 +88,8 @@ const ShopContextProvider = (props) => {
   const updateQuantity = (productId, size, color, newQuantity) => {
     if (newQuantity < 1) return;
 
-    const product = productsData.find(p => p.id === productId);
-    const variant = product?.variants.find(v => v.size === size && v.color_hex === color);
+    const product = products.find(p => p.id === productId);
+    const variant = product?.variants?.find(v => v.size === size && v.color_hex === color);
     const maxStock = variant ? variant.stock_quantity : 0;
 
     if (newQuantity > maxStock) {
@@ -93,7 +116,7 @@ const ShopContextProvider = (props) => {
 
   const getCartTotal = () => {
     return cartItems.reduce((total, cartItem) => {
-      const product = productsData.find((p) => p.id === cartItem.id);
+      const product = products.find((p) => p.id === cartItem.id);
       if (product) {
         const finalPrice = product.has_discount
           ? Math.round(product.base_price * (1 - product.discount_percent / 100))
@@ -114,7 +137,8 @@ const ShopContextProvider = (props) => {
     cartItems,
     getCartCount,
     getCartTotal,
-    products: productsData,
+    products,
+    loading,
     currency: 'UAH',
     updateQuantity,
     removeFromCart,

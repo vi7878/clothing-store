@@ -20,9 +20,6 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      // 1. Try to find in context (static data)
-      const found = products?.find((p) => String(p.id) === String(id));
-
       const initializeProduct = (prodData) => {
         setProduct(prodData);
         if (prodData && prodData.images && prodData.images.length > 0) {
@@ -35,13 +32,7 @@ const ProductDetails = () => {
         window.scrollTo(0, 0);
       };
 
-      if (found) {
-        initializeProduct(found);
-        setLoading(false);
-        return;
-      }
-
-      // 2. If not found, fetch from API
+      // Try to fetch from API first to get real data (including SKU)
       setLoading(true);
       try {
         const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
@@ -49,14 +40,19 @@ const ProductDetails = () => {
         if (response.ok) {
           const data = await response.json();
           initializeProduct(data);
-        } else {
-          console.error('Product not found');
+          setLoading(false);
+          return;
         }
       } catch (error) {
-        console.error('Error fetching product:', error);
-      } finally {
-        setLoading(false);
+        console.error('Error fetching product from API:', error);
       }
+
+      // Fallback to static data if API fails or not found
+      const found = products?.find((p) => String(p.id) === String(id));
+      if (found) {
+        initializeProduct(found);
+      }
+      setLoading(false);
     };
 
     fetchProduct();
@@ -130,7 +126,7 @@ const ProductDetails = () => {
         {/* LEFT COLUMN: IMAGE GALLERY */}
         <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-3/5">
           <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible no-scrollbar">
-            {product.images.map((img, index) => {
+            {product.images?.map((img, index) => {
               const imgSrc = typeof img === 'object' ? img.image : img;
               return (
                 <img
@@ -153,7 +149,7 @@ const ProductDetails = () => {
               </div>
             )}
 
-            {product.images.length > 1 && (
+            {product.images?.length > 1 && (
               <button
                 onClick={() => {
                   const currentIndex = product.images.findIndex(img => (typeof img === 'object' ? img.image : img) === mainImage);
@@ -173,7 +169,7 @@ const ProductDetails = () => {
               className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
             />
 
-            {product.images.length > 1 && (
+            {product.images?.length > 1 && (
               <button
                 onClick={() => {
                   const currentIndex = product.images.findIndex(img => (typeof img === 'object' ? img.image : img) === mainImage);
@@ -307,8 +303,7 @@ const ProductDetails = () => {
 
             {isDescOpen && (
               <div className="p-4 text-sm text-gray-600 bg-gray-50 border-t border-gray-300">
-                <p className="mb-2">ID: {product.id}</p>
-                <p className="mb-2">SKU: {product.sku}</p>
+                <p className="mb-2 font-mono uppercase tracking-tighter">Артикул: {product.sku || `S-${String(product.id).padStart(3, '0')}`}</p>
                 <p className="mb-4">{product.description}</p>
                 <p><strong>Колекція:</strong> {product.collections?.join(', ') || '-'}</p>
               </div>

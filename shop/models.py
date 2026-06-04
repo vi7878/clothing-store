@@ -22,6 +22,11 @@ class OrderStatus(models.TextChoices):
     CANCELLED = "cancelled", _("Cancelled")
 
 
+class PaymentMethod(models.TextChoices):
+    UPON_RECEIPT = "upon_receipt", _("Upon Receipt")
+    CARD_ONLINE = "card_online", _("Card Online")
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -55,6 +60,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="categories/", null=True, blank=True)
     parent = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
@@ -211,6 +217,15 @@ class Order(models.Model):
     status = models.CharField(
         max_length=20, choices=OrderStatus, default=OrderStatus.PENDING
     )
+    payment_method = models.CharField(
+        max_length=20, choices=PaymentMethod, default=PaymentMethod.UPON_RECEIPT
+    )
+    subtotal = models.DecimalField(
+        max_digits=10, decimal_places=2, default=Decimal("0.00")
+    )
+    delivery_fee = models.DecimalField(
+        max_digits=10, decimal_places=2, default=Decimal("0.00")
+    )
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     shipping_address = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -223,6 +238,36 @@ class OrderItem(models.Model):
     )
     quantity = models.PositiveIntegerField()
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
+
+    # Snapshots for historical data
+    product_name = models.CharField(max_length=255, blank=True)
+    size_name = models.CharField(max_length=20, blank=True)
+    color_name = models.CharField(max_length=50, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.product_name and self.product_variant:
+            self.product_name = self.product_variant.product.name
+            self.size_name = self.product_variant.size.name
+            self.color_name = self.product_variant.color_name
+        super().save(*args, **kwargs)
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    delivery_address = models.TextField()
+    is_default = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.is_default:
+            # Скидаємо прапорець дефолтної адреси для інших адрес користувача
+            Address.objects.filter(user=self.user, is_default=True).update(
+                is_default=False
+            )
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Addresses"
 
 
 class Review(models.Model):

@@ -169,7 +169,10 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="bg-[#fafafa] p-1 flex flex-col">
-        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none mb-1">{product.name}</h3>
+        <div className="flex justify-between items-start mb-1">
+          <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none">{product.name}</h3>
+          <span className="text-[10px] text-gray-400 font-mono">#{product.sku || `S-${String(product.id).padStart(3, '0')}`}</span>
+        </div>
         <div className="flex text-yellow-400 text-base leading-none mb-1.5">
           {[...Array(5)].map((_, i) => (
             <span key={i}>{i < (product.rating || product.average_rating) ? '★' : '☆'}</span>

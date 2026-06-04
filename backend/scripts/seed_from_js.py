@@ -147,6 +147,7 @@ def seed_from_js():
                 cat = Category.objects.get(name=parent_name)
 
         product = Product.objects.create(
+            id=int(p_id),
             name=title,
             category=cat,
             base_price=Decimal(price),
