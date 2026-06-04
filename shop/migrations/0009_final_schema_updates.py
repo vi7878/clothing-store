@@ -8,7 +8,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("shop", "0007_add_sku_to_product_and_variant"),
+        ("shop", "0008_enable_trigram_extension"),
     ]
 
     operations = [

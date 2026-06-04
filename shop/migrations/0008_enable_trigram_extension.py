@@ -4,7 +4,7 @@ from django.contrib.postgres.operations import TrigramExtension, BtreeGinExtensi
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("shop", "0005_remove_product_collection"),
+        ("shop", "0007_update_skus_to_numeric"),
     ]
 
     operations = [
