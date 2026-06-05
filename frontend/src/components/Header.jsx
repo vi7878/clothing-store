@@ -3,9 +3,9 @@ import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX, FiPackage, FiLogOut } from "react-icons/fi";
 import { ShopContext } from '../context/ShopContext';
+import { AuthContext } from '../context/AuthContext';
 import wLogoImg from '../assets/logo/W_logo.png';
 import SearchModal from './SearchModal';
-import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const { getCartCount, getWishlistCount } = useContext(ShopContext);

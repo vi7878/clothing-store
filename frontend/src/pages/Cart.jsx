@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom';
 import RecommendedSlider from '../components/RecommendedSlider';
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity, removeFromCart, getCartTotal, getCartCount } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, removeFromCart, getCartTotal, getCartCount, wishlistItems, toggleWishlist } = useContext(ShopContext);
   const [paymentMethod, setPaymentMethod] = useState('upon_receipt');
-  const [likedItems, setLikedItems] = useState(new Set());
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,15 +21,6 @@ const Cart = () => {
   const getTranslatedColorName = (hex) => {
     const translated = colorOptions.find(c => c.hex.toLowerCase() === hex.toLowerCase());
     return translated ? translated.label : hex;
-  };
-
-  const toggleLike = (key) => {
-    setLikedItems(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) newSet.delete(key);
-      else newSet.add(key);
-      return newSet;
-    });
   };
 
   if (cartItems.length === 0) {
@@ -65,8 +55,7 @@ const Cart = () => {
               ? Math.round(product.base_price * (1 - product.discount_percent / 100))
               : product.base_price;
 
-            const uniqueKey = `${item.id}-${item.size}-${item.color}`;
-            const isLiked = likedItems.has(uniqueKey);
+            const isLiked = wishlistItems.includes(product.id);
 
             const currentVariant = product.variants.find(v => v.size === item.size && v.color_hex === item.color);
             const maxStock = currentVariant ? currentVariant.stock_quantity : 0;
@@ -75,7 +64,7 @@ const Cart = () => {
               <div key={index} className="flex gap-4 md:gap-6 border-b border-gray-200 pb-6 relative">
                 <div className="w-24 md:w-32 flex-shrink-0 bg-gray-50">
                   <Link to={`/product/${product.id}`}>
-                    <img src={product.images[0]} alt={product.name} className="w-full h-auto object-cover" />
+                    <img src={product.images[0]?.image || product.images[0] || '/placeholder.jpg'} alt={product.name} className="w-full h-auto object-cover" />
                   </Link>
                 </div>
 
@@ -93,7 +82,7 @@ const Cart = () => {
                     {/* "Wishlist" and "Remove" Buttons (Desktop) */}
                     <div className="hidden md:flex items-center gap-4 text-gray-400">
                       <button
-                        onClick={() => toggleLike(uniqueKey)}
+                        onClick={() => toggleWishlist(product.id)}
                         className="group flex items-center justify-center transition-colors"
                       >
                         <FiHeart
@@ -149,7 +138,7 @@ const Cart = () => {
                   {/* "Wishlist" and "Remove" Buttons (Mobile) */}
                   <div className="flex md:hidden items-center gap-4 text-gray-400 mt-4 pt-4 border-t border-gray-100">
                     <button
-                      onClick={() => toggleLike(uniqueKey)}
+                      onClick={() => toggleWishlist(product.id)}
                       className="group flex items-center justify-center transition-colors"
                     >
                       <FiHeart
