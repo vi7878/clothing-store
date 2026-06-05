@@ -1,17 +1,24 @@
 import { useContext, useState } from 'react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX} from "react-icons/fi";
+import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX, FiPackage, FiLogOut } from "react-icons/fi";
 import { ShopContext } from '../context/ShopContext';
 import wLogoImg from '../assets/logo/W_logo.png';
 import SearchModal from './SearchModal';
+import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const { getCartCount, getWishlistCount } = useContext(ShopContext);
+
+  const { user, logout } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const scrollDirection = useScrollDirection();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const isAuthenticated = !!user;
+  const userName = user ? `${user.firstName} ${user.lastName || ''}`.trim() || "Користувач" : "Користувач";
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -84,9 +91,60 @@ const Header = () => {
           <div className="flex items-end gap-6 text-[#0B0035]">
 
             {/* User */}
-           <Link to={'/account'} className="animated-icon-link">
-             <FiUser className="text-[28px] stroke-[2.5]" />
-           </Link>
+          <div className="relative group cursor-pointer flex items-center h-full pb-2 pt-2 -mb-2 -mt-2">
+              <Link to={isAuthenticated ? '/account' : '/login'} className="animated-icon-link">
+                <FiUser className="text-[28px] stroke-[2.5]" />
+              </Link>
+
+              <div className="absolute right-[-20px] top-[55px] w-[320px] bg-white shadow-[0_10px_40px_rgba(0,0,0,0.12)] border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 rounded-md overflow-hidden">
+                <div className="absolute -top-4 left-0 w-full h-4 bg-transparent"></div>
+
+                {!isAuthenticated ? (
+                  <div>
+                    <div className="bg-[#eef6fc] p-6 text-center">
+                      <h3 className="font-bold text-[17px] text-[#0B0035] mb-4">Ви зареєстровані?</h3>
+                      <Link
+                        to="/login"
+                        className="block w-full bg-[#0B0035] text-white py-2.5 font-semibold hover:bg-black transition-colors"
+                      >
+                        Увійти
+                      </Link>
+                    </div>
+                    <div className="p-6 text-center">
+                      <h3 className="font-bold text-[17px] text-[#0B0035] mb-2">Вперше на сайті?</h3>
+                      <p className="text-[13px] text-gray-500 mb-5 leading-relaxed">
+                        Після швидкої реєстрації ви отримаєте доступ до багатьох функцій
+                      </p>
+                      <Link
+                        to="/register"
+                        className="block w-full border-2 border-black bg-white text-black py-2.5 font-semibold hover:bg-gray-50 transition-colors"
+                      >
+                        Зареєструватись
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-5">
+                    <h3 className="font-bold text-xl mb-4 pl-2 text-[#0B0035]">{userName}</h3>
+                    <nav className="flex flex-col space-y-1">
+                      <Link to="/account" className="flex items-center gap-3 px-2 py-3 hover:bg-gray-50 transition-colors text-gray-700 hover:text-black">
+                        <FiPackage className="text-xl stroke-[2]" />
+                        <span className="text-[15px]">Мої замовлення</span>
+                      </Link>
+                      <Link to="/account" className="flex items-center gap-3 px-2 py-3 hover:bg-gray-50 transition-colors text-gray-700 hover:text-black">
+                        <FiUser className="text-xl stroke-[2]" />
+                        <span className="text-[15px]">Мої дані адреси</span>
+                      </Link>
+                    </nav>
+                    <hr className="my-2 border-gray-100" />
+                    <button onClick={() => { logout(); navigate('/'); }} className="flex items-center gap-3 px-2 py-3 w-full text-left hover:bg-gray-50 transition-colors text-gray-700 hover:text-red-600">
+                      <FiLogOut className="text-xl stroke-[2]" />
+                      <span className="text-[15px]">Вийти</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
 
             {/* Wishlist */}
             <Link to={'/wishlist'} className="animated-icon-link">

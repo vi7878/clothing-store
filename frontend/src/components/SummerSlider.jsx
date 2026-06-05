@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ProductCard from './ProductCard';
-import { productsData } from '../data/products';
+import { ShopContext } from '../context/ShopContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -8,10 +8,26 @@ import { Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const SummerSlider = () => {
+  const { products, loading } = useContext(ShopContext);
   const [activeTab, setActiveTab] = useState('women');
 
-  const filteredProducts = productsData.filter(product =>
-  product.gender === activeTab && product.collections.includes('summer'));
+  const filteredProducts = products.filter(product => {
+    const isGenderMatch = product.gender === activeTab;
+
+    const tags = product.tags || [];
+    const hasSummerTag = tags.some(tag => {
+      const tagName = typeof tag === 'object' ? tag.name : tag;
+      return tagName?.toLowerCase() === 'summer';
+    });
+
+    const isSummerAttr = product.is_summer === true;
+    const collections = product.collections || [];
+    const hasCollectionSummer = collections.some(c => c.toLowerCase() === 'summer');
+
+    return isGenderMatch && (hasSummerTag || isSummerAttr || hasCollectionSummer);
+  });
+
+  if (loading) return null;
 
   return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-10 relative group overflow-hidden">

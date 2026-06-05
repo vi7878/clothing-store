@@ -21,33 +21,55 @@ def seed_from_js():
     media_prod_path = "/app/media/products/"
 
     if not os.path.exists(js_file_path):
-        print(f"Error: {js_file_path} not found!")
+        print(f"Error: {js_file_path} not found at {js_file_path}")
         return
 
     with open(js_file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    try:
-        all_sizes = list(Size.objects.all().order_by("id"))
-    except Category.DoesNotExist:
-        print("Error: Run seed_categories first.")
-        return
+    # Створюємо базові розміри
+    size_names_list = ["XXS", "XS", "S", "M", "L", "XL", "XXL"]
+    for sn in size_names_list:
+        Size.objects.get_or_create(name=sn)
 
-    # 1. Очищення бази даних
-    Product.objects.all().delete()
+    all_sizes_map = {s.name: s for s in Size.objects.all()}
 
-    # 2. Очищення фізичних файлів у media, щоб уникнути суфіксів у назвах
-    if os.path.exists(media_prod_path):
-        shutil.rmtree(media_prod_path)
-    os.makedirs(media_prod_path, exist_ok=True)
+    # Очищення бази (тільки якщо запускаємо свіжий сід)
+    print(f"Starting seeding from {js_file_path}...")
 
-    print("Old products and media files deleted. Starting clean seed...")
+    # Мапінг кольорів
+    color_map = {
+        "#000000": "чорний",
+        "#FFFFFF": "білий",
+        "#808080": "сірий",
+        "#1E3A8A": "темно-синій",
+        "#D5B895": "бежевий",
+        "#8B4513": "коричневий",
+        "#4B5320": "оливковий",
+        "#DC2626": "червоний",
+        "#722F37": "бордо",
+        "#E79E9E": "рожевий",
+        "#93C5FD": "блакитний",
+        "#EAB308": "гірчичний",
+        "#3E7B9D": "синій",
+        "#008080": "бірюзовий",
+        "#6B21A8": "фіолетовий",
+        "#B7410E": "теракотовий",
+        "#047857": "смарагдовий",
+        "#C19A6B": "карамельний",
+    }
 
-    # Покращений regex для витягування блоків об'єктів
-    product_blocks = re.findall(r"\{\s*id: \d+[\s\S]*?\n\s{2}\},", content)
+    # Знаходимо блоки товарів за допомогою Regex (більш надійно)
+    # Шукаємо об'єкти, що починаються з { id: і мають закриваючу дужку },
+    product_blocks = re.findall(r"\{\s*id:\s*\d+[\s\S]*?\n\s{2}\},", content)
+
+    if not product_blocks:
+        # Спробуємо інший варіант відступів
+        product_blocks = re.findall(r"\{\s*id:\s*\d+[\s\S]*?\n\s{4}\},", content)
+
+    print(f"Found {len(product_blocks)} product blocks in JS file.")
 
     import_map = {}
-    # Підтримка як одинарних, так і подвійних лапок в імпортах
     imports = re.findall(
         r"import\s+(\w+)\s+from\s+['\"](?:\.\.\/)+assets\/products\/(.*?)['\"];",
         content,
@@ -55,13 +77,12 @@ def seed_from_js():
     for var_name, file_name in imports:
         import_map[var_name] = file_name
 
-    # Мапінг категорій з JS у БД
     cat_map = {
-        "Tracksuits": "Спортивні штани з лампасами",  # Тимчасово, краще додати таку категорію
+        "Tracksuits": "Спортивні штани з лампасами",
         "Pants": "Штани",
         "Pants & Leggings": "Штани та легінси",
         "Shorts": "Шорти",
-        "Socks": "Базові сірі шкарпетки",  # Теж краще додати категорію Шкарпетки
+        "Socks": "Базові сірі шкарпетки",
         "T-shirts & Polos": "Футболки та поло",
         "T-shirts & Tank Tops": "Футболки та топи",
         "Shirts": "Сорочки",
@@ -82,21 +103,25 @@ def seed_from_js():
         "Skirts": "Спідниці",
     }
 
+    # Видаляємо старі товари ТІЛЬКИ якщо знайшли нові блоки
+    if product_blocks:
+        Product.objects.all().delete()
+        if os.path.exists(media_prod_path):
+            shutil.rmtree(media_prod_path)
+        os.makedirs(media_prod_path, exist_ok=True)
+    else:
+        print("No product blocks found, skipping deletion.")
+        return
+
+    count = 0
     for block in product_blocks:
         id_match = re.search(r"id:\s*(\d+)", block)
         if not id_match:
             continue
-        p_id = id_match.group(1)
+        p_id = int(id_match.group(1))
 
         title_match = re.search(r'name:\s*["\'](.*?)["\']', block)
         title = title_match.group(1) if title_match else f"Product {p_id}"
-
-        description_match = re.search(r'description:\s*["\']([\s\S]*?)["\']', block)
-        description = (
-            description_match.group(1).strip()
-            if description_match
-            else f"Опис для {title}."
-        )
 
         price_match = re.search(r"price:\s*(\d+)", block)
         price = price_match.group(1) if price_match else "1000"
@@ -107,34 +132,20 @@ def seed_from_js():
         category_match = re.search(r'category:\s*["\'](.*?)["\']', block)
         js_category = category_match.group(1) if category_match else "Clothing"
 
-        # Tags
+        # Tags (Collections)
         tags = []
-        tags_match = re.search(r"collections:\s*\[(.*?)\]", block)
+        tags_match = re.search(r"collections:\s*\[(.*?)\]", block, re.DOTALL)
         if tags_match:
             tags = [
-                t.strip().strip("'").strip('"')
+                t.strip().strip("'").strip('"').lower()
                 for t in tags_match.group(1).split(",")
                 if t.strip()
             ]
 
-        # Colors
-        colors = []
-        color_matches = re.findall(r'hex:\s*["\'](#[0-9a-fA-F]{3,6})["\']', block)
-        if color_matches:
-            colors = list(set(color_matches))
-
-        # Images
-        imgs = []
-        imgs_match = re.search(r"images:\s*\[(.*?)\]", block)
-        if imgs_match:
-            imgs = [i.strip() for i in imgs_match.group(1).split(",") if i.strip()]
-
-        # Створення / Пошук категорії
+        # Створення продукту
         parent_name = "Вона" if gender == "women" else "Він"
         target_cat_name = cat_map.get(js_category, "Одяг")
-
         try:
-            # Шукаємо категорію з правильним батьком
             cat = Category.objects.get(
                 name=target_cat_name, parent__parent__name=parent_name
             )
@@ -144,68 +155,84 @@ def seed_from_js():
                     name=target_cat_name, parent__name=parent_name
                 )
             except Category.DoesNotExist:
-                cat = Category.objects.get(name=parent_name)
+                cat, _ = Category.objects.get_or_create(name=parent_name)
 
         product = Product.objects.create(
-            id=int(p_id),
+            id=p_id,
             name=title,
             category=cat,
             base_price=Decimal(price),
             gender=gender,
-            description=description,
+            description=title,
         )
 
         for t_name in tags:
             tag, _ = Tag.objects.get_or_create(name=t_name)
             ProductTag.objects.create(product=product, tag=tag)
 
-        # Розміри
-        size_match = re.search(r"\[\s*[\"'](XXS|XS|S|M|L|XL|XXL)[\"']", block)
-        if size_match:
-            size_array_match = re.search(
-                r"\[\s*((?:[\"'](?:XXS|XS|S|M|L|XL|XXL)[\"']\s*,?\s*)+)\]", block
-            )
-            if size_array_match:
-                size_names = re.findall(
-                    r"[\"'](XXS|XS|S|M|L|XL|XXL)[\"']", size_array_match.group(1)
-                )
-                selected_sizes = [s for s in all_sizes if s.name in size_names]
-            else:
-                selected_sizes = all_sizes[:3]
-        else:
-            selected_sizes = all_sizes[:3]
+        # Варіанти
+        extracted_variants = []
+        gen_match = re.search(
+            r"generateVariants\s*\(\s*\[(.*?)\]\s*,\s*\[(.*?)\]", block, re.DOTALL
+        )
+        if gen_match:
+            s_part = gen_match.group(1)
+            c_part = gen_match.group(2)
+            v_sizes = [
+                s.strip().strip("'").strip('"') for s in s_part.split(",") if s.strip()
+            ]
+            v_colors = re.findall(r"hex:\s*['\"](#[0-9a-fA-F]{3,6})['\"]", c_part)
+            for c_hex in v_colors:
+                for s_name in v_sizes:
+                    extracted_variants.append({"size": s_name, "hex": c_hex})
 
-        if not colors:
-            colors = ["#FFFFFF"]
+        manual_vars = re.findall(
+            r"size:\s*['\"](.*?)['\"]\s*,\s*[\s\S]*?color_hex:\s*['\"](#[0-9a-fA-F]{3,6})['\"]",
+            block,
+        )
+        for s_name, c_hex in manual_vars:
+            if not any(
+                v["size"] == s_name and v["hex"].lower() == c_hex.lower()
+                for v in extracted_variants
+            ):
+                extracted_variants.append({"size": s_name, "hex": c_hex})
 
-        for color_hex in colors:
-            for size in selected_sizes:
-                sku = f"{random.randint(10000, 99999)}"
-                while ProductVariant.objects.filter(sku=sku).exists():
-                    sku = f"{random.randint(10000, 99999)}"
+        if not extracted_variants:
+            for s_name in ["S", "M", "L"]:
+                extracted_variants.append({"size": s_name, "hex": "#FFFFFF"})
 
-                ProductVariant.objects.create(
-                    product=product,
-                    size=size,
-                    color_name=f"Color {color_hex}",
-                    color_hex=color_hex,
-                    stock_quantity=random.randint(10, 50),
-                    sku=sku,
-                )
-
-        for i, img_var in enumerate(imgs):
-            file_name = import_map.get(img_var)
-            if not file_name:
+        for v in extracted_variants:
+            size_obj = all_sizes_map.get(v["size"])
+            if not size_obj:
                 continue
+            c_hex = v["hex"]
+            c_name = color_map.get(c_hex.upper(), f"Колір {c_hex}")
+            ProductVariant.objects.create(
+                product=product,
+                size=size_obj,
+                color_name=c_name,
+                color_hex=c_hex,
+                stock_quantity=random.randint(10, 50),
+            )
 
-            img_path = os.path.join(js_path, file_name)
-            if os.path.exists(img_path):
-                img_type = "main" if i == 0 else ("hover" if i == 1 else "gallery")
-                with open(img_path, "rb") as f:
-                    pi = ProductImage(product=product, image_type=img_type)
-                    pi.image.save(file_name, File(f), save=True)
+        # Фото
+        img_vars_match = re.search(r"images:\s*\[(.*?)\]", block, re.DOTALL)
+        if img_vars_match:
+            imgs = [i.strip() for i in img_vars_match.group(1).split(",") if i.strip()]
+            for i, img_var in enumerate(imgs):
+                file_name = import_map.get(img_var)
+                if not file_name:
+                    continue
+                img_path = os.path.join(js_path, file_name)
+                if os.path.exists(img_path):
+                    img_type = "main" if i == 0 else ("hover" if i == 1 else "gallery")
+                    with open(img_path, "rb") as f:
+                        pi = ProductImage(product=product, image_type=img_type)
+                        pi.image.save(file_name, File(f), save=True)
 
-        print(f"Synced: {title}")
+        count += 1
+
+    print(f"Successfully synced {count} products with categories and variants.")
 
 
 if __name__ == "__main__":
