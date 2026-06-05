@@ -8,7 +8,7 @@ import { Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const NewArrivals = () => {
-  const { products, loading } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   const [activeTab, setActiveTab] = useState('women');
 
   const filteredProducts = products.filter(product => {
