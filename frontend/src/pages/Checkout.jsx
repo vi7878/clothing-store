@@ -34,14 +34,14 @@ const Checkout = () => {
 
     const handleSubmit = async () => {
         if (!validate()) return;
-        
+
         const order_items = cartItems.map(item => {
             const product = products.find(p => p.id === item.id);
             const variant = product?.variants?.find(v => v.size === item.size && v.color_hex === item.color);
             const price = product.has_discount
                 ? Math.round(product.base_price * (1 - product.discount_percent / 100))
                 : product.base_price;
-            
+
             return {
                 product_variant: variant?.id,
                 quantity: item.quantity,
@@ -96,7 +96,7 @@ const Checkout = () => {
                     </button>
                 </div>
             </div>
-            
+
             <div className="bg-gray-50 p-8 rounded-lg h-fit">
                 <h3 className="text-xl font-bold mb-6">Ваше замовлення</h3>
                 <div className="space-y-4 mb-8">
