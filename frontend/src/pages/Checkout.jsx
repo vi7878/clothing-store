@@ -16,8 +16,6 @@ const Checkout = () => {
         address: '',
     });
 
-    const [errors, setErrors] = useState({});
-
     const subtotal = getCartTotal();
     const deliveryFee = subtotal > 2000 ? 0 : 80;
     const finalTotal = subtotal + deliveryFee;
