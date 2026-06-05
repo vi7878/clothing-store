@@ -21,13 +21,11 @@ const Checkout = () => {
     const finalTotal = subtotal + deliveryFee;
 
     const validate = () => {
-        const newErrors = {};
-        if (!form.firstName.trim()) newErrors.firstName = "Обов'язкове поле";
-        if (!form.lastName.trim()) newErrors.lastName = "Обов'язкове поле";
-        if (!form.phone.trim()) newErrors.phone = "Обов'язкове поле";
-        if (!form.address.trim()) newErrors.address = "Обов'язкове поле";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        if (!form.firstName.trim() || !form.lastName.trim() || !form.phone.trim() || !form.address.trim()) {
+            alert("Будь ласка, заповніть всі обов'язкові поля!");
+            return false;
+        }
+        return true;
     };
 
     const handleSubmit = async () => {
