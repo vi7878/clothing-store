@@ -22,7 +22,6 @@ const Home = () => {
       </div>
       <SaleBanner />
       <CategoriesGrid />
-      <RecommendedSlider />
       <div className="max-w-[1700px] mx-auto px-10">
         <hr className="border-t border-gray-200 my-10" />
       </div>
