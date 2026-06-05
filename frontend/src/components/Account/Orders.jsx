@@ -8,7 +8,7 @@ const Main102 = "https://via.placeholder.com/80x100/eef6fc/0B0035?text=Item+2";
 const dummyOrders = [
   {
     id: '568665',
-    statusDate: '12 березня 2026 14:30', 
+    statusDate: '12 березня 2026 14:30',
     status: 'Виконано',
     statusColor: 'text-green-600',
     paymentMethod: 'Оплата під час отримання товару',
@@ -55,29 +55,29 @@ const Orders = () => {
 
   const toggleOrder = (id) => {
     if (expandedOrderId === id) {
-      setExpandedOrderId(null); 
+      setExpandedOrderId(null);
     } else {
-      setExpandedOrderId(id); 
+      setExpandedOrderId(id);
     }
   };
 
   return (
     <div className="animate-fade-in">
       <h3 className="text-2xl font-bold mb-8 text-[#0B0035]">Мої замовлення</h3>
-      
+
       <div className="flex flex-col gap-6">
         {dummyOrders.map((order) => {
           const isExpanded = expandedOrderId === order.id;
 
           return (
             <div key={order.id} className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md bg-white">
-              <div 
+              <div
                 onClick={() => toggleOrder(order.id)}
                 className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors gap-4 relative"
               >
                 <div className="w-full sm:w-1/3 flex flex-col justify-center">
                   <h4 className="font-bold text-lg text-[#0B0035] mb-1">№{order.id}</h4>
-                  
+
                   <div className="flex items-center gap-2">
                     <p className={`${order.statusColor} font-semibold text-sm uppercase tracking-wide`}>
                       {order.status}
@@ -92,14 +92,14 @@ const Orders = () => {
                 <div className="w-full flex-1 flex justify-start sm:justify-center items-center">
                   <div className="flex items-center gap-3">
                     {order.items.slice(0, 5).map((item) => (
-                      <img 
-                        key={item.id} 
-                        src={item.images[0]} 
-                        alt={item.name} 
+                      <img
+                        key={item.id}
+                        src={item.images[0]}
+                        alt={item.name}
                         className="w-16 h-20 object-cover rounded-md shadow-sm border border-gray-100 text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                       />
                     ))}
-                    
+
                     {order.items.length > 5 && (
                       <div className="w-9 h-9 rounded-full bg-[#0B0035] text-white flex items-center justify-center text-sm font-bold shadow-sm">
                         +{order.items.length - 5}
@@ -114,26 +114,26 @@ const Orders = () => {
 
               {isExpanded && (
                 <div className="p-5 border-t border-gray-100 bg-white">
-                  
+
                   <div className="flex flex-col gap-4 mb-8">
                     {order.items.map(item => (
                       <div key={item.id} className="flex gap-4 py-4 border-b border-gray-100 last:border-0">
-                        <img 
-                          src={item.images[0]} 
-                          alt={item.name} 
-                          className="w-16 h-20 object-cover rounded text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50" 
+                        <img
+                          src={item.images[0]}
+                          alt={item.name}
+                          className="w-16 h-20 object-cover rounded text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                         />
                         <div className="flex-1 flex flex-col sm:flex-row sm:justify-between gap-2">
                           <div>
                             <h5 className="font-bold text-[#0B0035]">{item.name}</h5>
                             <p className="text-xs text-gray-400 mt-1">Артикул: {item.article}</p>
-                            
+
                             <p className="text-xs text-gray-500 mt-1">
                               Розмір: <span className="font-semibold text-gray-700">{item.size}</span>
                               <span className="mx-2 text-gray-300">|</span>
                               Колір: <span className="font-semibold text-gray-700">{item.color}</span>
                             </p>
-                            
+
                             <p className="text-sm text-gray-600 mt-2">{item.price} грн × {item.qty}</p>
                           </div>
                           <div className="text-left sm:text-right">
