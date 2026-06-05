@@ -38,7 +38,7 @@ const Orders = () => {
   };
 
   if (loading) return <div className="py-10 text-center">Завантаження замовлень...</div>;
-  
+
   if (orders.length === 0) return (
     <div className="py-10 text-center">
       <h3 className="text-xl font-bold mb-4">У вас ще немає замовлень</h3>
@@ -115,7 +115,7 @@ const Orders = () => {
                         <div className="flex-1 flex flex-col sm:flex-row sm:justify-between gap-2">
                           <div>
                             <h5 className="font-bold text-[#0B0035]">{item.product_name}</h5>
-                            
+
                             <p className="text-xs text-gray-500 mt-1">
                               Розмір: <span className="font-semibold text-gray-700">{item.size_name}</span>
                               <span className="mx-2 text-gray-300">|</span>
