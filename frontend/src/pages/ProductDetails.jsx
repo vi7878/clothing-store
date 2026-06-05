@@ -5,10 +5,13 @@ import { FiHeart, FiChevronRight, FiChevronLeft, FiChevronUp, FiChevronDown } fr
 import { TbShoppingBagPlus } from 'react-icons/tb';
 import RecommendedSlider from '../components/RecommendedSlider';
 import { colorOptions } from '../data/colors';
+import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
+  const { user } = useContext(AuthContext);
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -134,9 +137,8 @@ const ProductDetails = () => {
                   onClick={() => setMainImage(imgSrc)}
                   src={imgSrc}
                   alt={`${product.name} thumbnail ${index}`}
-                  className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${
-                    mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
-                  }`}
+                  className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
+                    }`}
                 />
               );
             })}
@@ -216,9 +218,8 @@ const ProductDetails = () => {
                     key={index}
                     onClick={() => isAvailable && setSelectedColor(color.hex)}
                     disabled={!isAvailable}
-                    className={`w-10 h-10 border-2 flex items-center justify-center p-0.5 relative overflow-hidden ${
-                      selectedColor === color.hex ? 'border-black' : 'border-transparent hover:border-gray-300'
-                    } ${!isAvailable ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`w-10 h-10 border-2 flex items-center justify-center p-0.5 relative overflow-hidden ${selectedColor === color.hex ? 'border-black' : 'border-transparent hover:border-gray-300'
+                      } ${!isAvailable ? 'cursor-not-allowed opacity-50' : ''}`}
                     title={color.name}
                   >
                     <div
@@ -248,13 +249,12 @@ const ProductDetails = () => {
                     key={size}
                     onClick={() => isAvailable && setSelectedSize(size)}
                     disabled={!isAvailable}
-                    className={`py-3 text-sm font-medium border transition-colors relative overflow-hidden ${
-                      selectedSize === size
+                    className={`py-3 text-sm font-medium border transition-colors relative overflow-hidden ${selectedSize === size
                         ? 'border-black bg-black text-white'
                         : isAvailable
                           ? 'border-gray-300 text-gray-900 hover:border-black'
                           : 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
-                    }`}
+                      }`}
                   >
                     {size}
 
@@ -273,20 +273,25 @@ const ProductDetails = () => {
               onClick={handleAddToCart}
               className="flex-1 bg-black text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 border-2 border-black hover:border-[#B2412E] hover:bg-[#0B0035] transition-all duration-300 uppercase text-sm"
             >
-              <TbShoppingBagPlus className="text-xl"/>
+              <TbShoppingBagPlus className="text-xl" />
               Додати у кошик
             </button>
 
             <button
-              onClick={() => setIsWishlisted(!isWishlisted)}
+              onClick={() => {
+                if (!user) {
+                  toast.error('Увійдіть в акаунт, щоб додати товар до улюблених');
+                  return;
+                }
+                setIsWishlisted(!isWishlisted);
+              }}
               className="w-14 border-2 border-black flex items-center justify-center bg-white group hover:bg-[#eaf0f6] hover:border-[#B2412E] transition-all duration-300"
             >
               <FiHeart
-                className={`text-2xl transition-all duration-300 ${
-                  isWishlisted
+                className={`text-2xl transition-all duration-300 ${isWishlisted
                     ? 'fill-red-500 text-red-500 scale-125'
                     : 'text-black group-hover:text-black'
-                }`}
+                  }`}
               />
             </button>
           </div>

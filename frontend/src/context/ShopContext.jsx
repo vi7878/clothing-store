@@ -5,9 +5,6 @@ import toast from 'react-hot-toast';
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
-  const [user, setUser] = useState(null);
-  const [showUserLogin, setShowUserLogin] = useState(false);
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -132,8 +129,6 @@ const ShopContextProvider = (props) => {
   };
 
   const contextValue = {
-    user, setUser,
-    showUserLogin, setShowUserLogin,
     cartItems,
     getCartCount,
     getCartTotal,
@@ -147,6 +142,7 @@ const ShopContextProvider = (props) => {
     addToCart,
     wishlistItems,
     toggleWishlist,
+    setCartItems,
     getWishlistCount
   };
 

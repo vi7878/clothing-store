@@ -15,27 +15,35 @@ import Men from './pages/Men';
 import New from './pages/New';
 import Footer from './components/Footer';
 import ProductDetails from './pages/ProductDetails';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
 
 const App = () => {
   return (
     <main>
       <Header />
-      <Toaster position='bottom-right'/>
+      <Toaster position='bottom-right' />
       <CartModal />
-      <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/about' element={<About/>} />
-          <Route path='/wishlist' element={<Wishlist/>} />
-          <Route path='/account' element={<Account/>} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/wishlist' element={<Wishlist />} />
+          <Route path='/account' element={<Account />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path='/cart' element={<Cart/>} />
-          <Route path='/shop/sale' element={<Sale/>} />
-          <Route path='/shop/summer' element={<Summer/>} />
-          <Route path='/shop/women' element={<Women/>} />
-          <Route path='/shop/men' element={<Men/>} />
-          <Route path='/shop/new' element={<New/>} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/shop/sale' element={<Sale />} />
+          <Route path='/shop/summer' element={<Summer />} />
+          <Route path='/shop/women' element={<Women />} />
+          <Route path='/shop/men' element={<Men />} />
+          <Route path='/shop/new' element={<New />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-      </Routes>
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+        </Routes>
       <Footer />
     </main>
   );

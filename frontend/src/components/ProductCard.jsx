@@ -2,10 +2,12 @@ import { useState, useContext } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
+import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ product }) => {
   const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
-
+  const { user } = useContext(AuthContext);
   const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
   const uniqueColors = [];
   const seenHexes = new Set();
@@ -74,6 +76,10 @@ const ProductCard = ({ product }) => {
   const handleToggleWishlist = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!user) {
+      toast.error('Увійдіть в акаунт, щоб додати товар до улюблених');
+      return;
+    }
     toggleWishlist(product.id);
   };
 
@@ -97,15 +103,14 @@ const ProductCard = ({ product }) => {
             {product.collections.map((collection) => (
               <span
                 key={collection}
-                className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${
-                  collection === 'new' ? 'bg-orange-500' :
-                  collection === 'summer' ? 'bg-indigo-300' :
-                  'bg-gray-500'
-                }`}
+                className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${collection === 'new' ? 'bg-orange-500' :
+                    collection === 'summer' ? 'bg-indigo-300' :
+                      'bg-gray-500'
+                  }`}
               >
                 {collection === 'new' ? 'Новинка' :
-                 collection === 'summer' ? 'Літо' :
-                 collection}
+                  collection === 'summer' ? 'Літо' :
+                    collection}
               </span>
             ))}
           </div>
@@ -116,11 +121,10 @@ const ProductCard = ({ product }) => {
           className="absolute top-4 right-4 z-20 cursor-pointer group/heart"
           onClick={handleToggleWishlist} >
           <FiHeart
-            className={`text-2xl drop-shadow-md transition-all duration-300 ${
-              isWishlisted
+            className={`text-2xl drop-shadow-md transition-all duration-300 ${isWishlisted
                 ? 'fill-red-500 text-red-500 scale-125'
                 : 'text-white group-hover/heart:scale-110'
-            }`}
+              }`}
           />
         </div>
 
@@ -137,9 +141,8 @@ const ProductCard = ({ product }) => {
                 <button
                   key={size}
                   onClick={(e) => handleSizeSelect(size, e)}
-                  className={`border border-white text-white text-sm px-2 py-1 transition-colors ${
-                    selectedSize === size ? 'bg-[#B2412E] border-[#B2412E]' : 'hover:bg-white/20'
-                  }`}
+                  className={`border border-white text-white text-sm px-2 py-1 transition-colors ${selectedSize === size ? 'bg-[#B2412E] border-[#B2412E]' : 'hover:bg-white/20'
+                    }`}
                 >
                   {size}
                 </button>
@@ -151,9 +154,8 @@ const ProductCard = ({ product }) => {
                 <button
                   key={index}
                   onClick={(e) => handleColorSelect(color.hex, e)}
-                  className={`w-4 h-4 rounded-full border border-gray-100 transition-all ${
-                    selectedColor === color.hex ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40' : ''
-                  }`}
+                  className={`w-4 h-4 rounded-full border border-gray-100 transition-all ${selectedColor === color.hex ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40' : ''
+                    }`}
                   style={{ backgroundColor: color.hex }}
                 />
               ))}
