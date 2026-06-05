@@ -1,73 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-//ТИМЧАСОВІ ДАНІ ДЛЯ ВІЗУАЛІЗАЦІЇ(Doker не піднімається, тому не можу отримати реальні дані з API)
-const Main151 = "https://via.placeholder.com/80x100/eef6fc/0B0035?text=Item+1";
-const Main102 = "https://via.placeholder.com/80x100/eef6fc/0B0035?text=Item+2";
-
-const dummyOrders = [
-  {
-    id: '568665',
-    statusDate: '12 березня 2026 14:30',
-    status: 'Виконано',
-    statusColor: 'text-green-600',
-    paymentMethod: 'Оплата під час отримання товару',
-    deliveryCost: 'Безкоштовно',
-    total: '6 150 грн',
-    items: [
-      { id: 1, name: 'Легка вітрівка з капюшоном', article: 'ART-10293', size: 'M', color: 'White', price: 1950, oldPrice: null, qty: 1, images: [Main151] },
-      { id: 2, name: 'Джинси прямого крою', article: 'ART-88321', size: '32', color: 'Navy', price: 1200, oldPrice: 1500, qty: 1, images: [Main102] },
-      { id: 3, name: 'Базова футболка', article: 'ART-11223', size: 'S', color: 'Black', price: 600, oldPrice: null, qty: 1, images: [Main151] },
-      { id: 4, name: 'Світшот', article: 'ART-44332', size: 'L', color: 'Gray', price: 900, oldPrice: 1100, qty: 1, images: [Main102] },
-      { id: 5, name: 'Кепка', article: 'ART-99001', size: 'One Size', color: 'Navy', price: 900, oldPrice: null, qty: 1, images: [Main151] },
-      //+1
-      { id: 6, name: 'Шкарпетки', article: 'ART-00112', size: '39-42', color: 'White', price: 600, oldPrice: null, qty: 1, images: [Main102] }
-    ]
-  },
-  {
-    id: '568666',
-    statusDate: '15 березня 2026 10:15',
-    status: 'В обробці',
-    statusColor: 'text-blue-500',
-    paymentMethod: 'Оплата картою онлайн',
-    deliveryCost: 'За тарифами перевізника',
-    total: '1 200 грн',
-    items: [
-      { id: 7, name: 'Кросівки білі шкіряні', article: 'ART-55422', size: '41', color: 'Білий', price: 1200, oldPrice: null, qty: 1, images: [Main102] }
-    ]
-  },
-  {
-    id: '568667',
-    statusDate: '21 березня 2026 09:00',
-    status: 'Скасовано',
-    statusColor: 'text-red-500',
-    paymentMethod: 'Оплата картою онлайн',
-    deliveryCost: '80 грн',
-    total: '800 грн',
-    items: [
-      { id: 8, name: 'Футболка з принтом', article: 'ART-33211', size: 'M', color: 'Чорний', price: 800, oldPrice: null, qty: 1, images: [Main151] }
-    ]
-  }
-];
+const statusMap = {
+  'pending': { label: 'В обробці', color: 'text-blue-500' },
+  'paid': { label: 'Оплачено', color: 'text-indigo-600' },
+  'shipped': { label: 'Відправлено', color: 'text-orange-500' },
+  'delivered': { label: 'Виконано', color: 'text-green-600' },
+  'cancelled': { label: 'Скасовано', color: 'text-red-500' },
+};
 
 const Orders = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || '/api';
+        const response = await fetch(`${apiUrl.endsWith('/') ? apiUrl : apiUrl + '/' }orders/`);
+        if (response.ok) {
+          const data = await response.json();
+          setOrders(data);
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
   const toggleOrder = (id) => {
-    if (expandedOrderId === id) {
-      setExpandedOrderId(null);
-    } else {
-      setExpandedOrderId(id);
-    }
+    setExpandedOrderId(expandedOrderId === id ? null : id);
   };
+
+  if (loading) return <div className="py-10 text-center">Завантаження замовлень...</div>;
+
+  if (orders.length === 0) return (
+    <div className="py-10 text-center">
+      <h3 className="text-xl font-bold mb-4">У вас ще немає замовлень</h3>
+      <p className="text-gray-500">Ваші майбутні покупки з'являться тут.</p>
+    </div>
+  );
 
   return (
     <div className="animate-fade-in">
       <h3 className="text-2xl font-bold mb-8 text-[#0B0035]">Мої замовлення</h3>
 
       <div className="flex flex-col gap-6">
-        {dummyOrders.map((order) => {
+        {orders.map((order) => {
           const isExpanded = expandedOrderId === order.id;
+          const statusInfo = statusMap[order.status] || { label: order.status, color: 'text-gray-500' };
+          const formattedDate = new Date(order.created_at).toLocaleString('uk-UA', {
+            day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
 
           return (
             <div key={order.id} className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md bg-white">
@@ -79,12 +68,12 @@ const Orders = () => {
                   <h4 className="font-bold text-lg text-[#0B0035] mb-1">№{order.id}</h4>
 
                   <div className="flex items-center gap-2">
-                    <p className={`${order.statusColor} font-semibold text-sm uppercase tracking-wide`}>
-                      {order.status}
+                    <p className={`${statusInfo.color} font-semibold text-sm uppercase tracking-wide`}>
+                      {statusInfo.label}
                     </p>
                     <span className="text-gray-300">•</span>
                     <p className="text-gray-500 text-xs">
-                      {order.statusDate}
+                      {formattedDate}
                     </p>
                   </div>
                 </div>
@@ -94,8 +83,8 @@ const Orders = () => {
                     {order.items.slice(0, 5).map((item) => (
                       <img
                         key={item.id}
-                        src={item.images[0]}
-                        alt={item.name}
+                        src={item.product_image || '/placeholder.jpg'}
+                        alt={item.product_name}
                         className="w-16 h-20 object-cover rounded-md shadow-sm border border-gray-100 text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                       />
                     ))}
@@ -119,28 +108,24 @@ const Orders = () => {
                     {order.items.map(item => (
                       <div key={item.id} className="flex gap-4 py-4 border-b border-gray-100 last:border-0">
                         <img
-                          src={item.images[0]}
-                          alt={item.name}
+                          src={item.product_image || '/placeholder.jpg'}
+                          alt={item.product_name}
                           className="w-16 h-20 object-cover rounded text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                         />
                         <div className="flex-1 flex flex-col sm:flex-row sm:justify-between gap-2">
                           <div>
-                            <h5 className="font-bold text-[#0B0035]">{item.name}</h5>
-                            <p className="text-xs text-gray-400 mt-1">Артикул: {item.article}</p>
+                            <h5 className="font-bold text-[#0B0035]">{item.product_name}</h5>
 
                             <p className="text-xs text-gray-500 mt-1">
-                              Розмір: <span className="font-semibold text-gray-700">{item.size}</span>
+                              Розмір: <span className="font-semibold text-gray-700">{item.size_name}</span>
                               <span className="mx-2 text-gray-300">|</span>
-                              Колір: <span className="font-semibold text-gray-700">{item.color}</span>
+                              Колір: <span className="font-semibold text-gray-700">{item.color_name}</span>
                             </p>
 
-                            <p className="text-sm text-gray-600 mt-2">{item.price} грн × {item.qty}</p>
+                            <p className="text-sm text-gray-600 mt-2">{item.price_at_purchase} грн × {item.quantity}</p>
                           </div>
                           <div className="text-left sm:text-right">
-                            {item.oldPrice && (
-                              <p className="text-xs text-gray-400 line-through mb-1">{item.oldPrice} грн</p>
-                            )}
-                            <p className="font-bold text-[#B2412E]">{item.price * item.qty} грн</p>
+                            <p className="font-bold text-[#B2412E]">{item.price_at_purchase * item.quantity} грн</p>
                           </div>
                         </div>
                       </div>
@@ -150,22 +135,20 @@ const Orders = () => {
                   <div className="bg-gray-50 p-5 rounded-lg text-sm text-gray-600 space-y-3">
                     <div className="flex justify-between border-b border-gray-200 border-dotted pb-2">
                       <span>Спосіб оплати</span>
-                      <span className="text-right">{order.paymentMethod}</span>
+                      <span className="text-right">{order.payment_method === 'card_online' ? 'Оплата картою онлайн' : 'Оплата при отриманні'}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-gray-200 border-dotted pb-2">
+                      <span>Адреса доставки</span>
+                      <span className="text-right max-w-[200px] truncate" title={order.shipping_address}>{order.shipping_address}</span>
                     </div>
                     <div className="flex justify-between border-b border-gray-200 border-dotted pb-2">
                       <span>Доставка</span>
-                      <span className="text-right">{order.deliveryCost}</span>
+                      <span className="text-right">{order.delivery_fee === "0.00" ? 'Безкоштовно' : `${order.delivery_fee} грн`}</span>
                     </div>
                     <div className="flex justify-between pt-2">
                       <span className="font-bold text-base text-[#0B0035]">Разом</span>
-                      <span className="font-bold text-lg text-[#0B0035]">{order.total}</span>
+                      <span className="font-bold text-lg text-[#0B0035]">{order.total_amount} грн</span>
                     </div>
-                  </div>
-
-                  <div className="mt-6 flex justify-center sm:justify-end">
-                    <button className="w-full sm:w-auto bg-[#0B0035] text-white px-8 py-3 rounded-md uppercase text-sm font-bold hover:bg-[#1a0a4a] transition-colors">
-                      Повторити замовлення
-                    </button>
                   </div>
 
                 </div>

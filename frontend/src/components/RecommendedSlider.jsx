@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import ProductCard from './ProductCard';
-import { productsData } from '../data/products';
+import { ShopContext } from '../context/ShopContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -10,27 +10,31 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 // currentProduct - passed on the product page (to determine gender, category, and exclude the current product)
 // isHomePage - passed on the home page (to enable tabs and limit the width)
 const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
+  const { products, loading } = useContext(ShopContext);
   const [activeTab, setActiveTab] = useState('women');
 
   const gender = isHomePage ? activeTab : (currentProduct?.gender || 'women');
-  const category = currentProduct?.category || '';
+  const categoryId = currentProduct?.category || null;
   const currentId = currentProduct?.id || null;
 
   const relatedProducts = useMemo(() => {
-    if (isHomePage) return [];
-    return productsData
-      .filter(p => p.gender === gender && p.category === category && p.id !== currentId)
+    if (isHomePage || loading) return [];
+    return products
+      .filter(p => p.gender === gender && p.category === categoryId && p.id !== currentId)
       .slice(0, 10);
-  }, [gender, category, currentId, isHomePage]);
+  }, [gender, categoryId, currentId, isHomePage, products, loading]);
 
 
   const randomProducts = useMemo(() => {
-    return productsData
+    if (loading) return [];
+    return products
       .filter(p => p.gender === gender && p.id !== currentId)
       // eslint-disable-next-line react-hooks/purity
       .sort(() => 0.5 - Math.random())
       .slice(0, 12);
-  }, [gender, currentId]);
+  }, [gender, currentId, products, loading]);
+
+  if (loading) return null;
 
   const arrowBtnClass = "absolute top-[40%] -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-[#eaf0f6] text-black rounded-full shadow-sm hover:bg-[#d5e0eb] transition-colors cursor-pointer disabled:hidden";
   const wrapperClass = isHomePage

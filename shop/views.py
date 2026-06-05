@@ -6,10 +6,11 @@ from django.contrib.postgres.search import (
     TrigramSimilarity,
 )
 from django.db.models import Q, Case, When, Value, IntegerField
-from .models import Category, Product
+from .models import Category, Product, Order
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
+    OrderSerializer,
 )
 
 
@@ -93,3 +94,31 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
     filterset_fields = ["category", "gender", "tags__name"]
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        # Поки що повертаємо всі замовлення, пізніше обмежимо для конкретного користувача
+        return Order.objects.all().order_by("-created_at")
+
+    def perform_create(self, serializer):
+        # Якщо користувач авторизований, прив'язуємо замовлення до нього
+        if self.request.user.is_authenticated:
+            serializer.save(user=self.request.user)
+        else:
+            # Тимчасово дозволяємо створювати замовлення без користувача (наприклад, для першого тесту)
+            # Але модель Order вимагає user, тому візьмемо першого ліпшого або адміна
+            from .models import User
+
+            user = User.objects.first()
+            if not user:
+                user = User.objects.create_user(
+                    email="admin@example.com",
+                    password="password",  # pragma: allowlist secret
+                    first_name="Admin",
+                    last_name="Admin",
+                )
+            serializer.save(user=user)

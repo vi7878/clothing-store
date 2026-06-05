@@ -16,12 +16,12 @@ const SearchModal = ({ isOpen, onClose, query }) => {
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      const baseUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
-      const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const cleanApiUrl = apiUrl.endsWith('/') ? apiUrl : apiUrl + '/';
 
       if (query.trim().length < 2) {
         try {
-          const response = await fetch(`${apiUrl}/products/`);
+          const response = await fetch(`${cleanApiUrl}products/`);
           if (response.ok) {
             const data = await response.json();
             const items = Array.isArray(data) ? data : (data.results || []);
@@ -35,7 +35,7 @@ const SearchModal = ({ isOpen, onClose, query }) => {
 
       setLoading(true);
       try {
-        const searchUrl = `${apiUrl}/products/?search=${encodeURIComponent(query)}`;
+        const searchUrl = `${cleanApiUrl}products/?search=${encodeURIComponent(query)}`;
         const response = await fetch(searchUrl);
         if (response.ok) {
           const data = await response.json();

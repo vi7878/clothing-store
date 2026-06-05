@@ -13,7 +13,7 @@ const AccountLayout = ({ activeTab, setActiveTab, children, user }) => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-10 min-h-[60vh]">
       <aside className="w-full md:w-1/4">
-        <h2 className="text-2xl font-bold mb-6">{user ? user.firstName : 'Гість'}</h2>
+        <h2 className="text-2xl font-bold mb-6">{user ? `${user.firstName} ${user.lastName || ''}` : 'Гість'}</h2>
         <nav className="flex flex-col space-y-4 border-b border-gray-200 pb-6 mb-6">
           <button
             onClick={() => setActiveTab('orders')}
