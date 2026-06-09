@@ -15,7 +15,8 @@
 
 
 3.  **Картка товару та SKU:**
-*Очікую на імплементацію SKU*
+<img width="1919" height="915" alt="image" src="https://github.com/user-attachments/assets/7d0a1178-7489-4048-acd0-2b559e172420" />
+
 
 4.  **Кошик та Обране:**
 <img width="1920" height="913" alt="image" src="https://github.com/user-attachments/assets/a4135cee-1392-4a6d-8c2b-ea1d5a88545e" />
