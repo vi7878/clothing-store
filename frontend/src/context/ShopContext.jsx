@@ -5,9 +5,6 @@ import toast from 'react-hot-toast';
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
-  const [user, setUser] = useState(null);
-  const [showUserLogin, setShowUserLogin] = useState(false);
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +32,41 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-  const [wishlistItems, setWishlistItems] = useState([]);
+  const [wishlistItems, setWishlistItems] = useState(() => {
+    const savedWishlist = localStorage.getItem('wearhouse_wishlist');
+    return savedWishlist ? JSON.parse(savedWishlist) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('wearhouse_wishlist', JSON.stringify(wishlistItems));
+  }, [wishlistItems]);
+
+  const [orders, setOrders] = useState(() => {
+    const savedOrders = localStorage.getItem('wearhouse_orders');
+    return savedOrders ? JSON.parse(savedOrders) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('wearhouse_orders', JSON.stringify(orders));
+  }, [orders]);
+
+  const placeOrder = (orderData) => {
+    const newOrder = {
+      id: Math.floor(100000 + Math.random() * 900000).toString(),
+      statusDate: new Intl.DateTimeFormat('uk-UA', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(new Date()),
+      status: 'В обробці',
+      statusColor: 'text-blue-500',
+      ...orderData
+    };
+    setOrders(prev => [newOrder, ...prev]);
+    setCartItems([]);
+  };
 
   const toggleWishlist = (productId) => {
     setWishlistItems((prev) => {
@@ -132,8 +163,6 @@ const ShopContextProvider = (props) => {
   };
 
   const contextValue = {
-    user, setUser,
-    showUserLogin, setShowUserLogin,
     cartItems,
     getCartCount,
     getCartTotal,
@@ -147,7 +176,10 @@ const ShopContextProvider = (props) => {
     addToCart,
     wishlistItems,
     toggleWishlist,
-    getWishlistCount
+    setCartItems,
+    getWishlistCount,
+    orders,
+    placeOrder
   };
 
   return (
