@@ -64,7 +64,11 @@ const Cart = () => {
               <div key={index} className="flex gap-4 md:gap-6 border-b border-gray-200 pb-6 relative">
                 <div className="w-24 md:w-32 flex-shrink-0 bg-gray-50">
                   <Link to={`/product/${product.id}`}>
-                    <img src={product.images[0]?.image || product.images[0] || '/placeholder.jpg'} alt={product.name} className="w-full h-auto object-cover" />
+                    <img
+                      src={typeof product.images[0] === 'object' ? product.images[0].image : product.images[0]}
+                      alt={product.name}
+                      className="w-full h-auto object-cover"
+                    />
                   </Link>
                 </div>
 
