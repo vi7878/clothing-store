@@ -8,6 +8,8 @@ shell:
 	docker compose exec backend python manage.py shell
 logs:
 	docker compose logs -f backend
+seed:
+	docker compose exec backend sh backend/scripts/setup_db.sh
 frontend-logs:
 	docker compose logs -f frontend
 frontend-shell:
