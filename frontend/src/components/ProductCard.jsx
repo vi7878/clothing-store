@@ -22,6 +22,20 @@ const ProductCard = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
 
+  const isSizeAvailable = (size) => {
+    if (selectedColor) {
+      return product.variants?.some(v => v.size === size && v.color_hex === selectedColor && v.stock_quantity > 0);
+    }
+    return product.variants?.some(v => v.size === size && v.stock_quantity > 0);
+  };
+
+  const isColorAvailable = (hex) => {
+    if (selectedSize) {
+      return product.variants?.some(v => v.color_hex === hex && v.size === selectedSize && v.stock_quantity > 0);
+    }
+    return product.variants?.some(v => v.color_hex === hex && v.stock_quantity > 0);
+  };
+
   const isWishlisted = wishlistItems.includes(product.id);
 
   // calculate discounted price
@@ -137,28 +151,51 @@ const ProductCard = ({ product }) => {
             )}
 
             <div className="flex justify-center gap-1 mb-4">
-              {uniqueSizes.map((size) => (
-                <button
-                  key={size}
-                  onClick={(e) => handleSizeSelect(size, e)}
-                  className={`border border-white text-white text-sm px-2 py-1 transition-colors ${selectedSize === size ? 'bg-[#B2412E] border-[#B2412E]' : 'hover:bg-white/20'
+              {uniqueSizes.map((size) => {
+                const isAvailable = isSizeAvailable(size);
+                return (
+                  <button
+                    key={size}
+                    onClick={(e) => isAvailable && handleSizeSelect(size, e)}
+                    disabled={!isAvailable}
+                    className={`relative border text-sm px-2 py-1 transition-colors overflow-hidden ${
+                      selectedSize === size
+                        ? 'bg-[#B2412E] border-[#B2412E] text-white'
+                        : isAvailable
+                          ? 'border-white text-white hover:bg-white/20'
+                          : 'border-white/30 text-white/30 cursor-not-allowed'
                     }`}
-                >
-                  {size}
-                </button>
-              ))}
+                  >
+                    {size}
+                    {!isAvailable && (
+                      <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500/60 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="flex gap-2 mb-4">
-              {uniqueColors.map((color, index) => (
-                <button
-                  key={index}
-                  onClick={(e) => handleColorSelect(color.hex, e)}
-                  className={`w-4 h-4 rounded-full border border-gray-100 transition-all ${selectedColor === color.hex ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40' : ''
-                    }`}
-                  style={{ backgroundColor: color.hex }}
-                />
-              ))}
+              {uniqueColors.map((color, index) => {
+                const isAvailable = isColorAvailable(color.hex);
+                return (
+                  <button
+                    key={index}
+                    onClick={(e) => isAvailable && handleColorSelect(color.hex, e)}
+                    disabled={!isAvailable}
+                    className={`relative w-4 h-4 rounded-full border border-gray-100 transition-all ${
+                      selectedColor === color.hex
+                        ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40'
+                        : ''
+                    } ${!isAvailable ? 'opacity-20 cursor-not-allowed' : ''}`}
+                    style={{ backgroundColor: color.hex }}
+                  >
+                    {!isAvailable && (
+                      <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             <button
