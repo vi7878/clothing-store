@@ -1,10 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from './AuthContext';
 
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
+  const { user } = useContext(AuthContext);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,14 +35,23 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-  const [wishlistItems, setWishlistItems] = useState(() => {
-    const savedWishlist = localStorage.getItem('wearhouse_wishlist');
-    return savedWishlist ? JSON.parse(savedWishlist) : [];
-  });
+  const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem('wearhouse_wishlist', JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    if (user && user.email) {
+      const savedWishlist = localStorage.getItem(`wearhouse_wishlist_${user.email}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setWishlistItems(savedWishlist ? JSON.parse(savedWishlist) : []);
+    } else {
+      setWishlistItems([]);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.email) {
+      localStorage.setItem(`wearhouse_wishlist_${user.email}`, JSON.stringify(wishlistItems));
+    }
+  }, [wishlistItems, user]);
 
   const [orders, setOrders] = useState(() => {
     const savedOrders = localStorage.getItem('wearhouse_orders');

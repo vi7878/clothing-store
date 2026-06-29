@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiX} from 'react-icons/fi';
 import { colorOptions } from '../data/colors';
 
 const sortOptions = [
@@ -82,7 +82,6 @@ const CatalogFilterBar = ({
   const leftPercent = Math.max(0, Math.min(100, ((safeMin - minAllowed) / range) * 100));
   const rightPercent = Math.max(0, Math.min(100, 100 - (((safeMax - minAllowed) / range) * 100)));
 
-  //VALIDATION LOGIC
   const handlePriceInput = (setter) => (e) => {
     const val = e.target.value.replace(/[^0-9]/g, '');
     setter(val);
@@ -128,6 +127,25 @@ const CatalogFilterBar = ({
     setOpenDropdown(null);
   };
 
+  const isAnyFilterActive =
+    sort !== 'popular' ||
+    (size && size.length > 0) ||
+    (color && color.length > 0) ||
+    priceMin !== '' ||
+    priceMax !== '' ||
+    isSalesActive;
+
+
+  const handleClearAll = () => {
+    setSort('popular');
+    setSize([]);
+    setColor([]);
+    setPriceMin('');
+    setPriceMax('');
+    setIsSalesActive(false);
+    setOpenDropdown(null);
+  };
+
   const btnStyle = "border border-black bg-[#E6F1F9] px-4 py-1.5 flex items-center justify-between gap-4 min-w-[170px] flex-grow md:flex-grow-0 whitespace-nowrap text-[15px] text-black font-medium hover:bg-[#d8e0eb] transition-colors relative";
   const popupStyle = "absolute top-[calc(100%+8px)] left-0 bg-white border border-gray-300 shadow-2xl p-4 min-w-[280px] max-h-[450px] overflow-y-auto";
   const okBtnStyle = "w-full bg-[#0B0035] hover:opacity-90 text-white font-medium py-2.5 mt-5 transition-opacity";
@@ -141,15 +159,15 @@ const CatalogFilterBar = ({
   return (
     <div
       ref={barRef}
-      style={{ overflow: 'visible', zIndex: 20 }}
+      style={{ overflow: 'visible', zIndex: 30 }}
       className={`sticky bg-white top-[150px] transition-transform duration-300 ease-in-out pt-4 pb-5 border-b border-gray-300 mb-8 flex flex-wrap items-center gap-4 ${
-        scrollDirection === 'down' && !openDropdown ? '-translate-y-[150px]' : 'translate-y-0'
+        scrollDirection === 'down' ? '-translate-y-[150px]' : 'translate-y-0'
       }`}
     >
 
       {/* SORTING */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button onClick={() => toggleDropdown('sort')} className={btnStyle}>
+        <button type="button" onClick={() => toggleDropdown('sort')} className={btnStyle}>
           {getActiveSortLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'sort' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'sort' && (
@@ -164,14 +182,14 @@ const CatalogFilterBar = ({
                 </div>
               ))}
             </div>
-            <button onClick={applySort} className={okBtnStyle}>Ок</button>
+            <button type="button" onClick={applySort} className={okBtnStyle}>Ок</button>
           </div>
         )}
       </div>
 
       {/* SIZES */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button onClick={() => toggleDropdown('size')} className={btnStyle}>
+        <button  type="button" onClick={() => toggleDropdown('size')} className={btnStyle}>
           {getActiveSizeLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'size' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'size' && (
@@ -186,7 +204,7 @@ const CatalogFilterBar = ({
                 </div>
               ))}
             </div>
-            <button onClick={applySize} className={okBtnStyle}>Ок</button>
+            <button  type="button" onClick={applySize} className={okBtnStyle}>Ок</button>
             <span onClick={clearSize} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
@@ -194,7 +212,7 @@ const CatalogFilterBar = ({
 
       {/* COLORS */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button onClick={() => toggleDropdown('color')} className={btnStyle}>
+        <button  type="button" onClick={() => toggleDropdown('color')} className={btnStyle}>
           {getActiveColorLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'color' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'color' && (
@@ -213,7 +231,7 @@ const CatalogFilterBar = ({
                 </div>
               ))}
             </div>
-            <button onClick={applyColor} className={okBtnStyle}>Ок</button>
+            <button  type="button" onClick={applyColor} className={okBtnStyle}>Ок</button>
             <span onClick={clearColor} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
@@ -221,7 +239,7 @@ const CatalogFilterBar = ({
 
       {/* NEW PRICE FILTER */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button onClick={() => toggleDropdown('price')} className={btnStyle}>
+        <button type="button" onClick={() => toggleDropdown('price')} className={btnStyle}>
           Ціна <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'price' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'price' && (
@@ -280,6 +298,7 @@ const CatalogFilterBar = ({
             </div>
 
             <button
+              type="button"
               onClick={applyPrice}
               disabled={isPriceError}
               className={`w-full py-2.5 mt-5 font-medium transition-colors ${
@@ -305,6 +324,67 @@ const CatalogFilterBar = ({
             <div className={`w-2 h-2 bg-black rounded-full transition-opacity ${isSalesActive ? 'opacity-100' : 'opacity-0'}`}></div>
         </div>
       </div>
+
+      {isAnyFilterActive && (
+        <div className="flex flex-wrap items-center gap-2 w-full pt-1">
+
+          {sort !== 'popular' && (
+            <div className="flex items-center gap-1.5 bg-[#f3f3f3] border border-gray-200 px-3 py-1 rounded-full text-[13px] text-black">
+              <span className="text-gray-500">Сортування:</span> <span className="font-semibold">{getActiveSortLabel()}</span>
+              <button type="button" onClick={() => setSort('popular')} className="ml-1 text-gray-400 hover:text-red-500 transition-colors">
+                <FiX className="text-sm stroke-[3]" />
+              </button>
+            </div>
+          )}
+
+          {size?.map((s) => (
+            <div key={`tag-size-${s}`} className="flex items-center gap-1.5 bg-[#f3f3f3] border border-gray-200 px-3 py-1 rounded-full text-[13px] text-black">
+              <span className="text-gray-500">Розмір:</span> <span className="font-semibold">{s}</span>
+              <button type="button" onClick={() => setSize(size.filter((item) => item !== s))} className="ml-1 text-gray-400 hover:text-red-500 transition-colors">
+                <FiX className="text-sm stroke-[3]" />
+              </button>
+            </div>
+          ))}
+
+          {color?.map((cId) => {
+            const colorObj = colorOptions.find((opt) => opt.id === cId);
+            return colorObj ? (
+              <div key={`tag-color-${cId}`} className="flex items-center gap-1.5 bg-[#f3f3f3] border border-gray-200 px-3 py-1 rounded-full text-[13px] text-black">
+                <span className="text-gray-500">Колір:</span> <span className="font-semibold">{colorObj.label}</span>
+                <button type="button" onClick={() => setColor(color.filter((item) => item !== cId))} className="ml-1 text-gray-400 hover:text-red-500 transition-colors">
+                  <FiX className="text-sm stroke-[3]" />
+                </button>
+              </div>
+            ) : null;
+          })}
+
+          {(priceMin !== '' || priceMax !== '') && (
+            <div className="flex items-center gap-1.5 bg-[#f3f3f3] border border-gray-200 px-3 py-1 rounded-full text-[13px] text-black">
+              <span className="text-gray-500">Ціна:</span> <span className="font-semibold">{priceMin || availableMinPrice} - {priceMax || availableMaxPrice} UAH</span>
+              <button type="button" onClick={() => { setPriceMin(''); setPriceMax(''); }} className="ml-1 text-gray-400 hover:text-red-500 transition-colors">
+                <FiX className="text-sm stroke-[3]" />
+              </button>
+            </div>
+          )}
+
+          {isSalesActive && (
+            <div className="flex items-center gap-1.5 bg-[#fce8e8] border border-red-200 px-3 py-1 rounded-full text-[13px] text-red-700">
+              <span className="font-bold">Тільки Sales</span>
+              <button type="button" onClick={() => setIsSalesActive(false)} className="ml-1 text-red-400 hover:text-red-600 transition-colors">
+                <FiX className="text-sm stroke-[3]" />
+              </button>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={handleClearAll}
+            className="ml-3 text-[13px] font-medium text-gray-500 underline hover:text-[#B2412E] transition-colors"
+          >
+            Очистити всі фільтри
+          </button>
+        </div>
+      )}
 
     </div>
   );

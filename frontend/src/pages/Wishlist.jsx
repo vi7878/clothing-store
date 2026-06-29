@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 import CatalogPagination from '../components/CatalogPagination';
@@ -8,10 +8,6 @@ import { Link } from 'react-router-dom';
 const Wishlist = () => {
 const { products, wishlistItems, getWishlistCount } = useContext(ShopContext);
   const [visibleCount, setVisibleCount] = useState(12);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const favoriteProducts = wishlistItems
   .map(id => products.find(p => p.id === id))

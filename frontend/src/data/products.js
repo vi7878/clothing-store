@@ -409,7 +409,7 @@ export const productsData = [
   {
     id: 1,
     //код
-    name: "Спортивний костюм оверсайз",
+    name: "Спортивний костюм оверсайз ",
     description: "Детальний опис цього чудового товару...",
     base_price: 1500,
     has_discount: false, //if 'has_discount: false', then 'discount_percent' must be '0'

@@ -31,62 +31,75 @@ const Register = () => {
     }
   };
 
+  const inputStyle = "w-full border px-5 py-3 rounded-full outline-none transition-all";
+  const normalInput = `${inputStyle} border-gray-300 focus:border-[#0B0035] focus:ring-1 focus:ring-[#0B0035]`;
+  const errorInput = `${inputStyle} border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
+
   return (
-    <div className="max-w-md mx-auto px-4 py-32 min-h-screen flex flex-col justify-center">
+    <div className="max-w-md mx-auto px-4 pt-10 pb-20">
       <h2 className="text-3xl font-black mb-8 text-center uppercase tracking-tight">Реєстрація</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase mb-2">Ім’я</label>
+            <label className="block text-xs font-bold uppercase mb-2 ml-2">Ім’я</label>
             <input
               type="text"
-              className={`w-full border-2 p-3 outline-none transition-colors ${errors.firstName ? 'border-red-500' : 'border-gray-200 focus:border-[#0B0035]'}`}
+              className={errors.firstName ? errorInput : normalInput}
               value={formData.firstName}
               onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
             />
+            {errors.firstName && <p className="text-red-500 text-xs mt-1 ml-2">{errors.firstName}</p>}
           </div>
           <div>
-            <label className="block text-xs font-bold uppercase mb-2">Прізвище</label>
+            <label className="block text-xs font-bold uppercase mb-2 ml-2">Прізвище</label>
             <input
               type="text"
-              className="w-full border-2 border-gray-200 p-3 outline-none focus:border-[#0B0035] transition-colors"
+              className={normalInput}
               value={formData.lastName}
               onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
             />
           </div>
         </div>
+
         <div>
-          <label className="block text-xs font-bold uppercase mb-2">Електронна пошта</label>
+          <label className="block text-xs font-bold uppercase mb-2 ml-2">Електронна пошта</label>
           <input
             type="email"
-            className={`w-full border-2 p-3 outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-200 focus:border-[#0B0035]'}`}
+            className={errors.email ? errorInput : normalInput}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
+          {errors.email && <p className="text-red-500 text-xs mt-1 ml-2">{errors.email}</p>}
         </div>
-        <div className="relative">
-          <label className="block text-xs font-bold uppercase mb-2">Пароль</label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            className={`w-full border-2 p-3 outline-none transition-colors ${errors.password ? 'border-red-500' : 'border-gray-200 focus:border-[#0B0035]'}`}
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          />
-          <button
-            type="button"
-            className="absolute right-4 top-[38px] text-gray-400 hover:text-black"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-          </button>
+
+        <div>
+          <label className="block text-xs font-bold uppercase mb-2 ml-2">Пароль</label>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className={errors.password ? errorInput : normalInput}
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            />
+            <button
+              type="button"
+              className="absolute right-5 top-3.5 text-[#0B0035] hover:opacity-70 transition-opacity"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </button>
+          </div>
+          {errors.password && <p className="text-red-500 text-xs mt-1 ml-2">{errors.password}</p>}
         </div>
-        <button type="submit" className="w-full bg-[#0B0035] text-white py-3.5 font-bold uppercase tracking-widest hover:bg-[#1a0a4a] transition-colors mt-4">
+
+        <button type="submit" className="w-full bg-[#0B0035] text-white py-3.5 rounded-full uppercase text-sm font-bold tracking-widest hover:bg-[#1a0a4a] transition-colors mt-6">
           Зареєструватись
         </button>
       </form>
+
       <div className="mt-8 pt-8 border-t border-gray-100 text-center">
         <p className="text-gray-500 text-sm mb-4">Вже маєте акаунт?</p>
-        <Link to="/login" className="block w-full border-2 border-[#0B0035] text-[#0B0035] py-3.5 font-bold uppercase tracking-widest hover:bg-gray-50 transition-colors">
+        <Link to="/login" className="block w-full border-2 border-[#0B0035] text-[#0B0035] py-3.5 rounded-full uppercase text-sm font-bold tracking-widest hover:bg-gray-50 transition-colors">
           Увійти
         </Link>
       </div>

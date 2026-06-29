@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { colorOptions } from '../data/colors.js';
 import { FiTrash2, FiHeart } from 'react-icons/fi';
@@ -8,10 +8,6 @@ import RecommendedSlider from '../components/RecommendedSlider';
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, removeFromCart, getCartTotal, getCartCount, wishlistItems, toggleWishlist } = useContext(ShopContext);
   const [paymentMethod, setPaymentMethod] = useState('upon_receipt');
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const cartCount = getCartCount();
   const subtotal = getCartTotal();

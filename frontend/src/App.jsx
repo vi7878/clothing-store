@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation} from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -15,10 +15,18 @@ import Men from './pages/Men';
 import New from './pages/New';
 import Footer from './components/Footer';
 import ProductDetails from './pages/ProductDetails';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import OrderSuccess from './pages/OrderSuccess';
+import Checkout from './pages/Checkout';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
+  const location = useLocation();
+  const hideFooter = location.pathname === '/login' || location.pathname === '/register';
   return (
     <main>
+      <ScrollToTop />
       <Header />
       <Toaster position='bottom-right'/>
       <CartModal />
@@ -35,8 +43,12 @@ const App = () => {
           <Route path='/shop/men' element={<Men/>} />
           <Route path='/shop/new' element={<New/>} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/ordersuccess" element={<OrderSuccess />} />
+          <Route path="/checkout" element={<Checkout />} />
       </Routes>
-      <Footer />
+      {!hideFooter && <Footer />}
     </main>
   );
 }
