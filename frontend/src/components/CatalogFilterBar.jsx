@@ -127,12 +127,12 @@ const CatalogFilterBar = ({
     setOpenDropdown(null);
   };
 
-  const isAnyFilterActive = 
-    sort !== 'popular' || 
-    (size && size.length > 0) || 
-    (color && color.length > 0) || 
-    priceMin !== '' || 
-    priceMax !== '' || 
+  const isAnyFilterActive =
+    sort !== 'popular' ||
+    (size && size.length > 0) ||
+    (color && color.length > 0) ||
+    priceMin !== '' ||
+    priceMax !== '' ||
     isSalesActive;
 
 
@@ -324,10 +324,10 @@ const CatalogFilterBar = ({
             <div className={`w-2 h-2 bg-black rounded-full transition-opacity ${isSalesActive ? 'opacity-100' : 'opacity-0'}`}></div>
         </div>
       </div>
-      
+
       {isAnyFilterActive && (
         <div className="flex flex-wrap items-center gap-2 w-full pt-1">
-          
+
           {sort !== 'popular' && (
             <div className="flex items-center gap-1.5 bg-[#f3f3f3] border border-gray-200 px-3 py-1 rounded-full text-[13px] text-black">
               <span className="text-gray-500">Сортування:</span> <span className="font-semibold">{getActiveSortLabel()}</span>

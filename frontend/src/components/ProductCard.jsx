@@ -41,19 +41,19 @@ const ProductCard = ({ product }) => {
 const basePrice = Number(product.base_price || product.price || 0);
   const apiDiscountPrice = Number(product.discount_price || 0);
   const discountPercent = Number(product.discount_percent || 0);
-  
-  const hasDiscount = 
-    product.has_discount === true || 
-    product.has_discount === 'true' || 
-    (apiDiscountPrice > 0 && apiDiscountPrice < basePrice) || 
+
+  const hasDiscount =
+    product.has_discount === true ||
+    product.has_discount === 'true' ||
+    (apiDiscountPrice > 0 && apiDiscountPrice < basePrice) ||
     discountPercent > 0;
-    
+
   let finalPrice = basePrice;
   if (hasDiscount) {
     if (apiDiscountPrice > 0) {
       finalPrice = apiDiscountPrice;
     } else {
-      const pct = discountPercent > 0 ? discountPercent : 20; 
+      const pct = discountPercent > 0 ? discountPercent : 20;
       finalPrice = Math.round(basePrice * (1 - pct / 100));
     }
   }
@@ -121,8 +121,8 @@ const basePrice = Number(product.base_price || product.price || 0);
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
-      <Link 
-        to={`/product/${product.id}`} 
+      <Link
+        to={`/product/${product.id}`}
         className="relative aspect-[3/4] w-full overflow-hidden block cursor-pointer"
       >
         <img
@@ -152,7 +152,7 @@ const basePrice = Number(product.base_price || product.price || 0);
 
         <div
           className="absolute top-4 right-4 z-20 cursor-pointer group/heart"
-          onClick={handleToggleWishlist} 
+          onClick={handleToggleWishlist}
         >
           <FiHeart
             className={`text-2xl drop-shadow-md transition-all duration-300 ${isWishlisted
@@ -216,7 +216,7 @@ const basePrice = Number(product.base_price || product.price || 0);
 
             <button
               onClick={handleQuickBuy}
-              className="w-full bg-[#f3f3f3] text-black font-bold py-2 hover:bg-[#0B0035] hover:text-white transition-colors duration-300" 
+              className="w-full bg-[#f3f3f3] text-black font-bold py-2 hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
             >
               Швидка покупка
             </button>
@@ -228,7 +228,7 @@ const basePrice = Number(product.base_price || product.price || 0);
         <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none select-text cursor-text">
           {product.name || product.title}
         </h3>
-        
+
         <p className="text-[11px] text-gray-400 mb-0.5 mt-1 tracking-wide uppercase">
           Артикул: {productSku}
         </p>
@@ -246,7 +246,7 @@ const basePrice = Number(product.base_price || product.price || 0);
           )}
         </div>
       </div>
-      
+
     </div>
   )
 }

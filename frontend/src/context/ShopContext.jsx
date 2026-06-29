@@ -7,7 +7,7 @@ export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
   const { user } = useContext(AuthContext);
-  
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ const ShopContextProvider = (props) => {
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const [wishlistItems, setWishlistItems] = useState([]);
- 
+
   useEffect(() => {
     if (user && user.email) {
       const savedWishlist = localStorage.getItem(`wearhouse_wishlist_${user.email}`);

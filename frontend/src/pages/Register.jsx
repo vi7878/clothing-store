@@ -30,7 +30,7 @@ const Register = () => {
       navigate('/account');
     }
   };
-  
+
   const inputStyle = "w-full border px-5 py-3 rounded-full outline-none transition-all";
   const normalInput = `${inputStyle} border-gray-300 focus:border-[#0B0035] focus:ring-1 focus:ring-[#0B0035]`;
   const errorInput = `${inputStyle} border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
@@ -60,7 +60,7 @@ const Register = () => {
             />
           </div>
         </div>
-        
+
         <div>
           <label className="block text-xs font-bold uppercase mb-2 ml-2">Електронна пошта</label>
           <input
@@ -96,7 +96,7 @@ const Register = () => {
           Зареєструватись
         </button>
       </form>
-      
+
       <div className="mt-8 pt-8 border-t border-gray-100 text-center">
         <p className="text-gray-500 text-sm mb-4">Вже маєте акаунт?</p>
         <Link to="/login" className="block w-full border-2 border-[#0B0035] text-[#0B0035] py-3.5 rounded-full uppercase text-sm font-bold tracking-widest hover:bg-gray-50 transition-colors">
