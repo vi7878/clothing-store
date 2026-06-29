@@ -17,6 +17,7 @@ const CatalogSidebar = ({
         {/* NEW*/}
         <div>
           <button
+            type="button"
             onClick={() => onCollectionClick('new')}
             className={`text-left font-black text-[22px] tracking-wide w-full transition-colors ${activeCollection === 'new' ? 'text-black' : 'text-black hover:text-gray-700'}`}>
             Новинки
@@ -24,13 +25,13 @@ const CatalogSidebar = ({
           {activeCollection === 'new' && (
             <ul className="flex flex-col gap-3 pl-4 mt-3">
               <li>
-                <button onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                <button  type="button" onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                   Всі новинки
                 </button>
               </li>
               {newCategories.map((cat) => (
                 <li key={cat.id}>
-                  <button onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                  <button type="button" onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                     {cat.label}
                   </button>
                 </li>
@@ -42,6 +43,7 @@ const CatalogSidebar = ({
         {/*SEASONAL*/}
         <div>
           <button
+            type="button"
             onClick={() => onCollectionClick('summer')}
             className={`text-left font-black text-[22px] tracking-wide w-full transition-colors ${activeCollection === 'summer' ? 'text-black' : 'text-black hover:text-gray-700'}`}>
             Сезонні
@@ -49,13 +51,13 @@ const CatalogSidebar = ({
           {activeCollection === 'summer' && (
             <ul className="flex flex-col gap-3 pl-4 mt-3">
               <li>
-                <button onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                <button type="button" onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                   Всі сезонні
                 </button>
               </li>
               {summerCategories.map((cat) => (
                 <li key={cat.id}>
-                  <button onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                  <button  type="button" onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                     {cat.label}
                   </button>
                 </li>
@@ -67,6 +69,7 @@ const CatalogSidebar = ({
         {/*CLOTHING*/}
         <div>
           <button
+          type="button"
             onClick={() => onCollectionClick('all')}
             className={`text-left font-black text-[22px] tracking-wide w-full transition-colors ${activeCollection === 'all' ? 'text-black' : 'text-black hover:text-gray-700'}`}
           >
@@ -75,13 +78,13 @@ const CatalogSidebar = ({
           {activeCollection === 'all' && (
             <ul className="flex flex-col gap-3 pl-4 mt-3">
               <li>
-                <button onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                <button  type="button" onClick={() => onCategoryClick('all')} className={`text-left text-[16px] transition-colors ${activeCategory === 'all' ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                   Всі товари
                 </button>
               </li>
               {categoriesMap.map((cat) => (
                 <li key={cat.id}>
-                  <button onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
+                  <button type="button" onClick={() => onCategoryClick(cat.id)} className={`text-left text-[16px] transition-colors ${activeCategory === cat.id ? 'text-[#a53b26] font-bold' : 'text-black font-medium hover:text-[#a53b26]'}`}>
                     {cat.label}
                   </button>
                 </li>

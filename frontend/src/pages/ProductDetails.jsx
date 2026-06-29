@@ -23,6 +23,7 @@ const ProductDetails = () => {
   const isWishlisted = wishlistItems.includes(product?.id);
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const fetchProduct = async () => {
       const initializeProduct = (prodData) => {
         setProduct(prodData);
@@ -69,9 +70,28 @@ const ProductDetails = () => {
     return <div className="min-h-screen flex items-center justify-center font-medium text-red-500">Товар не знайдено</div>;
   }
 
-  const finalPrice = product.has_discount
-    ? Math.round(product.base_price * (1 - product.discount_percent / 100))
-    : product.base_price;
+  const basePrice = Number(product.base_price || product.price || 0);
+  const apiDiscountPrice = Number(product.discount_price || 0);
+  const discountPercent = Number(product.discount_percent || 0);
+
+  const hasDiscount =
+    product.has_discount === true ||
+    product.has_discount === 'true' ||
+    (apiDiscountPrice > 0 && apiDiscountPrice < basePrice) ||
+    discountPercent > 0;
+
+  let finalPrice = basePrice;
+  if (hasDiscount) {
+    if (apiDiscountPrice > 0) {
+      finalPrice = apiDiscountPrice;
+    } else {
+      const pct = discountPercent > 0 ? discountPercent : 20;
+      finalPrice = Math.round(basePrice * (1 - pct / 100));
+    }
+  }
+
+  const productRating = Number(product.rating || product.average_rating || 0);
+  const productSku = product.sku || product.article || product.id || 'N/A';
 
   const allSizes = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -151,9 +171,9 @@ const ProductDetails = () => {
           </div>
 
           <div className="flex-1 bg-gray-50 flex items-center justify-center relative group">
-            {product.has_discount && (
+            {hasDiscount && (
               <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 uppercase z-10">
-                -{product.discount_percent}%
+                -{product.discount_percent || Math.round((1 - finalPrice / basePrice) * 100)}%
               </div>
             )}
 
@@ -196,17 +216,30 @@ const ProductDetails = () => {
         {/* RIGHT COLUMN: PRODUCT INFO */}
         <div className="lg:w-2/5 flex flex-col pt-4">
 
-          <h1 className="text-2xl md:text-3xl font-medium mb-3 text-gray-900 leading-tight">
-            {product.name}
+          <h1 className="text-2xl md:text-3xl font-medium mb-1 text-gray-900 leading-tight">
+            {product.name || product.title}
           </h1>
 
+          <p className="text-sm text-gray-500 mb-4 font-mono tracking-wide">
+            Артикул: {productSku}
+          </p>
+
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex text-yellow-400 text-xl">
+              {[...Array(5)].map((_, i) => (
+                <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
+              ))}
+            </div>
+            <span className="text-sm text-gray-500">({product.reviews_count || 0} відгуків)</span>
+          </div>
+
           <div className="flex items-baseline gap-4 mb-8">
-            <span className="text-2xl font-medium text-black">
+            <span className="text-3xl font-bold text-black">
               {finalPrice} {currency || 'UAH'}
             </span>
-            {product.has_discount && (
-              <span className="text-lg text-gray-400 line-through">
-                {product.base_price} {currency || 'UAH'}
+            {hasDiscount && (
+              <span className="text-xl text-gray-400 line-through">
+                {basePrice} {currency || 'UAH'}
               </span>
             )}
           </div>
@@ -256,10 +289,10 @@ const ProductDetails = () => {
                     onClick={() => isAvailable && setSelectedSize(size)}
                     disabled={!isAvailable}
                     className={`py-3 text-sm font-medium border transition-colors relative overflow-hidden ${selectedSize === size
-                        ? 'border-black bg-black text-white'
-                        : isAvailable
-                          ? 'border-gray-300 text-gray-900 hover:border-black'
-                          : 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
+                      ? 'border-black bg-black text-white'
+                      : isAvailable
+                        ? 'border-gray-300 text-gray-900 hover:border-black'
+                        : 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
                       }`}
                   >
                     {size}
@@ -295,8 +328,8 @@ const ProductDetails = () => {
             >
               <FiHeart
                 className={`text-2xl transition-all duration-300 ${isWishlisted
-                    ? 'fill-red-500 text-red-500 scale-125'
-                    : 'text-black group-hover:text-black'
+                  ? 'fill-red-500 text-red-500 scale-125'
+                  : 'text-black group-hover:text-black'
                   }`}
               />
             </button>
@@ -314,7 +347,7 @@ const ProductDetails = () => {
 
             {isDescOpen && (
               <div className="p-4 text-sm text-gray-600 bg-gray-50 border-t border-gray-300">
-                <p className="mb-2 font-mono uppercase tracking-tighter">Артикул: {product.sku || `S-${String(product.id).padStart(3, '0')}`}</p>
+                <p className="mb-2 font-mono uppercase tracking-tighter">Артикул: {productSku}</p>
                 <p className="mb-4">{product.description}</p>
                 <p><strong>Колекція:</strong> {product.collections?.join(', ') || '-'}</p>
               </div>

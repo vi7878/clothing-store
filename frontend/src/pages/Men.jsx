@@ -83,6 +83,7 @@ const Men = () => {
   const handleFilterChange = (setter) => (value) => {
     setter(value);
     setVisibleCount(9);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Slice only the visible products (for example, the first 9)

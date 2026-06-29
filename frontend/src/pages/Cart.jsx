@@ -9,10 +9,6 @@ const Cart = () => {
   const { products, currency, cartItems, updateQuantity, removeFromCart, getCartTotal, getCartCount, wishlistItems, toggleWishlist } = useContext(ShopContext);
   const [paymentMethod, setPaymentMethod] = useState('upon_receipt');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const cartCount = getCartCount();
   const subtotal = getCartTotal();
   const deliveryFee = subtotal >= 3000 || subtotal === 0 ? 0 : 100;

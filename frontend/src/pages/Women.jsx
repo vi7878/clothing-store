@@ -87,6 +87,7 @@ const Women = () => {
   const handleFilterChange = (setter) => (value) => {
     setter(value);
     setVisibleCount(9);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const { minCatalogPrice, maxCatalogPrice } = useMemo(() => {

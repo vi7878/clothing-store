@@ -9,10 +9,6 @@ const Wishlist = () => {
 const { products, wishlistItems, getWishlistCount } = useContext(ShopContext);
   const [visibleCount, setVisibleCount] = useState(12);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const favoriteProducts = wishlistItems
   .map(id => products.find(p => p.id === id))
   .filter(product => product !== undefined);
