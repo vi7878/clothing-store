@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 import CatalogPagination from '../components/CatalogPagination';

@@ -40,6 +40,7 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (user && user.email) {
       const savedWishlist = localStorage.getItem(`wearhouse_wishlist_${user.email}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setWishlistItems(savedWishlist ? JSON.parse(savedWishlist) : []);
     } else {
       setWishlistItems([]);
@@ -50,7 +51,7 @@ const ShopContextProvider = (props) => {
     if (user && user.email) {
       localStorage.setItem(`wearhouse_wishlist_${user.email}`, JSON.stringify(wishlistItems));
     }
-  }, [wishlistItems]);
+  }, [wishlistItems, user]);
 
   const [orders, setOrders] = useState(() => {
     const savedOrders = localStorage.getItem('wearhouse_orders');

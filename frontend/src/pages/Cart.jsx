@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { colorOptions } from '../data/colors.js';
 import { FiTrash2, FiHeart } from 'react-icons/fi';

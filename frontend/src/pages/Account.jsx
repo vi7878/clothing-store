@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import AccountLayout from '../components/Account/AccountLayout';
