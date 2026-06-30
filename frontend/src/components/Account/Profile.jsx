@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
 
 const Profile = () => {
-  const { user, updateProfile } = useContext(AuthContext);
+  const { user, updateProfile, updatePassword } = useContext(AuthContext);
 
   const [profileData, setProfileData] = useState({
     firstName: user?.first_name || user?.firstName || '',
@@ -31,8 +31,30 @@ const Profile = () => {
     }
   };
 
-  const handlePasswordUpdate = () => {
-    console.log('Оновити пароль:', passwordData);
+  const handlePasswordUpdate = async () => {
+    if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
+      alert("Будь ласка, заповніть всі поля");
+      return;
+    }
+    if (passwordData.new !== passwordData.confirm) {
+      alert("Нові паролі не співпадають!");
+      return;
+    }
+    
+    const result = await updatePassword({
+      old_password: passwordData.current,
+      new_password: passwordData.new
+    });
+
+    if (result.success) {
+      alert("Пароль успішно змінено!");
+      setPasswordData({ current: '', new: '', confirm: '' });
+    } else {
+      let errorMsg = "Помилка зміни пароля";
+      if (result.errors?.old_password) errorMsg = result.errors.old_password[0];
+      else if (result.errors?.new_password) errorMsg = result.errors.new_password[0];
+      alert(errorMsg);
+    }
   };
 
   const inputStyle = "w-full border border-gray-300 px-5 py-3 rounded-full outline-none focus:border-[#0B0035] focus:ring-1 focus:ring-[#0B0035] transition-all";
