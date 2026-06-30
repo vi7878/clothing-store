@@ -35,39 +35,47 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  const [cartUserEmail, setCartUserEmail] = useState(null);
+
   useEffect(() => {
     if (user && user.email) {
       const savedCart = localStorage.getItem(`wearhouse_cart_${user.email}`);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCartItems(savedCart ? JSON.parse(savedCart) : []);
+      setCartUserEmail(user.email);
     } else {
       setCartItems([]);
+      setCartUserEmail(null);
     }
   }, [user]);
 
   useEffect(() => {
-    if (user && user.email) {
+    if (cartUserEmail && cartUserEmail === user?.email) {
       localStorage.setItem(`wearhouse_cart_${user.email}`, JSON.stringify(cartItems));
     }
-  }, [cartItems, user]);
+  }, [cartItems, cartUserEmail, user]);
 
   const [wishlistItems, setWishlistItems] = useState([]);
+
+  const [wishlistUserEmail, setWishlistUserEmail] = useState(null);
 
   useEffect(() => {
     if (user && user.email) {
       const savedWishlist = localStorage.getItem(`wearhouse_wishlist_${user.email}`);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setWishlistItems(savedWishlist ? JSON.parse(savedWishlist) : []);
+      setWishlistUserEmail(user.email);
     } else {
       setWishlistItems([]);
+      setWishlistUserEmail(null);
     }
   }, [user]);
 
   useEffect(() => {
-    if (user && user.email) {
+    if (wishlistUserEmail && wishlistUserEmail === user?.email) {
       localStorage.setItem(`wearhouse_wishlist_${user.email}`, JSON.stringify(wishlistItems));
     }
-  }, [wishlistItems, user]);
+  }, [wishlistItems, wishlistUserEmail, user]);
 
 
 
