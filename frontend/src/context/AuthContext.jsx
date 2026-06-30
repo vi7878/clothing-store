@@ -35,12 +35,12 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(userData)
       });
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("Registration error", data);
         return false;
       }
-      
+
       setToken(data.access);
       setUser(data.user);
       return true;
@@ -58,20 +58,20 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(credentials)
       });
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("Login error", data);
         return false;
       }
-      
+
       setToken(data.access);
-      
+
       // Fetch user profile
       const profileRes = await fetch(getApiUrl('auth/profile/'), {
         headers: { Authorization: `Bearer ${data.access}` }
       });
       const profileData = await profileRes.json();
-      
+
       setUser(profileData);
       return true;
     } catch (error) {
@@ -89,19 +89,19 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(getApiUrl('auth/profile/'), {
         method: 'PATCH',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(profileData)
       });
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("Profile update error", data);
         return false;
       }
-      
+
       setUser(data);
       return true;
     } catch (error) {
@@ -114,19 +114,19 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(getApiUrl('auth/password/'), {
         method: 'PUT',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(passwordData)
       });
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("Password update error", data);
         return { success: false, errors: data };
       }
-      
+
       return { success: true, message: data.message };
     } catch (error) {
       console.error("Password update error", error);
