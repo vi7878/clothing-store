@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 export const AuthContext = createContext();
 
@@ -20,10 +19,8 @@ export const AuthProvider = ({ children }) => {
     }
     if (token) {
       localStorage.setItem('wearhouse_token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
       localStorage.removeItem('wearhouse_token');
-      delete axios.defaults.headers.common['Authorization'];
     }
   }, [user, token]);
 
@@ -32,28 +29,53 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post(getApiUrl('auth/register/'), userData);
-      setToken(response.data.access);
-      setUser(response.data.user);
+      const response = await fetch(getApiUrl('auth/register/'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error("Registration error", data);
+        return false;
+      }
+      
+      setToken(data.access);
+      setUser(data.user);
       return true;
     } catch (error) {
-      console.error("Registration error", error.response?.data || error);
+      console.error("Registration error", error);
       return false;
     }
   };
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post(getApiUrl('auth/login/'), credentials);
-      setToken(response.data.access);
-      // Fetch user profile
-      const profileRes = await axios.get(getApiUrl('auth/profile/'), {
-        headers: { Authorization: `Bearer ${response.data.access}` }
+      const response = await fetch(getApiUrl('auth/login/'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
       });
-      setUser(profileRes.data);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error("Login error", data);
+        return false;
+      }
+      
+      setToken(data.access);
+      
+      // Fetch user profile
+      const profileRes = await fetch(getApiUrl('auth/profile/'), {
+        headers: { Authorization: `Bearer ${data.access}` }
+      });
+      const profileData = await profileRes.json();
+      
+      setUser(profileData);
       return true;
     } catch (error) {
-      console.error("Login error", error.response?.data || error);
+      console.error("Login error", error);
       return false;
     }
   };
@@ -65,26 +87,50 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.patch(getApiUrl('auth/profile/'), profileData, {
-        headers: { Authorization: `Bearer ${token}` }
+      const response = await fetch(getApiUrl('auth/profile/'), {
+        method: 'PATCH',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify(profileData)
       });
-      setUser(response.data);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error("Profile update error", data);
+        return false;
+      }
+      
+      setUser(data);
       return true;
     } catch (error) {
-      console.error("Profile update error", error.response?.data || error);
+      console.error("Profile update error", error);
       return false;
     }
   };
 
   const updatePassword = async (passwordData) => {
     try {
-      const response = await axios.put(getApiUrl('auth/password/'), passwordData, {
-        headers: { Authorization: `Bearer ${token}` }
+      const response = await fetch(getApiUrl('auth/password/'), {
+        method: 'PUT',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify(passwordData)
       });
-      return { success: true, message: response.data.message };
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error("Password update error", data);
+        return { success: false, errors: data };
+      }
+      
+      return { success: true, message: data.message };
     } catch (error) {
-      console.error("Password update error", error.response?.data || error);
-      return { success: false, errors: error.response?.data || {} };
+      console.error("Password update error", error);
+      return { success: false, errors: {} };
     }
   };
 
