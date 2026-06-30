@@ -87,17 +87,20 @@ class RequestPasswordResetCodeView(APIView):
         # Generate 6-digit code
         code = str(random.randint(100000, 999999))
         
-        # Save to cache for 15 minutes
-        cache.set(f"pwd_reset_code_{user.id}", code, timeout=900)
+        try:
+            # Save to cache for 15 minutes
+            cache.set(f"pwd_reset_code_{user.id}", code, timeout=900)
 
-        # Send email via Mailtrap
-        send_mail(
-            subject='Код підтвердження для зміни паролю',
-            message=f'Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.',
-            from_email='noreply@wearhouse.com',
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
+            # Send email via Mailtrap
+            send_mail(
+                subject='Код підтвердження для зміни паролю',
+                message=f'Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.',
+                from_email='noreply@wearhouse.com',
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            return Response({"error": "Помилка при відправці листа або збереженні коду. Можливо, пошта налаштована неправильно."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK)
 

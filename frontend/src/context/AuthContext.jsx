@@ -139,10 +139,20 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch(getApiUrl('auth/password/code/'), {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       });
-      const data = await response.json();
+      
+      let data;
+      const text = await response.text();
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("Non-JSON response received:", text.substring(0, 500));
+        return { success: false, message: 'Помилка сервера' };
+      }
+
       if (!response.ok) {
         return { success: false, message: data.error || 'Помилка' };
       }
