@@ -76,8 +76,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updatePassword = async (passwordData) => {
+    try {
+      const response = await axios.put(getApiUrl('auth/password/'), passwordData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      console.error("Password update error", error.response?.data || error);
+      return { success: false, errors: error.response?.data || {} };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, updateProfile, token }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, updateProfile, updatePassword, token }}>
       {children}
     </AuthContext.Provider>
   );

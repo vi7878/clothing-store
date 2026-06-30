@@ -13,8 +13,9 @@ from .serializers import (
     OrderSerializer,
     UserSerializer,
     RegisterSerializer,
+    ChangePasswordSerializer,
 )
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
@@ -47,6 +48,25 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        
+        if serializer.is_valid():
+            self.object.set_password(serializer.validated_data.get("new_password"))
+            self.object.save()
+            return Response({"message": "Пароль успішно змінено"}, status=status.HTTP_200_OK)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
