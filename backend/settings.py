@@ -152,3 +152,20 @@ STATIC_ROOT = "/app/static"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/app/media"
+
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'live.smtp.mailtrap.io'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'api'
+EMAIL_HOST_PASSWORD = 'a612fb58436fe41a32ac77c356fe85c3'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'noreply@wearhouse.com'
+
+# Cache Configuration
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+    }
+}

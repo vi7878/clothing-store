@@ -134,8 +134,48 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const requestPasswordCode = async () => {
+    try {
+      const response = await fetch(getApiUrl('auth/password/code/'), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        return { success: false, message: data.error || 'Помилка' };
+      }
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: 'Помилка мережі' };
+    }
+  };
+
+  const resetPasswordWithCode = async (codeData) => {
+    try {
+      const response = await fetch(getApiUrl('auth/password/reset/'), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(codeData)
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        return { success: false, errors: data };
+      }
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error(error);
+      return { success: false, errors: {} };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, updateProfile, updatePassword, token }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, updateProfile, updatePassword, requestPasswordCode, resetPasswordWithCode, token }}>
       {children}
     </AuthContext.Provider>
   );

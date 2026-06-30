@@ -14,11 +14,16 @@ from .serializers import (
     UserSerializer,
     RegisterSerializer,
     ChangePasswordSerializer,
+    ResetPasswordWithCodeSerializer,
 )
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
+from django.core.mail import send_mail
+import random
 
 User = get_user_model()
 
@@ -64,6 +69,61 @@ class ChangePasswordView(generics.UpdateAPIView):
         if serializer.is_valid():
             self.object.set_password(serializer.validated_data.get("new_password"))
             self.object.save()
+            return Response(
+                {"message": "Пароль успішно змінено"}, status=status.HTTP_200_OK
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RequestPasswordResetCodeView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if not user.email:
+            return Response({"error": "У користувача немає email"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Generate 6-digit code
+        code = str(random.randint(100000, 999999))
+        
+        # Save to cache for 15 minutes
+        cache.set(f"pwd_reset_code_{user.id}", code, timeout=900)
+
+        # Send email via Mailtrap
+        send_mail(
+            subject='Код підтвердження для зміни паролю',
+            message=f'Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.',
+            from_email='noreply@wearhouse.com',
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+
+        return Response({"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK)
+
+
+class ResetPasswordWithCodeView(generics.UpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ResetPasswordWithCodeSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            code = serializer.validated_data.get("code")
+            cached_code = cache.get(f"pwd_reset_code_{self.object.id}")
+
+            if not cached_code or str(cached_code) != str(code):
+                return Response({"error": "Недійсний або прострочений код"}, status=status.HTTP_400_BAD_REQUEST)
+
+            self.object.set_password(serializer.validated_data.get("new_password"))
+            self.object.save()
+            cache.delete(f"pwd_reset_code_{self.object.id}")
+
             return Response(
                 {"message": "Пароль успішно змінено"}, status=status.HTTP_200_OK
             )

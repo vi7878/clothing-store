@@ -88,6 +88,18 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
 
+class ResetPasswordWithCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError(
+                "Пароль має містити щонайменше 6 символів."
+            )
+        return value
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
