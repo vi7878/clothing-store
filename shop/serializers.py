@@ -7,7 +7,55 @@ from .models import (
     Tag,
     Order,
     OrderItem,
+    Address,
 )
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+class UserSerializer(serializers.ModelSerializer):
+    address = serializers.CharField(write_only=True, required=False, allow_blank=True)
+    default_address = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ["id", "email", "first_name", "last_name", "role", "address", "default_address"]
+        read_only_fields = ["id", "role", "default_address"]
+
+    def get_default_address(self, obj):
+        addr = obj.addresses.filter(is_default=True).first()
+        return addr.delivery_address if addr else ""
+
+    def update(self, instance, validated_data):
+        address_text = validated_data.pop("address", None)
+        instance = super().update(instance, validated_data)
+        if address_text is not None:
+            addr = instance.addresses.filter(is_default=True).first()
+            if addr:
+                if address_text.strip():
+                    addr.delivery_address = address_text
+                    addr.save()
+                else:
+                    addr.delete()
+            elif address_text.strip():
+                Address.objects.create(user=instance, delivery_address=address_text, is_default=True)
+        return instance
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["email", "password", "first_name", "last_name"]
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            email=validated_data["email"],
+            password=validated_data["password"],
+            first_name=validated_data.get("first_name", ""),
+            last_name=validated_data.get("last_name", ""),
+        )
+        return user
 
 
 class CategorySerializer(serializers.ModelSerializer):

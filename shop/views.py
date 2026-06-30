@@ -11,7 +11,42 @@ from .serializers import (
     CategorySerializer,
     ProductSerializer,
     OrderSerializer,
+    UserSerializer,
+    RegisterSerializer,
 )
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = RegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {
+                "user": UserSerializer(user).data,
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            }
+        )
+
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -97,28 +132,11 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OrderSerializer
 
     def get_queryset(self):
-        # Поки що повертаємо всі замовлення, пізніше обмежимо для конкретного користувача
-        return Order.objects.all().order_by("-created_at")
+        return Order.objects.filter(user=self.request.user).order_by("-created_at")
 
     def perform_create(self, serializer):
-        # Якщо користувач авторизований, прив'язуємо замовлення до нього
-        if self.request.user.is_authenticated:
-            serializer.save(user=self.request.user)
-        else:
-            # Тимчасово дозволяємо створювати замовлення без користувача (наприклад, для першого тесту)
-            # Але модель Order вимагає user, тому візьмемо першого ліпшого або адміна
-            from .models import User
-
-            user = User.objects.first()
-            if not user:
-                user = User.objects.create_user(
-                    email="admin@example.com",
-                    password="password",  # pragma: allowlist secret
-                    first_name="Admin",
-                    last_name="Admin",
-                )
-            serializer.save(user=user)
+        serializer.save(user=self.request.user)
