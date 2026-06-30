@@ -12,13 +12,23 @@ from .models import (
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+
 class UserSerializer(serializers.ModelSerializer):
     address = serializers.CharField(write_only=True, required=False, allow_blank=True)
     default_address = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ["id", "email", "first_name", "last_name", "role", "address", "default_address"]
+        fields = [
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "role",
+            "address",
+            "default_address",
+        ]
         read_only_fields = ["id", "role", "default_address"]
 
     def get_default_address(self, obj):
@@ -37,7 +47,9 @@ class UserSerializer(serializers.ModelSerializer):
                 else:
                     addr.delete()
             elif address_text.strip():
-                Address.objects.create(user=instance, delivery_address=address_text, is_default=True)
+                Address.objects.create(
+                    user=instance, delivery_address=address_text, is_default=True
+                )
         return instance
 
 
@@ -70,7 +82,9 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     def validate_new_password(self, value):
         if len(value) < 6:
-            raise serializers.ValidationError("Пароль має містити щонайменше 6 символів.")
+            raise serializers.ValidationError(
+                "Пароль має містити щонайменше 6 символів."
+            )
         return value
 
 

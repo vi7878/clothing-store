@@ -40,7 +40,7 @@ const Profile = () => {
       alert("Нові паролі не співпадають!");
       return;
     }
-    
+
     const result = await updatePassword({
       old_password: passwordData.current,
       new_password: passwordData.new
