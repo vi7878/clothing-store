@@ -4,13 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 import { ShopContext } from '../context/ShopContext';
 
 const Checkout = () => {
-    const { user } = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
     const { cartItems, products, getCartTotal, setCartItems } = useContext(ShopContext);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        firstName: user?.firstName || '',
-        lastName: user?.lastName || '',
+        firstName: user?.first_name || user?.firstName || '',
+        lastName: user?.last_name || user?.lastName || '',
         email: user?.email || '',
         phone: '',
         address: '',
@@ -59,7 +59,10 @@ const Checkout = () => {
             const response = await fetch(`${apiUrl.endsWith('/') ? apiUrl : apiUrl + '/' }orders/`, {
                 // ... settings
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
                 body: JSON.stringify(orderData),
             });
 

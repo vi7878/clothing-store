@@ -3,23 +3,32 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
 
 const Profile = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, updateProfile } = useContext(AuthContext);
 
   const [profileData, setProfileData] = useState({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.first_name || user?.firstName || '',
+    lastName: user?.last_name || user?.lastName || '',
     email: user?.email || '',
   });
 
   const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' });
-  const [address, setAddress] = useState(user?.address || '');
+  const [address, setAddress] = useState(user?.default_address || '');
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleProfileSave = () => {
+  const handleProfileSave = async () => {
     if (!profileData.firstName.trim() || !profileData.lastName.trim()) return;
-    setUser({ ...user, firstName: profileData.firstName, lastName: profileData.lastName, address });
+    const success = await updateProfile({
+      first_name: profileData.firstName,
+      last_name: profileData.lastName,
+      address: address
+    });
+    if (success) {
+      alert("Дані успішно збережено!");
+    } else {
+      alert("Помилка збереження даних");
+    }
   };
 
   const handlePasswordUpdate = () => {
