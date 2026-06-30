@@ -27,9 +27,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, token]);
 
+  const apiUrl = import.meta.env.VITE_API_URL || '/api';
+  const getApiUrl = (path) => `${apiUrl.endsWith('/') ? apiUrl : apiUrl + '/'}${path}`;
+
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/register/', userData);
+      const response = await axios.post(getApiUrl('auth/register/'), userData);
       setToken(response.data.access);
       setUser(response.data.user);
       return true;
@@ -41,10 +44,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login/', credentials);
+      const response = await axios.post(getApiUrl('auth/login/'), credentials);
       setToken(response.data.access);
       // Fetch user profile
-      const profileRes = await axios.get('http://localhost:8000/api/auth/profile/', {
+      const profileRes = await axios.get(getApiUrl('auth/profile/'), {
         headers: { Authorization: `Bearer ${response.data.access}` }
       });
       setUser(profileRes.data);
@@ -62,7 +65,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.patch('http://localhost:8000/api/auth/profile/', profileData, {
+      const response = await axios.patch(getApiUrl('auth/profile/'), profileData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(response.data);
