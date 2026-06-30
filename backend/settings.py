@@ -76,9 +76,7 @@ SIMPLE_JWT = {
 }
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = os.environ.get(
-    "CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:80"
-).split(",")
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
