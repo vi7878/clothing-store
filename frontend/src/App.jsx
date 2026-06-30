@@ -17,10 +17,14 @@ import Men from './pages/Men';
 import New from './pages/New';
 import Footer from './components/Footer';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   return (
     <main>
+      <ScrollToTop />
       <Header />
       <Toaster position='bottom-right'/>
       <CartModal />
@@ -39,6 +43,8 @@ const App = () => {
           <Route path='/shop/men' element={<Men/>} />
           <Route path='/shop/new' element={<New/>} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
       </Routes>
       <Footer />
     </main>
