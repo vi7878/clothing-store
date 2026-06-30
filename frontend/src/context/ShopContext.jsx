@@ -35,6 +35,22 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  useEffect(() => {
+    if (user && user.email) {
+      const savedCart = localStorage.getItem(`wearhouse_cart_${user.email}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCartItems(savedCart ? JSON.parse(savedCart) : []);
+    } else {
+      setCartItems([]);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.email) {
+      localStorage.setItem(`wearhouse_cart_${user.email}`, JSON.stringify(cartItems));
+    }
+  }, [cartItems, user]);
+
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
@@ -53,32 +69,7 @@ const ShopContextProvider = (props) => {
     }
   }, [wishlistItems, user]);
 
-  const [orders, setOrders] = useState(() => {
-    const savedOrders = localStorage.getItem('wearhouse_orders');
-    return savedOrders ? JSON.parse(savedOrders) : [];
-  });
 
-  useEffect(() => {
-    localStorage.setItem('wearhouse_orders', JSON.stringify(orders));
-  }, [orders]);
-
-  const placeOrder = (orderData) => {
-    const newOrder = {
-      id: Math.floor(100000 + Math.random() * 900000).toString(),
-      statusDate: new Intl.DateTimeFormat('uk-UA', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }).format(new Date()),
-      status: 'В обробці',
-      statusColor: 'text-blue-500',
-      ...orderData
-    };
-    setOrders(prev => [newOrder, ...prev]);
-    setCartItems([]);
-  };
 
   const toggleWishlist = (productId) => {
     setWishlistItems((prev) => {
@@ -189,9 +180,7 @@ const ShopContextProvider = (props) => {
     wishlistItems,
     toggleWishlist,
     setCartItems,
-    getWishlistCount,
-    orders,
-    placeOrder
+    getWishlistCount
   };
 
   return (
