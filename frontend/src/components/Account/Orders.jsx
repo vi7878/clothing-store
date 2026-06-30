@@ -13,7 +13,7 @@ const statusMap = {
 const Orders = () => {
   const { token } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!token);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
   useEffect(() => {
@@ -38,8 +38,6 @@ const Orders = () => {
 
     if (token) {
       fetchOrders();
-    } else {
-      setLoading(false);
     }
   }, [token]);
 
