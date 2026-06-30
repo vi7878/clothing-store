@@ -13,7 +13,7 @@ const Checkout = () => {
         lastName: user?.last_name || user?.lastName || '',
         email: user?.email || '',
         phone: '',
-        address: '',
+        address: user?.default_address || '',
     });
 
     const subtotal = getCartTotal();
