@@ -2,26 +2,32 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { ShopContext } from '../context/ShopContext';
+import { colorOptions } from '../data/colors';
+import { Link } from 'react-router-dom';
 
 const Checkout = () => {
-    const { user } = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
     const { cartItems, products, getCartTotal, setCartItems } = useContext(ShopContext);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        firstName: user?.firstName || '',
-        lastName: user?.lastName || '',
+        firstName: user?.first_name || user?.firstName || '',
+        lastName: user?.last_name || user?.lastName || '',
         email: user?.email || '',
-        phone: '',
-        address: '',
+        address: user?.default_address || '',
     });
 
     const subtotal = getCartTotal();
-    const deliveryFee = subtotal > 2000 ? 0 : 80;
-    const finalTotal = subtotal + deliveryFee;
+    const deliveryFee = subtotal >= 3000 || subtotal === 0 ? 0 : 100;
+    const finalTotal = subtotal > 0 ? subtotal + deliveryFee : 0;
+
+    const getTranslatedColorName = (hex) => {
+        const translated = colorOptions.find(c => c.hex.toLowerCase() === hex.toLowerCase());
+        return translated ? translated.label : hex;
+    };
 
     const validate = () => {
-        if (!form.firstName.trim() || !form.lastName.trim() || !form.phone.trim() || !form.address.trim()) {
+        if (!form.firstName.trim() || !form.lastName.trim() || !form.address.trim()) {
             alert("Будь ласка, заповніть всі обов'язкові поля!");
             return false;
         }
@@ -59,7 +65,10 @@ const Checkout = () => {
             const response = await fetch(`${apiUrl.endsWith('/') ? apiUrl : apiUrl + '/' }orders/`, {
                 // ... settings
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
                 body: JSON.stringify(orderData),
             });
 
@@ -85,7 +94,6 @@ const Checkout = () => {
                         <input type="text" placeholder="Прізвище" className="border p-3 w-full" value={form.lastName} onChange={e => setForm({...form, lastName: e.target.value})} />
                     </div>
                     <input type="email" placeholder="Email" className="border p-3 w-full" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-                    <input type="text" placeholder="Телефон" className="border p-3 w-full" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
                     <textarea placeholder="Адреса доставки" className="border p-3 w-full h-32" value={form.address} onChange={e => setForm({...form, address: e.target.value})}></textarea>
                     <button onClick={handleSubmit} className="w-full bg-[#0B0035] text-white py-4 font-bold uppercase tracking-widest hover:bg-[#1a0a4a] transition-colors">
                         Підтвердити замовлення
@@ -99,16 +107,24 @@ const Checkout = () => {
                     {cartItems.map((item, i) => {
                         const product = products.find(p => p.id === item.id);
                         if (!product) return null;
+                        const price = product.has_discount
+                            ? Math.round(product.base_price * (1 - product.discount_percent / 100))
+                            : product.base_price;
+
                         return (
                             <div key={i} className="flex justify-between items-center border-b pb-4">
                                 <div className="flex items-center gap-4">
-                                    <img src={product.images[0]?.image || '/placeholder.jpg'} className="w-16 h-20 object-cover" alt="" />
+                                    <Link to={`/product/${product.id}`}>
+                                        <img src={product.images[0]?.image || '/placeholder.jpg'} className="w-16 h-20 object-cover" alt="" />
+                                    </Link>
                                     <div>
-                                        <p className="font-bold">{product.name}</p>
-                                        <p className="text-sm text-gray-500">{item.size} / {item.color} x {item.quantity}</p>
+                                        <Link to={`/product/${product.id}`}>
+                                            <p className="font-bold hover:underline">{product.name}</p>
+                                        </Link>
+                                        <p className="text-sm text-gray-500 capitalize">{item.size} / {getTranslatedColorName(item.color)} x {item.quantity}</p>
                                     </div>
                                 </div>
-                                <p className="font-bold">{product.base_price * item.quantity} грн</p>
+                                <p className="font-bold">{price * item.quantity} грн</p>
                             </div>
                         )
                     })}

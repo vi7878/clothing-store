@@ -19,7 +19,7 @@ const Header = () => {
   //const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const isAuthenticated = !!user;
-  const userName = user ? `${user.firstName} ${user.lastName || ''}`.trim() || "Користувач" : "Користувач";
+  const userName = user ? `${user.first_name || user.firstName} ${user.last_name || user.lastName || ''}`.trim() || "Користувач" : "Користувач";
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

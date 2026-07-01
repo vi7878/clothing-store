@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { productsData } from '../data/products';
 
 const ProductCard = ({ product }) => {
-  const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
+  const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
   const uniqueColors = [];
@@ -38,13 +39,17 @@ const ProductCard = ({ product }) => {
 
   const isWishlisted = wishlistItems.includes(product.id);
 
-const basePrice = Number(product.base_price || product.price || 0);
-  const apiDiscountPrice = Number(product.discount_price || 0);
-  const discountPercent = Number(product.discount_percent || 0);
+  const mockProduct = productsData.find(p => p.sku === product.sku || p.id === product.id) || {};
+
+  const basePrice = Number(product.base_price || product.price || mockProduct.price || mockProduct.base_price || 0);
+  const apiDiscountPrice = Number(product.discount_price || mockProduct.discount_price || 0);
+  const discountPercent = Number(product.discount_percent || mockProduct.discount_percent || 0);
 
   const hasDiscount =
     product.has_discount === true ||
     product.has_discount === 'true' ||
+    mockProduct.has_discount === true ||
+    mockProduct.discount === true ||
     (apiDiscountPrice > 0 && apiDiscountPrice < basePrice) ||
     discountPercent > 0;
 
@@ -58,8 +63,14 @@ const basePrice = Number(product.base_price || product.price || 0);
     }
   }
 
-  const productRating = Number(product.rating || product.average_rating || 0);
-  const productSku = product.sku || product.article || product.id || 'N/A';
+  const productRating = Number(
+    (product.average_rating > 0) ? product.average_rating : (product.rating || mockProduct.rating || 0)
+  );
+
+  const apiProduct = apiProducts?.find(p => p.id === product.id) || {};
+  const productSku = product.sku || product.article || apiProduct.sku || mockProduct.sku || product.id || 'N/A';
+
+  const collections = product.collections || mockProduct.collections || (product.tags ? product.tags.map(t => typeof t === 'object' ? t.name : t) : []);
 
   // Helper for images (API object vs static string)
   const getProductImage = (index) => {
@@ -132,9 +143,9 @@ const basePrice = Number(product.base_price || product.price || 0);
           className="w-full h-full object-cover transition-opacity duration-300"
         />
 
-        {product.collections && product.collections.length > 0 && (
+        {collections && collections.length > 0 && (
           <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-none">
-            {product.collections.map((collection) => (
+            {collections.map((collection) => (
               <span
                 key={collection}
                 className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${collection === 'new' ? 'bg-orange-500' :

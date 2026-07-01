@@ -7,7 +7,97 @@ from .models import (
     Tag,
     Order,
     OrderItem,
+    Address,
 )
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    address = serializers.CharField(write_only=True, required=False, allow_blank=True)
+    default_address = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "role",
+            "address",
+            "default_address",
+        ]
+        read_only_fields = ["id", "role", "default_address"]
+
+    def get_default_address(self, obj):
+        addr = obj.addresses.filter(is_default=True).first()
+        return addr.delivery_address if addr else ""
+
+    def update(self, instance, validated_data):
+        address_text = validated_data.pop("address", None)
+        instance = super().update(instance, validated_data)
+        if address_text is not None:
+            addr = instance.addresses.filter(is_default=True).first()
+            if addr:
+                if address_text.strip():
+                    addr.delivery_address = address_text
+                    addr.save()
+                else:
+                    addr.delete()
+            elif address_text.strip():
+                Address.objects.create(
+                    user=instance, delivery_address=address_text, is_default=True
+                )
+        return instance
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["email", "password", "first_name", "last_name"]
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            email=validated_data["email"],
+            password=validated_data["password"],
+            first_name=validated_data.get("first_name", ""),
+            last_name=validated_data.get("last_name", ""),
+        )
+        return user
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        user = self.context["request"].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Неправильний поточний пароль.")
+        return value
+
+    def validate_new_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError(
+                "Пароль має містити щонайменше 6 символів."
+            )
+        return value
+
+
+class ResetPasswordWithCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError(
+                "Пароль має містити щонайменше 6 символів."
+            )
+        return value
 
 
 class CategorySerializer(serializers.ModelSerializer):

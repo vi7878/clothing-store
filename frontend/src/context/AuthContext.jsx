@@ -9,20 +9,183 @@ export const AuthProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
+  const [token, setToken] = useState(() => localStorage.getItem('wearhouse_token') || null);
+
   useEffect(() => {
     if (user) {
       localStorage.setItem('wearhouse_user', JSON.stringify(user));
     } else {
       localStorage.removeItem('wearhouse_user');
     }
-  }, [user]);
+    if (token) {
+      localStorage.setItem('wearhouse_token', token);
+    } else {
+      localStorage.removeItem('wearhouse_token');
+    }
+  }, [user, token]);
+
+  const apiUrl = import.meta.env.VITE_API_URL || '/api';
+  const getApiUrl = (path) => `${apiUrl.endsWith('/') ? apiUrl : apiUrl + '/'}${path}`;
+
+  const register = async (userData) => {
+    try {
+      const response = await fetch(getApiUrl('auth/register/'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Registration error", data);
+        return false;
+      }
+
+      setToken(data.access);
+      setUser(data.user);
+      return true;
+    } catch (error) {
+      console.error("Registration error", error);
+      return false;
+    }
+  };
+
+  const login = async (credentials) => {
+    try {
+      const response = await fetch(getApiUrl('auth/login/'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Login error", data);
+        return false;
+      }
+
+      setToken(data.access);
+
+      // Fetch user profile
+      const profileRes = await fetch(getApiUrl('auth/profile/'), {
+        headers: { Authorization: `Bearer ${data.access}` }
+      });
+      const profileData = await profileRes.json();
+
+      setUser(profileData);
+      return true;
+    } catch (error) {
+      console.error("Login error", error);
+      return false;
+    }
+  };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
+  };
+
+  const updateProfile = async (profileData) => {
+    try {
+      const response = await fetch(getApiUrl('auth/profile/'), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(profileData)
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Profile update error", data);
+        return false;
+      }
+
+      setUser(data);
+      return true;
+    } catch (error) {
+      console.error("Profile update error", error);
+      return false;
+    }
+  };
+
+  const updatePassword = async (passwordData) => {
+    try {
+      const response = await fetch(getApiUrl('auth/password/'), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(passwordData)
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Password update error", data);
+        return { success: false, errors: data };
+      }
+
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error("Password update error", error);
+      return { success: false, errors: {} };
+    }
+  };
+
+  const requestPasswordCode = async () => {
+    try {
+      const response = await fetch(getApiUrl('auth/password/code/'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      let data;
+      const text = await response.text();
+      try {
+        data = JSON.parse(text);
+      } catch {
+        console.error("Non-JSON response received:", text.substring(0, 500));
+        return { success: false, message: 'Помилка сервера' };
+      }
+
+      if (!response.ok) {
+        return { success: false, message: data.error || 'Помилка' };
+      }
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: 'Помилка мережі' };
+    }
+  };
+
+  const resetPasswordWithCode = async (codeData) => {
+    try {
+      const response = await fetch(getApiUrl('auth/password/reset/'), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(codeData)
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        return { success: false, errors: data };
+      }
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error(error);
+      return { success: false, errors: {} };
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, updateProfile, updatePassword, requestPasswordCode, resetPasswordWithCode, token }}>
       {children}
     </AuthContext.Provider>
   );

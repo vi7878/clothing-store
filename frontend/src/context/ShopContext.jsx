@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from './AuthContext';
+import { productsData } from '../data/products';
 
 export const ShopContext = createContext(null);
 
@@ -20,7 +21,23 @@ const ShopContextProvider = (props) => {
         const response = await fetch(`${apiUrl}/products/`);
         if (response.ok) {
           const data = await response.json();
-          setProducts(Array.isArray(data) ? data : (data.results || []));
+          const items = Array.isArray(data) ? data : (data.results || []);
+
+          const mergedItems = items.map(apiProduct => {
+            const mockProduct = productsData.find(p => p.sku === apiProduct.sku || p.id === apiProduct.id);
+            if (!mockProduct) return apiProduct;
+
+            return {
+              ...apiProduct,
+              rating: (apiProduct.average_rating > 0) ? apiProduct.average_rating : (apiProduct.rating || mockProduct.rating || 0),
+              sku: apiProduct.sku || mockProduct.sku || mockProduct.article,
+              has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
+              discount_percent: apiProduct.discount_percent || mockProduct.discount_percent || 0,
+              collections: apiProduct.collections || mockProduct.collections || (apiProduct.tags ? apiProduct.tags.map(t => typeof t === 'object' ? t.name : t) : []),
+            };
+          });
+
+          setProducts(mergedItems);
         }
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -35,50 +52,49 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  const [cartUserEmail, setCartUserEmail] = useState(null);
+
+  useEffect(() => {
+    if (user && user.email) {
+      const savedCart = localStorage.getItem(`wearhouse_cart_${user.email}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCartItems(savedCart ? JSON.parse(savedCart) : []);
+      setCartUserEmail(user.email);
+    } else {
+      setCartItems([]);
+      setCartUserEmail(null);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (cartUserEmail && cartUserEmail === user?.email) {
+      localStorage.setItem(`wearhouse_cart_${user.email}`, JSON.stringify(cartItems));
+    }
+  }, [cartItems, cartUserEmail, user]);
+
   const [wishlistItems, setWishlistItems] = useState([]);
+
+  const [wishlistUserEmail, setWishlistUserEmail] = useState(null);
 
   useEffect(() => {
     if (user && user.email) {
       const savedWishlist = localStorage.getItem(`wearhouse_wishlist_${user.email}`);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setWishlistItems(savedWishlist ? JSON.parse(savedWishlist) : []);
+      setWishlistUserEmail(user.email);
     } else {
       setWishlistItems([]);
+      setWishlistUserEmail(null);
     }
   }, [user]);
 
   useEffect(() => {
-    if (user && user.email) {
+    if (wishlistUserEmail && wishlistUserEmail === user?.email) {
       localStorage.setItem(`wearhouse_wishlist_${user.email}`, JSON.stringify(wishlistItems));
     }
-  }, [wishlistItems, user]);
+  }, [wishlistItems, wishlistUserEmail, user]);
 
-  const [orders, setOrders] = useState(() => {
-    const savedOrders = localStorage.getItem('wearhouse_orders');
-    return savedOrders ? JSON.parse(savedOrders) : [];
-  });
 
-  useEffect(() => {
-    localStorage.setItem('wearhouse_orders', JSON.stringify(orders));
-  }, [orders]);
-
-  const placeOrder = (orderData) => {
-    const newOrder = {
-      id: Math.floor(100000 + Math.random() * 900000).toString(),
-      statusDate: new Intl.DateTimeFormat('uk-UA', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }).format(new Date()),
-      status: 'В обробці',
-      statusColor: 'text-blue-500',
-      ...orderData
-    };
-    setOrders(prev => [newOrder, ...prev]);
-    setCartItems([]);
-  };
 
   const toggleWishlist = (productId) => {
     setWishlistItems((prev) => {
@@ -189,9 +205,7 @@ const ShopContextProvider = (props) => {
     wishlistItems,
     toggleWishlist,
     setCartItems,
-    getWishlistCount,
-    orders,
-    placeOrder
+    getWishlistCount
   };
 
   return (

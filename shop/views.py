@@ -11,7 +11,139 @@ from .serializers import (
     CategorySerializer,
     ProductSerializer,
     OrderSerializer,
+    UserSerializer,
+    RegisterSerializer,
+    ChangePasswordSerializer,
+    ResetPasswordWithCodeSerializer,
 )
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import get_user_model
+from django.core.cache import cache
+from django.core.mail import send_mail
+import random
+
+User = get_user_model()
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = RegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {
+                "user": UserSerializer(user).data,
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            }
+        )
+
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            self.object.set_password(serializer.validated_data.get("new_password"))
+            self.object.save()
+            return Response(
+                {"message": "Пароль успішно змінено"}, status=status.HTTP_200_OK
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RequestPasswordResetCodeView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if not user.email:
+            return Response(
+                {"error": "У користувача немає email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Generate 6-digit code
+        code = str(random.randint(100000, 999999))
+
+        try:
+            # Save to cache for 15 minutes
+            cache.set(f"pwd_reset_code_{user.id}", code, timeout=900)
+
+            # Send email via Mailtrap
+            send_mail(
+                subject="Код підтвердження для зміни паролю",
+                message=f"Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.",
+                from_email="noreply@wearhouse.qd.je",
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            print(f"Error sending email or caching: {e}")
+            return Response(
+                {"error": f"Помилка при відправці листа: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+        return Response(
+            {"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK
+        )
+
+
+class ResetPasswordWithCodeView(generics.UpdateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ResetPasswordWithCodeSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            code = serializer.validated_data.get("code")
+            cached_code = cache.get(f"pwd_reset_code_{self.object.id}")
+
+            if not cached_code or str(cached_code) != str(code):
+                return Response(
+                    {"error": "Недійсний або прострочений код"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            self.object.set_password(serializer.validated_data.get("new_password"))
+            self.object.save()
+            cache.delete(f"pwd_reset_code_{self.object.id}")
+
+            return Response(
+                {"message": "Пароль успішно змінено"}, status=status.HTTP_200_OK
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -64,7 +196,19 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             name_similarity = TrigramSimilarity("name", query_text)
             cat_similarity = TrigramSimilarity("category__name", query_text)
 
-            # Пріоритет для SKU (чистий збіг цифр без fuzzy noise)
+            # Формуємо базові умови пошуку
+            search_filters = (
+                Q(rank__gte=0.01)
+                | Q(sku_priority__gt=0)
+                | Q(name__icontains=query_text)
+                | Q(category__name__icontains=query_text)
+            )
+
+            # Додаємо fuzzy search (тріграми) тільки якщо запит не складається виключно з цифр
+            # (щоб уникнути хибних збігів артикулів, напр. "102" у "16002")
+            if not query_text.isdigit():
+                search_filters |= Q(name_sim__gt=0.1) | Q(cat_sim__gt=0.1)
+
             queryset = (
                 queryset.annotate(
                     rank=SearchRank(vector, query),
@@ -79,14 +223,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                         output_field=IntegerField(),
                     ),
                 )
-                .filter(
-                    Q(rank__gte=0.01)
-                    | Q(name_sim__gt=0.1)
-                    | Q(cat_sim__gt=0.1)
-                    | Q(sku_priority__gt=0)
-                    | Q(name__icontains=query_text)
-                    | Q(category__name__icontains=query_text)
-                )
+                .filter(search_filters)
                 .order_by("-sku_priority", "-rank", "-name_sim", "-cat_sim")
                 .distinct()
             )
@@ -97,28 +234,11 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OrderSerializer
 
     def get_queryset(self):
-        # Поки що повертаємо всі замовлення, пізніше обмежимо для конкретного користувача
-        return Order.objects.all().order_by("-created_at")
+        return Order.objects.filter(user=self.request.user).order_by("-created_at")
 
     def perform_create(self, serializer):
-        # Якщо користувач авторизований, прив'язуємо замовлення до нього
-        if self.request.user.is_authenticated:
-            serializer.save(user=self.request.user)
-        else:
-            # Тимчасово дозволяємо створювати замовлення без користувача (наприклад, для першого тесту)
-            # Але модель Order вимагає user, тому візьмемо першого ліпшого або адміна
-            from .models import User
-
-            user = User.objects.first()
-            if not user:
-                user = User.objects.create_user(
-                    email="admin@example.com",
-                    password="password",  # pragma: allowlist secret
-                    first_name="Admin",
-                    last_name="Admin",
-                )
-            serializer.save(user=user)
+        serializer.save(user=self.request.user)

@@ -7,6 +7,7 @@ import RecommendedSlider from '../components/RecommendedSlider';
 import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { productsData } from '../data/products';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -44,6 +45,16 @@ const ProductDetails = () => {
         const response = await fetch(`${apiUrl}/products/${id}/`);
         if (response.ok) {
           const data = await response.json();
+
+          const mockProduct = productsData.find(p => p.sku === data.sku || p.id === data.id);
+          if (mockProduct) {
+            data.rating = (data.average_rating > 0) ? data.average_rating : (data.rating || mockProduct.rating || 0);
+            data.sku = data.sku || mockProduct.sku || mockProduct.article;
+            data.has_discount = data.has_discount || mockProduct.has_discount || mockProduct.discount || false;
+            data.discount_percent = data.discount_percent || mockProduct.discount_percent || 0;
+            data.collections = data.collections || mockProduct.collections || (data.tags ? data.tags.map(t => typeof t === 'object' ? t.name : t) : []);
+          }
+
           initializeProduct(data);
           setLoading(false);
           return;
