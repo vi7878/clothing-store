@@ -213,12 +213,22 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <img
-              src={getOptimizedUrl(mainImage, 'details')}
-              alt={product.name}
-              fetchpriority="high"
-              className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
-            />
+            <div 
+              className="relative w-full flex justify-center items-center overflow-hidden transition-all"
+              style={{
+                backgroundImage: `url(${getOptimizedUrl(mainImage, 'catalog')})`,
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            >
+              <img
+                src={getOptimizedUrl(mainImage, 'details')}
+                alt={product.name}
+                fetchpriority="high"
+                className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-500"
+              />
+            </div>
 
             {product.images?.length > 1 && (
               <button
