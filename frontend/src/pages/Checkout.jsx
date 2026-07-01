@@ -2,6 +2,8 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { ShopContext } from '../context/ShopContext';
+import { colorOptions } from '../data/colors';
+import { Link } from 'react-router-dom';
 
 const Checkout = () => {
     const { user, token } = useContext(AuthContext);
@@ -18,6 +20,11 @@ const Checkout = () => {
     const subtotal = getCartTotal();
     const deliveryFee = subtotal >= 3000 || subtotal === 0 ? 0 : 100;
     const finalTotal = subtotal > 0 ? subtotal + deliveryFee : 0;
+
+    const getTranslatedColorName = (hex) => {
+        const translated = colorOptions.find(c => c.hex.toLowerCase() === hex.toLowerCase());
+        return translated ? translated.label : hex;
+    };
 
     const validate = () => {
         if (!form.firstName.trim() || !form.lastName.trim() || !form.address.trim()) {
@@ -107,10 +114,14 @@ const Checkout = () => {
                         return (
                             <div key={i} className="flex justify-between items-center border-b pb-4">
                                 <div className="flex items-center gap-4">
-                                    <img src={product.images[0]?.image || '/placeholder.jpg'} className="w-16 h-20 object-cover" alt="" />
+                                    <Link to={`/product/${product.id}`}>
+                                        <img src={product.images[0]?.image || '/placeholder.jpg'} className="w-16 h-20 object-cover" alt="" />
+                                    </Link>
                                     <div>
-                                        <p className="font-bold">{product.name}</p>
-                                        <p className="text-sm text-gray-500">{item.size} / {item.color} x {item.quantity}</p>
+                                        <Link to={`/product/${product.id}`}>
+                                            <p className="font-bold hover:underline">{product.name}</p>
+                                        </Link>
+                                        <p className="text-sm text-gray-500 capitalize">{item.size} / {getTranslatedColorName(item.color)} x {item.quantity}</p>
                                     </div>
                                 </div>
                                 <p className="font-bold">{price * item.quantity} грн</p>

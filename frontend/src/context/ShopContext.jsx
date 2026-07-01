@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from './AuthContext';
+import { productsData } from '../data/products';
 
 export const ShopContext = createContext(null);
 
@@ -20,7 +21,23 @@ const ShopContextProvider = (props) => {
         const response = await fetch(`${apiUrl}/products/`);
         if (response.ok) {
           const data = await response.json();
-          setProducts(Array.isArray(data) ? data : (data.results || []));
+          const items = Array.isArray(data) ? data : (data.results || []);
+          
+          const mergedItems = items.map(apiProduct => {
+            const mockProduct = productsData.find(p => p.sku === apiProduct.sku || p.id === apiProduct.id);
+            if (!mockProduct) return apiProduct;
+
+            return {
+              ...apiProduct,
+              rating: (apiProduct.average_rating > 0) ? apiProduct.average_rating : (apiProduct.rating || mockProduct.rating || 0),
+              sku: apiProduct.sku || mockProduct.sku || mockProduct.article,
+              has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
+              discount_percent: apiProduct.discount_percent || mockProduct.discount_percent || 0,
+              collections: apiProduct.collections || mockProduct.collections || (apiProduct.tags ? apiProduct.tags.map(t => typeof t === 'object' ? t.name : t) : []),
+            };
+          });
+
+          setProducts(mergedItems);
         }
       } catch (error) {
         console.error('Error fetching products:', error);
