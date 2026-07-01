@@ -12,7 +12,6 @@ const Checkout = () => {
         firstName: user?.first_name || user?.firstName || '',
         lastName: user?.last_name || user?.lastName || '',
         email: user?.email || '',
-        phone: '',
         address: user?.default_address || '',
     });
 
@@ -21,7 +20,7 @@ const Checkout = () => {
     const finalTotal = subtotal + deliveryFee;
 
     const validate = () => {
-        if (!form.firstName.trim() || !form.lastName.trim() || !form.phone.trim() || !form.address.trim()) {
+        if (!form.firstName.trim() || !form.lastName.trim() || !form.address.trim()) {
             alert("Будь ласка, заповніть всі обов'язкові поля!");
             return false;
         }
@@ -88,7 +87,6 @@ const Checkout = () => {
                         <input type="text" placeholder="Прізвище" className="border p-3 w-full" value={form.lastName} onChange={e => setForm({...form, lastName: e.target.value})} />
                     </div>
                     <input type="email" placeholder="Email" className="border p-3 w-full" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-                    <input type="text" placeholder="Телефон" className="border p-3 w-full" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
                     <textarea placeholder="Адреса доставки" className="border p-3 w-full h-32" value={form.address} onChange={e => setForm({...form, address: e.target.value})}></textarea>
                     <button onClick={handleSubmit} className="w-full bg-[#0B0035] text-white py-4 font-bold uppercase tracking-widest hover:bg-[#1a0a4a] transition-colors">
                         Підтвердити замовлення
