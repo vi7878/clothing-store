@@ -86,9 +86,9 @@ const NewArrivals = () => {
           }}
           className="pb-10"
         >
-          {filteredProducts.map((product) => (
+          {filteredProducts.map((product, index) => (
             <SwiperSlide key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} priority={index < 4} />
             </SwiperSlide>
           ))}
         </Swiper>

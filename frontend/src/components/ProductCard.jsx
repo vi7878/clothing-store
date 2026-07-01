@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
 import { getOptimizedUrl } from '../utils/cloudinary';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, priority = false }) => {
   const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
@@ -140,7 +140,8 @@ const ProductCard = ({ product }) => {
         <img
           src={isHovered ? hoverImg : mainImg}
           alt={product.name || product.title}
-          loading="lazy"
+          loading={priority ? undefined : "lazy"}
+          fetchpriority={priority ? "high" : "auto"}
           className="w-full h-full object-cover transition-opacity duration-300"
         />
 
