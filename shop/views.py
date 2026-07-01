@@ -95,12 +95,13 @@ class RequestPasswordResetCodeView(APIView):
             send_mail(
                 subject='Код підтвердження для зміни паролю',
                 message=f'Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.',
-                from_email='noreply@wearhouse.com',
+                from_email='noreply@wearhouse.qd.je',
                 recipient_list=[user.email],
                 fail_silently=False,
             )
         except Exception as e:
-            return Response({"error": "Помилка при відправці листа або збереженні коду. Можливо, пошта налаштована неправильно."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            print(f"Error sending email or caching: {e}")
+            return Response({"error": f"Помилка при відправці листа: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK)
 
