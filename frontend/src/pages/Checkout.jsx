@@ -16,8 +16,8 @@ const Checkout = () => {
     });
 
     const subtotal = getCartTotal();
-    const deliveryFee = subtotal > 2000 ? 0 : 80;
-    const finalTotal = subtotal + deliveryFee;
+    const deliveryFee = subtotal >= 3000 || subtotal === 0 ? 0 : 100;
+    const finalTotal = subtotal > 0 ? subtotal + deliveryFee : 0;
 
     const validate = () => {
         if (!form.firstName.trim() || !form.lastName.trim() || !form.address.trim()) {
@@ -100,6 +100,10 @@ const Checkout = () => {
                     {cartItems.map((item, i) => {
                         const product = products.find(p => p.id === item.id);
                         if (!product) return null;
+                        const price = product.has_discount
+                            ? Math.round(product.base_price * (1 - product.discount_percent / 100))
+                            : product.base_price;
+
                         return (
                             <div key={i} className="flex justify-between items-center border-b pb-4">
                                 <div className="flex items-center gap-4">
@@ -109,7 +113,7 @@ const Checkout = () => {
                                         <p className="text-sm text-gray-500">{item.size} / {item.color} x {item.quantity}</p>
                                     </div>
                                 </div>
-                                <p className="font-bold">{product.base_price * item.quantity} грн</p>
+                                <p className="font-bold">{price * item.quantity} грн</p>
                             </div>
                         )
                     })}
