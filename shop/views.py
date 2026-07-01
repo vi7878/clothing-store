@@ -82,28 +82,36 @@ class RequestPasswordResetCodeView(APIView):
     def post(self, request, *args, **kwargs):
         user = request.user
         if not user.email:
-            return Response({"error": "У користувача немає email"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "У користувача немає email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Generate 6-digit code
         code = str(random.randint(100000, 999999))
-        
+
         try:
             # Save to cache for 15 minutes
             cache.set(f"pwd_reset_code_{user.id}", code, timeout=900)
 
             # Send email via Mailtrap
             send_mail(
-                subject='Код підтвердження для зміни паролю',
-                message=f'Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.',
-                from_email='noreply@wearhouse.qd.je',
+                subject="Код підтвердження для зміни паролю",
+                message=f"Ваш код підтвердження: {code}\nКод дійсний 15 хвилин.",
+                from_email="noreply@wearhouse.qd.je",
                 recipient_list=[user.email],
                 fail_silently=False,
             )
         except Exception as e:
             print(f"Error sending email or caching: {e}")
-            return Response({"error": f"Помилка при відправці листа: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"error": f"Помилка при відправці листа: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
-        return Response({"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK)
+        return Response(
+            {"message": "Код надіслано на вашу пошту"}, status=status.HTTP_200_OK
+        )
 
 
 class ResetPasswordWithCodeView(generics.UpdateAPIView):
@@ -122,7 +130,10 @@ class ResetPasswordWithCodeView(generics.UpdateAPIView):
             cached_code = cache.get(f"pwd_reset_code_{self.object.id}")
 
             if not cached_code or str(cached_code) != str(code):
-                return Response({"error": "Недійсний або прострочений код"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"error": "Недійсний або прострочений код"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             self.object.set_password(serializer.validated_data.get("new_password"))
             self.object.save()
