@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
 
 const ProductCard = ({ product }) => {
-  const { addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
+  const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
   const uniqueColors = [];
@@ -66,7 +66,9 @@ const ProductCard = ({ product }) => {
   const productRating = Number(
     (product.average_rating > 0) ? product.average_rating : (product.rating || mockProduct.rating || 0)
   );
-  const productSku = product.sku || product.article || mockProduct.sku || product.id || 'N/A';
+  
+  const apiProduct = apiProducts?.find(p => p.id === product.id) || {};
+  const productSku = product.sku || product.article || apiProduct.sku || mockProduct.sku || product.id || 'N/A';
 
   const collections = product.collections || mockProduct.collections || (product.tags ? product.tags.map(t => typeof t === 'object' ? t.name : t) : []);
 
