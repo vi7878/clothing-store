@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_filters",
+    "cloudinary_storage",
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -101,6 +103,15 @@ DATABASES = {
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'bavwkvmr',
+    'API_KEY': '712182799824737',
+    'API_SECRET': 'kq-1cFM2rmkORTk07ZMJXLmmkmI',  # pragma: allowlist secret
+    'SECURE': True,
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Password validation
