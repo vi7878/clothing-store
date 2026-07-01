@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { useFilteredProducts } from '../hooks/useFilteredProducts';
-import { productsData } from '../data/products';
+import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 import CatalogSidebar from '../components/CatalogSidebar';
 import CatalogFilterBar from '../components/CatalogFilterBar';
@@ -26,6 +26,7 @@ const categoriesMap = [
 ];
 
 const Men = () => {
+  const { products } = useContext(ShopContext);
   const scrollDirection = useScrollDirection();
   const [activeCollection, setActiveCollection] = useState('all');
   // Read category from URL query parameters with Home page and set it as active category
@@ -53,7 +54,7 @@ const Men = () => {
   }
 
   // Filter products specifically for men
-  const menProducts = useMemo(() => productsData.filter(p => p.gender === 'men'), []);
+  const menProducts = useMemo(() => products.filter(p => p.gender === 'men'), [products]);
 
   const newCategories = useMemo(() => {
     const newProds = menProducts.filter(p => p.collections?.includes('new'));
@@ -182,8 +183,8 @@ const Men = () => {
           {/* PRODUCT GRID */}
           {displayedProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10 mb-12">
-              {displayedProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
+              {displayedProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} priority={index < 4} />
               ))}
             </div>
           ) : (

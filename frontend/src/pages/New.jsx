@@ -1,16 +1,17 @@
 import { useSearchParams } from 'react-router-dom';
-import { productsData } from '../data/products';
+import { useContext } from 'react';
+import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 
 const New = () => {
+  const { products } = useContext(ShopContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
   const currentTab = genderQuery === 'men' ? 'men' : 'women';
 
-  const filteredProducts = productsData.filter(product =>
-    product.gender === currentTab
-    && product.collections?.includes('new')
+  const filteredProducts = products.filter(product =>
+    product.gender === currentTab && (product.collections?.includes('new') || product.is_new)
   );
 
   const handleTabChange = (gender) => {
@@ -43,8 +44,8 @@ const New = () => {
 
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} priority={index < 4} />
           ))}
         </div>
       ) : (
