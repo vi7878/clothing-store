@@ -9,12 +9,11 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
   const { user } = useContext(AuthContext);
 
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState(productsData);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
       try {
         const baseUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
         const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
@@ -42,8 +41,6 @@ const ShopContextProvider = (props) => {
         }
       } catch (error) {
         console.error('Error fetching products:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
