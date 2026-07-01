@@ -185,7 +185,19 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             name_similarity = TrigramSimilarity("name", query_text)
             cat_similarity = TrigramSimilarity("category__name", query_text)
 
-            # Пріоритет для SKU (чистий збіг цифр без fuzzy noise)
+            # Формуємо базові умови пошуку
+            search_filters = (
+                Q(rank__gte=0.01)
+                | Q(sku_priority__gt=0)
+                | Q(name__icontains=query_text)
+                | Q(category__name__icontains=query_text)
+            )
+
+            # Додаємо fuzzy search (тріграми) тільки якщо запит не складається виключно з цифр
+            # (щоб уникнути хибних збігів артикулів, напр. "102" у "16002")
+            if not query_text.isdigit():
+                search_filters |= Q(name_sim__gt=0.1) | Q(cat_sim__gt=0.1)
+
             queryset = (
                 queryset.annotate(
                     rank=SearchRank(vector, query),
@@ -200,14 +212,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                         output_field=IntegerField(),
                     ),
                 )
-                .filter(
-                    Q(rank__gte=0.01)
-                    | Q(name_sim__gt=0.1)
-                    | Q(cat_sim__gt=0.1)
-                    | Q(sku_priority__gt=0)
-                    | Q(name__icontains=query_text)
-                    | Q(category__name__icontains=query_text)
-                )
+                .filter(search_filters)
                 .order_by("-sku_priority", "-rank", "-name_sim", "-cat_sim")
                 .distinct()
             )
