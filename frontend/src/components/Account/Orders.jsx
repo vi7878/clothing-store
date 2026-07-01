@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
+import { getOptimizedUrl } from '../../utils/cloudinary';
 
 const statusMap = {
   'pending': { label: 'В обробці', color: 'text-blue-500' },
@@ -91,7 +92,7 @@ const Orders = () => {
                     {order.items.slice(0, 5).map((item) => (
                       <img
                         key={item.id}
-                        src={item.product_image || '/placeholder.jpg'}
+                        src={item.product_image ? getOptimizedUrl(item.product_image, 'thumbnail') : '/placeholder.jpg'}
                         alt={item.product_name}
                         className="w-16 h-20 object-cover rounded-md shadow-sm border border-gray-100 text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                       />
@@ -116,7 +117,7 @@ const Orders = () => {
                     {order.items.map(item => (
                       <div key={item.id} className="flex gap-4 py-4 border-b border-gray-100 last:border-0">
                         <img
-                          src={item.product_image || '/placeholder.jpg'}
+                          src={item.product_image ? getOptimizedUrl(item.product_image, 'thumbnail') : '/placeholder.jpg'}
                           alt={item.product_name}
                           className="w-16 h-20 object-cover rounded text-[10px] text-gray-400 break-words overflow-hidden bg-gray-50"
                         />
