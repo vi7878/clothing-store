@@ -207,6 +207,7 @@ const ProductDetails = () => {
             <img
               src={getOptimizedUrl(mainImage, 'details')}
               alt={product.name}
+              fetchpriority="high"
               className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
             />
 
