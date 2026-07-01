@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
       const text = await response.text();
       try {
         data = JSON.parse(text);
-      } catch (_err) {
+      } catch {
         console.error("Non-JSON response received:", text.substring(0, 500));
         return { success: false, message: 'Помилка сервера' };
       }
