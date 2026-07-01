@@ -143,12 +143,12 @@ export const AuthProvider = ({ children }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       let data;
       const text = await response.text();
       try {
         data = JSON.parse(text);
-      } catch (err) {
+      } catch (_err) {
         console.error("Non-JSON response received:", text.substring(0, 500));
         return { success: false, message: 'Помилка сервера' };
       }

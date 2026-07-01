@@ -22,7 +22,7 @@ const ShopContextProvider = (props) => {
         if (response.ok) {
           const data = await response.json();
           const items = Array.isArray(data) ? data : (data.results || []);
-          
+
           const mergedItems = items.map(apiProduct => {
             const mockProduct = productsData.find(p => p.sku === apiProduct.sku || p.id === apiProduct.id);
             if (!mockProduct) return apiProduct;

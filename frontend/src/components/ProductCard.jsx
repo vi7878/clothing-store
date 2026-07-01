@@ -66,7 +66,7 @@ const ProductCard = ({ product }) => {
   const productRating = Number(
     (product.average_rating > 0) ? product.average_rating : (product.rating || mockProduct.rating || 0)
   );
-  
+
   const apiProduct = apiProducts?.find(p => p.id === product.id) || {};
   const productSku = product.sku || product.article || apiProduct.sku || mockProduct.sku || product.id || 'N/A';
 

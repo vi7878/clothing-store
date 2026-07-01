@@ -154,13 +154,13 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = "/app/media"
 
 # Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'live.smtp.mailtrap.io'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "live.smtp.mailtrap.io"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'api'
-EMAIL_HOST_PASSWORD = 'a612fb58436fe41a32ac77c356fe85c3'
+EMAIL_HOST_USER = "api"
+EMAIL_HOST_PASSWORD = "a612fb58436fe41a32ac77c356fe85c3"  # pragma: allowlist secret
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply@wearhouse.com'
+DEFAULT_FROM_EMAIL = "noreply@wearhouse.com"
 
 # Cache Configuration
 CACHES = {

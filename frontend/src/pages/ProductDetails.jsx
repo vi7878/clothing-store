@@ -45,7 +45,7 @@ const ProductDetails = () => {
         const response = await fetch(`${apiUrl}/products/${id}/`);
         if (response.ok) {
           const data = await response.json();
-          
+
           const mockProduct = productsData.find(p => p.sku === data.sku || p.id === data.id);
           if (mockProduct) {
             data.rating = (data.average_rating > 0) ? data.average_rating : (data.rating || mockProduct.rating || 0);
