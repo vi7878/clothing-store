@@ -15,9 +15,16 @@ const ProductDetails = () => {
   const { products, currency, addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
 
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [mainImage, setMainImage] = useState(null);
+  const initialProduct = products?.find((p) => String(p.id) === String(id));
+  const [product, setProduct] = useState(initialProduct || null);
+  const [loading, setLoading] = useState(!initialProduct);
+  const [mainImage, setMainImage] = useState(() => {
+    if (initialProduct && initialProduct.images && initialProduct.images.length > 0) {
+      const firstImg = initialProduct.images[0];
+      return typeof firstImg === 'object' ? firstImg.image : firstImg;
+    }
+    return null;
+  });
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [isDescOpen, setIsDescOpen] = useState(true);
@@ -38,8 +45,9 @@ const ProductDetails = () => {
         window.scrollTo(0, 0);
       };
 
-      setProduct(null);
-      setLoading(true);
+      if (!product) {
+        setLoading(true);
+      }
 
       try {
         const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
@@ -75,7 +83,7 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id, products]);
 
-  if (loading) {
+  if (loading && !product) {
     return <div className="min-h-screen flex items-center justify-center font-medium">Завантаження товару...</div>;
   }
 
@@ -176,6 +184,7 @@ const ProductDetails = () => {
                   onClick={() => setMainImage(imgSrc)}
                   src={getOptimizedUrl(imgSrc, 'thumbnail')}
                   alt={`${product.name} thumbnail ${index}`}
+                  loading="lazy"
                   className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
                     }`}
                 />
