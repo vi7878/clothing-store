@@ -4,6 +4,7 @@ import { colorOptions } from '../data/colors.js';
 import { FiTrash2, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import RecommendedSlider from '../components/RecommendedSlider';
+import { getOptimizedUrl } from '../utils/cloudinary';
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, removeFromCart, getCartTotal, getCartCount, wishlistItems, toggleWishlist } = useContext(ShopContext);
@@ -61,7 +62,7 @@ const Cart = () => {
                 <div className="w-24 md:w-32 flex-shrink-0 bg-gray-50">
                   <Link to={`/product/${product.id}`}>
                     <img
-                      src={typeof product.images[0] === 'object' ? product.images[0].image : product.images[0]}
+                      src={getOptimizedUrl(typeof product.images[0] === 'object' ? product.images[0].image : product.images[0], 'thumbnail')}
                       alt={product.name}
                       className="w-full h-auto object-cover"
                     />

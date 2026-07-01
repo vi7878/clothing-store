@@ -3,14 +3,14 @@ import { FiArrowRight } from 'react-icons/fi';
 
 //temporary data for cards
 const categories = [
-  { id: 1, title: "ФУТБОЛКИ ДЛЯ НЕЇ", link: "/shop/women?category=T-shirts %26 Tank Tops", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/tshirts-women" },
-  { id: 2, title: "ФУТБОЛКИ ДЛЯ НЬОГО", link: "/shop/men?category=T-shirts %26 Polos", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/tshirts-men" },
-  { id: 3, title: "СВЕТРИ ДЛЯ НЕЇ", link: "/shop/women?category=Sweaters %26 Cardigans", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/sweaters-women" },
-  { id: 4, title: "СВЕТРИ ДЛЯ НЬОГО", link: "/shop/men?category=Sweaters", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/sweaters-men" },
-  { id: 5, title: "СУКНІ", link: "/shop/women?category=Dresses", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/dresses" },
-  { id: 6, title: "ШТАНИ ДЛЯ НЬОГО", link: "/shop/men?category=Pants", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/pants-men" },
-  { id: 7, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЕЇ", link: "/shop/women?category=Outerwear", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/outerwear-women" },
-  { id: 8, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЬОГО", link: "/shop/men?category=Outerwear", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/categories/outerwear-men" },
+  { id: 1, title: "ФУТБОЛКИ ДЛЯ НЕЇ", link: "/shop/women?category=T-shirts %26 Tank Tops", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/tshirts-women" },
+  { id: 2, title: "ФУТБОЛКИ ДЛЯ НЬОГО", link: "/shop/men?category=T-shirts %26 Polos", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/tshirts-men" },
+  { id: 3, title: "СВЕТРИ ДЛЯ НЕЇ", link: "/shop/women?category=Sweaters %26 Cardigans", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/sweaters-women" },
+  { id: 4, title: "СВЕТРИ ДЛЯ НЬОГО", link: "/shop/men?category=Sweaters", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/sweaters-men" },
+  { id: 5, title: "СУКНІ", link: "/shop/women?category=Dresses", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/dresses" },
+  { id: 6, title: "ШТАНИ ДЛЯ НЬОГО", link: "/shop/men?category=Pants", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/pants-men" },
+  { id: 7, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЕЇ", link: "/shop/women?category=Outerwear", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/outerwear-women" },
+  { id: 8, title: "ВЕРХНІЙ ОДЯГ ДЛЯ НЬОГО", link: "/shop/men?category=Outerwear", img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_750,q_auto:good,w_600/v1/wearhouse/categories/outerwear-men" },
 ];
 
 const CategoriesGrid = () => {

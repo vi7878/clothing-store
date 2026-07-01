@@ -29,12 +29,12 @@ const team = [
   {
     name: 'AnnaLiulkova',
     role: 'Front-end розробник',
-    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/team/An"
+    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_500,q_auto:good,w_400/v1/wearhouse/team/An"
   },
   {
     name: 'vi7878',
     role: 'Back-end розробник',
-    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/team/Vi"
+    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_500,q_auto:good,w_400/v1/wearhouse/team/Vi"
   },
 ];
 
@@ -82,7 +82,7 @@ const About = () => {
       <section className="relative bg-[#0B0035] text-white min-h-[550px] flex items-center px-6 md:px-16 py-20">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/banners/about-bg"
+            src="https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/about-bg"
             alt="Wearhouse background"
             className="w-full h-full object-cover grayscale"
           />

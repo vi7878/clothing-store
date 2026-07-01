@@ -5,6 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
+import { getOptimizedUrl } from '../utils/cloudinary';
 
 const ProductCard = ({ product }) => {
   const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
@@ -79,8 +80,8 @@ const ProductCard = ({ product }) => {
     return typeof img === 'object' ? img.image : img;
   };
 
-  const mainImg = getProductImage(0);
-  const hoverImg = getProductImage(1);
+  const mainImg = getOptimizedUrl(getProductImage(0), 'catalog');
+  const hoverImg = getOptimizedUrl(getProductImage(1), 'catalog');
 
   const handleMouseLeave = () => {
     setIsHovered(false);

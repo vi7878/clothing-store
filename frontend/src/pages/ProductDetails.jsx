@@ -8,6 +8,7 @@ import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
+import { getOptimizedUrl } from '../utils/cloudinary';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -173,7 +174,7 @@ const ProductDetails = () => {
                 <img
                   key={index}
                   onClick={() => setMainImage(imgSrc)}
-                  src={imgSrc}
+                  src={getOptimizedUrl(imgSrc, 'thumbnail')}
                   alt={`${product.name} thumbnail ${index}`}
                   className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
                     }`}
@@ -204,7 +205,7 @@ const ProductDetails = () => {
             )}
 
             <img
-              src={mainImage}
+              src={getOptimizedUrl(mainImage, 'details')}
               alt={product.name}
               className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
             />
