@@ -34,6 +34,7 @@ const ShopContextProvider = (props) => {
               has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
               discount_percent: apiProduct.discount_percent || mockProduct.discount_percent || 0,
               collections: apiProduct.collections || mockProduct.collections || (apiProduct.tags ? apiProduct.tags.map(t => typeof t === 'object' ? t.name : t) : []),
+              images: apiProduct.images?.length > 0 ? apiProduct.images : (mockProduct.images || []),
             };
           });
 
