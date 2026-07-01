@@ -19,7 +19,7 @@ const SaleBanner = () => {
     <div
       onClick={handleBannerClick}
       className="relative w-full h-[400px] md:h-[450px] bg-cover bg-center flex items-center justify-center cursor-pointer group"
-      style={{ backgroundImage: `url($"https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/banners/sale-bg")` }}
+      style={{ backgroundImage: `url("https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_1920/v1/wearhouse/banners/sale-bg")` }}
     >
       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
       <div className="relative z-10 max-w-[1200px] mx-auto w-full px-5 flex flex-col md:flex-row items-center justify-center md:gap-16">
