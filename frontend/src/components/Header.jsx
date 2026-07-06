@@ -1,12 +1,11 @@
 import { useContext, useState } from 'react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX, FiPackage, FiLogOut, FiMenu, FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { FiSearch, FiUser, FiHeart, FiShoppingCart, FiX, FiPackage, FiLogOut, FiMenu} from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import wLogoImg from '../assets/logo/W_logo.png';
-import { mobileMenuItems } from '../data/menuData';
 import MobileNav from './MobileNav';
 
 const Header = () => {

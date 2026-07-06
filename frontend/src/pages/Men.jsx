@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { useFilteredProducts } from '../hooks/useFilteredProducts';

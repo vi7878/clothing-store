@@ -356,7 +356,7 @@ const ProductCard = ({ product }) => {
               >
                 Швидка покупка
               </button>
-              
+
               <Link
                 to={`/product/${product.id}`}
                 className="w-full border-2 border-[#0B0035] text-[#0B0035] flex items-center justify-center font-bold py-3.5 active:scale-95 transition-transform uppercase text-[13px] tracking-widest"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
-import { mobileMenuItems } from '../data/menuData'; 
+import { mobileMenuItems } from '../data/menuData';
 
 const MobileNav = ({ setMobileMenuOpen }) => {
   const [expandedMenu, setExpandedMenu] = useState(null);
@@ -37,7 +37,7 @@ const MobileNav = ({ setMobileMenuOpen }) => {
 
                 {expandedMenu === item.label && (
                   <div className="bg-white flex flex-col pb-4 pt-2 px-2 animate-[fadeIn_0.2s_ease-in-out]">
-                    
+
                     {item.subItems && item.subItems.map((sub, idx) => (
                       <NavLink
                         key={idx}
@@ -68,7 +68,7 @@ const MobileNav = ({ setMobileMenuOpen }) => {
                                 key={lIdx}
                                 to={link.to}
                                 onClick={closeAllMenus}
-                                className={({ isActive }) =>
+                                className={() =>
                                   `py-2 text-[15px] font-bold transition-opacity hover:opacity-70 ${
                                     link.highlight ? 'text-[#B2412E]' : 'text-black'
                                   }`
@@ -89,7 +89,7 @@ const MobileNav = ({ setMobileMenuOpen }) => {
               <NavLink
                 to={item.to}
                 onClick={closeAllMenus}
-                className={({ isActive }) =>
+                className={() =>
                   `block w-full text-left py-4 px-2 font-bold uppercase tracking-wide transition-opacity hover:opacity-70 ${
                     item.red ? 'text-[#B2412E]' : 'text-[#0B0035]'
                   }`
