@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { useSearchParams } from 'react-router-dom';
 import AccountLayout from '../components/Account/AccountLayout';
 import Profile from '../components/Account/Profile';
 import Orders from '../components/Account/Orders';
@@ -8,7 +9,9 @@ import Orders from '../components/Account/Orders';
 const Account = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('profile');
+
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab') || 'orders';
 
   useEffect(() => {
     if (!user) {
@@ -21,9 +24,8 @@ const Account = () => {
   }
 
   return (
-    <AccountLayout activeTab={activeTab} setActiveTab={setActiveTab} user={user}>
-      {activeTab === 'profile' && <Profile user={user} />}
-      {activeTab === 'orders' && <Orders />}
+    <AccountLayout user={user}>
+      {activeTab === 'orders' ? <Orders /> : <Profile user={user} />}
     </AccountLayout>
   );
 };

@@ -86,7 +86,7 @@ const SearchPage = () => {
            <p className="mt-4 text-gray-500">Шукаємо найкращі пропозиції...</p>
         </div>
       ) : products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-6 md:gap-x-4 md:gap-y-10 mb-12">
           {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}

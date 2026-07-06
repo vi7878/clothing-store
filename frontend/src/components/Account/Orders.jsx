@@ -98,7 +98,7 @@ const Orders = () => {
                     ))}
 
                     {order.items.length > 5 && (
-                      <div className="w-9 h-9 rounded-full bg-[#0B0035] text-white flex items-center justify-center text-sm font-bold shadow-sm">
+                      <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[#0B0035] text-white flex items-center justify-center text-sm font-bold shadow-sm">
                         +{order.items.length - 5}
                       </div>
                     )}

@@ -9,7 +9,7 @@ const CatalogSidebar = ({
   summerCategories
 }) => {
   return (
-    <aside className="w-full md:w-64 flex-shrink-0 md:border-r border-gray-200 md:pr-6">
+    <aside className="hidden md:block w-full md:w-64 flex-shrink-0 md:border-r border-gray-200 md:pr-6">
       <div className={`sticky top-[180px] transition-transform duration-300 ease-in-out flex flex-col gap-6 ${
           scrollDirection === 'down' ? '-translate-y-[150px]' : 'translate-y-0'
         }`}>

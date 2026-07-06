@@ -13,8 +13,6 @@ const NewArrivals = () => {
 
   const filteredProducts = products.filter(product => {
     const isGenderMatch = product.gender === activeTab;
-
-    // Перевіряємо теги як об'єкти (з API) так і як рядки (з пропсів)
     const tags = product.tags || [];
     const hasNewTag = tags.some(tag => {
       const tagName = typeof tag === 'object' ? tag.name : tag;
@@ -55,7 +53,7 @@ const NewArrivals = () => {
       <div className="relative">
         <button className="custom-prev absolute left-2 md:left-4 top-[40%] -translate-y-1/2 z-20 flex items-center
         justify-center w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100
-        transition-colors cursor-pointer disabled:hidden">
+        transition-colors cursor-pointer disabled:hidden hidden md:flex">
           <FiChevronLeft className="text-2xl" />
         </button>
 
@@ -68,7 +66,7 @@ const NewArrivals = () => {
           }}
           breakpoints={{
             320: {
-              slidesPerView: 1.2,
+              slidesPerView: 2.2,
               spaceBetween: 10,
             },
             640: {
@@ -95,7 +93,7 @@ const NewArrivals = () => {
 
         <button className="custom-next absolute right-2 md:right-4 top-[40%] -translate-y-1/2 z-20 flex items-center justify-center
         w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100
-        transition-colors cursor-pointer disabled:hidden">
+        transition-colors cursor-pointer disabled:hidden hidden md:flex">
           <FiChevronRight className="text-2xl" />
         </button>
       </div>

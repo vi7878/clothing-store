@@ -268,12 +268,14 @@ const ProductDetails = () => {
                     key={index}
                     onClick={() => isAvailable && setSelectedColor(color.hex)}
                     disabled={!isAvailable}
-                    className={`w-10 h-10 border-2 flex items-center justify-center p-0.5 relative overflow-hidden ${selectedColor === color.hex ? 'border-black' : 'border-transparent hover:border-gray-300'
-                      } ${!isAvailable ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`w-10 h-10 border-2 rounded-full flex items-center justify-center p-0.5 relative overflow-hidden ${selectedColor === color.hex ?
+                      'border-black' : 'border-transparent hover:border-gray-300'
+                      } ${!isAvailable ?
+                      'cursor-not-allowed opacity-50' : ''}`}
                     title={color.name}
                   >
                     <div
-                      className="w-full h-full border border-gray-200"
+                      className="w-full h-full rounded-full border border-gray-200"
                       style={{ backgroundColor: color.hex }}
                     ></div>
 

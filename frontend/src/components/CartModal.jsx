@@ -10,7 +10,8 @@ const CartModal = () => {
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[100] flex items-center justify-center p-4">
-      <div className="bg-white p-8 relative max-w-[400px] w-full flex flex-col items-center text-center shadow-2xl">
+      <div className="bg-white p-8 relative max-w-[400px] w-full flex flex-col items-center text-center shadow-2xl animate-[pulse_0.3s_ease-in-out_1]">
+        <FiCheckCircle className="text-[#10B981] text-5xl mb-4 animate-bounce" />
         <button
           onClick={() => setIsCartModalOpen(false)}
           className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors"
@@ -18,7 +19,6 @@ const CartModal = () => {
           <FiX className="text-2xl" />
         </button>
 
-        <FiCheckCircle className="text-[#10B981] text-5xl mb-4" />
         <h3 className="text-xl font-bold mb-8 text-gray-900">Товар додано в кошик</h3>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full">
