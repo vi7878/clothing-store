@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 //temporary data for cards
 const categories = [
@@ -17,7 +18,9 @@ const CategoriesGrid = () => {
 return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {categories.map((cat) => (
+        {categories.map((cat) => {
+          const imgProps = getResponsiveImageProps(cat.img, 'category');
+          return (
           <Link
             key={cat.id}
             to={cat.link}
@@ -27,8 +30,9 @@ return (
             className="relative group aspect-[4/5] overflow-hidden bg-gray-200 block"
           >
             <img
-              src={cat.img}
+              {...imgProps}
               alt={cat.title}
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
@@ -38,7 +42,8 @@ return (
               <FiArrowRight className="text-white text-xl transform transition-transform duration-300 group-hover:translate-x-2" />
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
     </div>
   )

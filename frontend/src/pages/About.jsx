@@ -84,6 +84,7 @@ const About = () => {
           <img
             src="https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/about-bg"
             alt="Wearhouse background"
+            loading="lazy"
             className="w-full h-full object-cover grayscale"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B0035] via-[#B2412E]/20 to-transparent"></div>
@@ -192,6 +193,7 @@ const About = () => {
                   <img
                     src={img}
                     alt={name}
+                    loading="lazy"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-[#0B0035] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>

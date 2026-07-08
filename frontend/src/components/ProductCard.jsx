@@ -5,7 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
-import { getOptimizedUrl } from '../utils/cloudinary';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const ProductCard = ({ product, priority = false }) => {
   const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
@@ -20,6 +20,7 @@ const ProductCard = ({ product, priority = false }) => {
     }
   });
   const [isHovered, setIsHovered] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
@@ -80,8 +81,8 @@ const ProductCard = ({ product, priority = false }) => {
     return typeof img === 'object' ? img.image : img;
   };
 
-  const mainImg = getOptimizedUrl(getProductImage(0), 'catalog');
-  const hoverImg = getOptimizedUrl(getProductImage(1), 'catalog');
+  const mainImgProps = getResponsiveImageProps(getProductImage(0), 'catalog');
+  const hoverImgProps = getResponsiveImageProps(getProductImage(1), 'catalog');
 
   const handleMouseLeave = () => {
     setIsHovered(false);
@@ -130,7 +131,7 @@ const ProductCard = ({ product, priority = false }) => {
   return (
 <div
       className="w-full relative group flex flex-col"
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => { setIsHovered(true); setHasHovered(true); }}
       onMouseLeave={handleMouseLeave}
     >
       <Link
@@ -138,12 +139,24 @@ const ProductCard = ({ product, priority = false }) => {
         className="relative aspect-[3/4] w-full overflow-hidden block cursor-pointer"
       >
         <img
-          src={isHovered ? hoverImg : mainImg}
+          src={mainImgProps.src}
+          srcSet={mainImgProps.srcSet}
+          sizes={mainImgProps.sizes}
           alt={product.name || product.title}
           loading={priority ? undefined : "lazy"}
-          fetchpriority={priority ? "high" : "auto"}
-          className="w-full h-full object-cover transition-opacity duration-300"
+          fetchPriority={priority ? "high" : "auto"}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
+        {hasHovered && (
+          <img
+            src={hoverImgProps.src}
+            srcSet={hoverImgProps.srcSet}
+            sizes={hoverImgProps.sizes}
+            alt=""
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
 
         {collections && collections.length > 0 && (
           <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-none">

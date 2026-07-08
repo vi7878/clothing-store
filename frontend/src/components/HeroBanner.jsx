@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const HeroBanner = () => {
  const navigate = useNavigate();
+ const bannerProps = getResponsiveImageProps(
+   'https://res.cloudinary.com/bavwkvmr/image/upload/v1/wearhouse/banners/hero-new-bg',
+   'banner'
+ );
 
  const handleNavigate = (gender) => {
     navigate(`/shop/new?gender=${gender}`);
@@ -9,9 +14,14 @@ const HeroBanner = () => {
   };
 
   return (
-    <div className="contrast-125 relative w-full h-[800px] bg-cover bg-center bg-no-repeat flex items-center justify-center "
-      style={{ backgroundImage: `url("https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/hero-new-bg")` }}>
-      <div className="max-w-[1440px] mx-auto w-full px-5 grid grid-cols-12 gap-5 -mt-32">
+    <div className="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
+      <img
+        {...bannerProps}
+        alt="Новинки колекції"
+        fetchPriority="high"
+        className="absolute inset-0 w-full h-full object-cover contrast-125"
+      />
+      <div className="relative z-10 max-w-[1440px] mx-auto w-full px-5 grid grid-cols-12 gap-5 -mt-32">
         <div className="col-span-12 md:col-span-5 md:col-start-2">
           <h1 className="bg-white/30 backdrop-contrast-100 text-[120px] font-bold text-black mb-10 tracking-wide w-fit px-5 py-1 [-webkit-text-stroke:2px_white]">
             Новинки

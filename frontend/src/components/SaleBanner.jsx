@@ -1,8 +1,13 @@
 
 import { useNavigate } from 'react-router-dom';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const SaleBanner = () => {
   const navigate = useNavigate();
+  const bannerProps = getResponsiveImageProps(
+    'https://res.cloudinary.com/bavwkvmr/image/upload/v1/wearhouse/banners/sale-bg',
+    'banner'
+  );
 
   const handleBannerClick = () => {
     navigate('/shop/sale');
@@ -18,9 +23,14 @@ const SaleBanner = () => {
   return (
     <div
       onClick={handleBannerClick}
-      className="relative w-full h-[400px] md:h-[450px] bg-cover bg-center flex items-center justify-center cursor-pointer group"
-      style={{ backgroundImage: `url("https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/sale-bg")` }}
+      className="relative w-full h-[400px] md:h-[450px] flex items-center justify-center cursor-pointer group overflow-hidden"
     >
+      <img
+        {...bannerProps}
+        alt="Знижки"
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
       <div className="relative z-10 max-w-[1200px] mx-auto w-full px-5 flex flex-col md:flex-row items-center justify-center md:gap-16">
 

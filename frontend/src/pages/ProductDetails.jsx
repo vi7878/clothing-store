@@ -8,7 +8,7 @@ import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
-import { getOptimizedUrl } from '../utils/cloudinary';
+import { getOptimizedUrl, getResponsiveImageProps } from '../utils/cloudinary';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -215,19 +215,23 @@ const ProductDetails = () => {
 
             <div 
               className="relative w-full flex justify-center items-center overflow-hidden transition-all"
-              style={{
-                backgroundImage: `url(${getOptimizedUrl(mainImage, 'catalog')})`,
-                backgroundSize: 'contain',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
             >
-              <img
-                src={getOptimizedUrl(mainImage, 'details')}
-                alt={product.name}
-                fetchpriority="high"
-                className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-500"
-              />
+              {product.images?.map((img, index) => {
+                const imgSrc = typeof img === 'object' ? img.image : img;
+                const isActive = mainImage === imgSrc;
+                return (
+                  <img
+                    key={index}
+                    {...getResponsiveImageProps(imgSrc, 'details')}
+                    alt={product.name}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    loading={index === 0 ? undefined : "lazy"}
+                    className={`w-full h-auto max-h-[700px] object-contain transition-opacity duration-500 ${
+                      isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                );
+              })}
             </div>
 
             {product.images?.length > 1 && (

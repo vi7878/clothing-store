@@ -1,8 +1,13 @@
 
 import { useNavigate } from 'react-router-dom';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const SummerBanner = () => {
   const navigate = useNavigate();
+  const bannerProps = getResponsiveImageProps(
+    'https://res.cloudinary.com/bavwkvmr/image/upload/v1/wearhouse/banners/summer-bg',
+    'banner'
+  );
 
   const handleNavigate = (gender) => {
     navigate(`/shop/summer?gender=${gender}`);
@@ -10,9 +15,14 @@ const SummerBanner = () => {
   };
 
   return (
-    <div className="contrast-125 relative w-full h-[800px] bg-cover bg-center bg-no-repeat flex items-center justify-center "
-          style={{ backgroundImage: `url("https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/summer-bg")` }}>
-          <div className="max-w-[1440px] mx-auto w-full px-5 grid grid-cols-12 gap-5 mt-80">
+    <div className="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
+      <img
+        {...bannerProps}
+        alt="Літня колекція"
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover contrast-125"
+      />
+          <div className="relative z-10 max-w-[1440px] mx-auto w-full px-5 grid grid-cols-12 gap-5 mt-80">
            <div className="col-span-12 flex flex-col items-center justify-center text-center">
              <h1 className="font-kalam italic text-white/90 text-[80px] md:text-[200px] drop-shadow-md tracking-wide leading-none mb-10">
                Summer 2026
