@@ -4,7 +4,7 @@ import { FiPhone, FiMail, FiClock, FiMapPin, FiInstagram, FiFacebook, FiYoutube 
 const Footer = () => {
   return (
     <footer className="bg-[#0B0035] text-white py-12 mt-20">
-      <div className="max-w-[1700px] mx-auto px-10 flex flex-col items-center gap-8 text-center">
+      <div className="max-w-[1700px] mx-auto px-5 md:px-10 flex flex-col items-center gap-8 text-center">
         <div className="text-3xl font-black tracking-widest uppercase">
           Wearhouse
         </div>
@@ -30,7 +30,6 @@ const Footer = () => {
           </Link>
         </div>
 
-        {/*Shipping Information*/}
         <div className="flex flex-col items-center gap-2 max-w-2xl mt-2">
           <h4 className="text-sm font-bold uppercase tracking-widest text-[#B2412E]">
             Інформація про доставку

@@ -9,7 +9,6 @@ import pantsMen from '../assets/categories/pants-men.jpg';
 import outWomen from '../assets/categories/outerwear-women.jpg';
 import outMen from '../assets/categories/outerwear-men.jpg';
 
-//temporary data for cards
 const categories = [
   { id: 1, title: "ФУТБОЛКИ ДЛЯ НЕЇ", link: "/shop/women?category=T-shirts %26 Tank Tops", img: tshirtsWomen },
   { id: 2, title: "ФУТБОЛКИ ДЛЯ НЬОГО", link: "/shop/men?category=T-shirts %26 Polos", img: tshirtsMen },
@@ -24,7 +23,7 @@ const categories = [
 const CategoriesGrid = () => {
 return (
     <div className="max-w-[1700px] mx-auto w-full px-10 mt-16">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         {categories.map((cat) => (
           <Link
             key={cat.id}
@@ -32,7 +31,7 @@ return (
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             }}
-            className="relative group aspect-[4/5] overflow-hidden bg-gray-200 block"
+            className="relative group aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-gray-200 block"
           >
             <img
               src={cat.img}
@@ -40,10 +39,12 @@ return (
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="absolute bottom-6 left-6 right-6 flex items-center gap-2">
-              <h3 className="text-white font-bold text-lg md:text-xl tracking-wide">{cat.title}</h3>
-              <FiArrowRight className="text-white text-xl transform transition-transform duration-300 group-hover:translate-x-2" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex items-center justify-between gap-1 sm:gap-2">
+              <h3 className="text-white font-bold text-[11px] sm:text-sm md:text-xl tracking-wide leading-tight drop-shadow-md">
+                {cat.title}
+              </h3>
+              <FiArrowRight className="text-white text-sm sm:text-xl flex-shrink-0 transform transition-transform duration-300 group-hover:translate-x-2" />
             </div>
           </Link>
         ))}

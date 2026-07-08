@@ -195,7 +195,7 @@ const About = () => {
                   <img
                     src={img}
                     alt={name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-[#0B0035] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                 </div>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { FiChevronDown, FiX} from 'react-icons/fi';
+import { FiChevronDown, FiX } from 'react-icons/fi';
 import { colorOptions } from '../data/colors';
 
 const sortOptions = [
@@ -146,11 +146,11 @@ const CatalogFilterBar = ({
     setOpenDropdown(null);
   };
 
-  const btnStyle = "border border-black bg-[#E6F1F9] px-4 py-1.5 flex items-center justify-between gap-4 min-w-[170px] flex-grow md:flex-grow-0 whitespace-nowrap text-[15px] text-black font-medium hover:bg-[#d8e0eb] transition-colors relative";
-  const popupStyle = "absolute top-[calc(100%+8px)] left-0 bg-white border border-gray-300 shadow-2xl p-4 min-w-[280px] max-h-[450px] overflow-y-auto";
-  const okBtnStyle = "w-full bg-[#0B0035] hover:opacity-90 text-white font-medium py-2.5 mt-5 transition-opacity";
-  const clearBtnStyle = "text-sm text-black underline text-center block mt-3 cursor-pointer hover:text-gray-600";
-  const checkboxStyle = "w-5 h-5 flex-shrink-0 border border-black flex items-center justify-center bg-white cursor-pointer";
+  const btnStyle = "border border-black bg-[#E6F1F9] px-2.5 py-1.5 md:px-4 md:py-1.5 flex items-center justify-between gap-1.5 md:gap-4 flex-shrink-0 whitespace-nowrap text-[13px] md:text-[15px] text-black font-medium hover:bg-[#d8e0eb] transition-colors";
+  const popupStyle = "absolute top-[calc(100%+8px)] z-[100] bg-white border border-gray-300 shadow-xl p-4 min-w-[220px] md:min-w-[280px] max-w-[90vw] max-h-[250px] md:max-h-[450px] overflow-y-auto rounded-md md:rounded-none";
+  const okBtnStyle = "w-full bg-[#0B0035] hover:opacity-90 text-white font-medium py-2.5 mt-5 transition-opacity md:rounded-none uppercase text-sm tracking-wider";
+  const clearBtnStyle = "text-sm text-gray-500 underline text-center block mt-4 cursor-pointer hover:text-black";
+  const checkboxStyle = "w-5 h-5 flex-shrink-0 border border-gray-400 md:border-black flex items-center justify-center bg-white cursor-pointer";
 
   const getActiveSortLabel = () => sortOptions.find(o => o.id === sort)?.label || 'Сортувати за';
   const getActiveSizeLabel = () => size?.length > 0 ? (size.length === 1 ? `Розмір: ${size[0]}` : `Розмірів: ${size.length}`) : 'Розміри';
@@ -159,8 +159,7 @@ const CatalogFilterBar = ({
   return (
     <div
       ref={barRef}
-      style={{ overflow: 'visible', zIndex: 30 }}
-      className={`sticky bg-white top-[150px] transition-transform duration-300 ease-in-out pt-4 pb-5 border-b border-gray-300 mb-8 flex flex-wrap items-center gap-4 ${
+      className={`sticky bg-white z-30 top-[130px] md:top-[150px] -mx-4 px-4 transition-transform duration-300 ease-in-out py-8 md:pt-4 md:pb-5 border-b border-gray-200 md:border-gray-300 mb-6 md:mb-8 flex flex-wrap items-center gap-2 md:gap-4 ${
         scrollDirection === 'down' ? '-translate-y-[150px]' : 'translate-y-0'
       }`}
     >
@@ -171,7 +170,7 @@ const CatalogFilterBar = ({
           {getActiveSortLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'sort' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'sort' && (
-          <div className={popupStyle} style={{ zIndex: 20 }}>
+          <div className={`${popupStyle} left-0`}>
             <div className="flex flex-col gap-3 ">
               {sortOptions.map((opt) => (
                 <div key={opt.id} onClick={() => setTempSort(opt.id)} className="flex items-center gap-3 cursor-pointer group">
@@ -189,11 +188,11 @@ const CatalogFilterBar = ({
 
       {/* SIZES */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button  type="button" onClick={() => toggleDropdown('size')} className={btnStyle}>
+        <button type="button" onClick={() => toggleDropdown('size')} className={btnStyle}>
           {getActiveSizeLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'size' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'size' && (
-          <div className={popupStyle} style={{ zIndex: 20}}>
+          <div className={`${popupStyle} left-0`}>
             <div className="flex flex-col gap-3">
               {sizeOptions.map((s) => (
                 <div key={s} onClick={() => toggleSize(s)} className="flex items-center gap-3 cursor-pointer group">
@@ -204,7 +203,7 @@ const CatalogFilterBar = ({
                 </div>
               ))}
             </div>
-            <button  type="button" onClick={applySize} className={okBtnStyle}>Ок</button>
+            <button type="button" onClick={applySize} className={okBtnStyle}>Ок</button>
             <span onClick={clearSize} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
@@ -212,11 +211,11 @@ const CatalogFilterBar = ({
 
       {/* COLORS */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
-        <button  type="button" onClick={() => toggleDropdown('color')} className={btnStyle}>
+        <button type="button" onClick={() => toggleDropdown('color')} className={btnStyle}>
           {getActiveColorLabel()} <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'color' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'color' && (
-          <div className={popupStyle} style={{ zIndex: 20 }}>
+          <div className={`${popupStyle} right-0 md:left-0 md:right-auto`}>
             <div className="flex flex-col gap-3">
               {colorOptions.map((c) => (
                 <div key={c.id} onClick={() => toggleColor(c.id)} className="flex items-center gap-3 cursor-pointer group">
@@ -231,19 +230,19 @@ const CatalogFilterBar = ({
                 </div>
               ))}
             </div>
-            <button  type="button" onClick={applyColor} className={okBtnStyle}>Ок</button>
+            <button type="button" onClick={applyColor} className={okBtnStyle}>Ок</button>
             <span onClick={clearColor} className={clearBtnStyle}>Очистити фільтри</span>
           </div>
         )}
       </div>
 
-      {/* NEW PRICE FILTER */}
+      {/*PRICE FILTER */}
       <div className="relative flex-shrink-0" style={{ overflow: 'visible' }}>
         <button type="button" onClick={() => toggleDropdown('price')} className={btnStyle}>
           Ціна <FiChevronDown className={`text-lg transition-transform ${openDropdown === 'price' ? 'rotate-180' : ''}`} />
         </button>
         {openDropdown === 'price' && (
-          <div className={`${popupStyle} w-[340px]`} style={{ zIndex: 20 }}>
+         <div className={`${popupStyle} left-0 md:left-auto md:right-0 w-[300px] md:w-[340px]`}>
             <div className="flex items-center gap-4 mb-4">
               <div className="border border-gray-300 px-4 py-2 flex flex-1 items-center justify-between">
                 <input
@@ -301,11 +300,10 @@ const CatalogFilterBar = ({
               type="button"
               onClick={applyPrice}
               disabled={isPriceError}
-              className={`w-full py-2.5 mt-5 font-medium transition-colors ${
-                isPriceError
-                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                  : 'bg-[#0B0035] hover:opacity-90 text-white'
-              }`}
+              className={`w-full py-2.5 mt-5 font-medium transition-colors ${isPriceError
+                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                : 'bg-[#0B0035] hover:opacity-90 text-white'
+                }`}
             >
               {isPriceError ? 'Невірний діапазон' : 'Ок'}
             </button>
@@ -316,12 +314,12 @@ const CatalogFilterBar = ({
 
       {/* SALES TOGGLE */}
       <div
-        className="flex items-center gap-2 ml-auto cursor-pointer group flex-shrink-0 pl-4"
+        className="flex items-center gap-2 md:ml-auto cursor-pointer group flex-shrink-0 py-1"
         onClick={() => setIsSalesActive(!isSalesActive)}
       >
-        <span className="font-bold text-[17px] text-black">Sales</span>
-        <div className="w-5 h-5 rounded-full border-[2.5px] border-black flex items-center justify-center transition-all bg-[#eef2f6]">
-            <div className={`w-2 h-2 bg-black rounded-full transition-opacity ${isSalesActive ? 'opacity-100' : 'opacity-0'}`}></div>
+        <span className="font-bold text-[14px] md:text-[17px] text-black">Sales</span>
+        <div className={`w-10 h-5 md:w-12 md:h-6 rounded-full p-0.5 flex items-center transition-colors duration-300 ${isSalesActive ? 'bg-black' : 'bg-gray-300'}`}>
+          <div className={`w-4 h-4 md:w-5 md:h-5 bg-white rounded-full shadow-sm transform transition-transform duration-300 ${isSalesActive ? 'translate-x-5 md:translate-x-6' : 'translate-x-0'}`}></div>
         </div>
       </div>
 

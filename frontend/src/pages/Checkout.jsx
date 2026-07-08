@@ -75,6 +75,9 @@ const Checkout = () => {
             if (response.ok) {
                 setCartItems([]);
                 navigate('/order-success');
+            } else if (response.status === 401) {
+                alert('Сесія застаріла або користувача не знайдено. Будь ласка, вийдіть з акаунту та увійдіть знову.');
+                // Тут також можна додати виклик функції logout(), якщо ти імпортуєш її з AuthContext
             } else {
                 alert('Помилка при оформленні замовлення');
             }
