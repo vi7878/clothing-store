@@ -113,10 +113,10 @@ DATABASES = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'bavwkvmr',
-    'API_KEY': '712182799824737',
-    'API_SECRET': 'kq-1cFM2rmkORTk07ZMJXLmmkmI',  # pragma: allowlist secret
-    'SECURE': True,
+    "CLOUD_NAME": "bavwkvmr",
+    "API_KEY": "712182799824737",
+    "API_SECRET": "kq-1cFM2rmkORTk07ZMJXLmmkmI",  # pragma: allowlist secret
+    "SECURE": True,
 }
 
 STORAGES = {

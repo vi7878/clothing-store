@@ -41,9 +41,13 @@ const ShopContextProvider = (props) => {
         }
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLoading(true);
     fetchProducts();
   }, []);
 

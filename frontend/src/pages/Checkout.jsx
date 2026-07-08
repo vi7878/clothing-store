@@ -116,10 +116,10 @@ const Checkout = () => {
                             <div key={i} className="flex justify-between items-center border-b pb-4">
                                 <div className="flex items-center gap-4">
                                     <Link to={`/product/${product.id}`}>
-                                        <img 
-                                          src={getOptimizedUrl(typeof product.images[0] === 'object' ? product.images[0].image : product.images[0], 'thumbnail')} 
-                                          className="w-16 h-20 object-cover" 
-                                          alt="" 
+                                        <img
+                                          src={getOptimizedUrl(typeof product.images[0] === 'object' ? product.images[0].image : product.images[0], 'thumbnail')}
+                                          className="w-16 h-20 object-cover"
+                                          alt=""
                                         />
                                     </Link>
                                     <div>

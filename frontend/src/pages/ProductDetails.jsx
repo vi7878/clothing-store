@@ -81,6 +81,7 @@ const ProductDetails = () => {
     };
 
     fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, products]);
 
   if (loading && !product) {
@@ -213,7 +214,7 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <div 
+            <div
               className="relative w-full flex justify-center items-center overflow-hidden transition-all"
             >
               {product.images?.map((img, index) => {
