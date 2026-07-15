@@ -9,11 +9,12 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
   const { user } = useContext(AuthContext);
 
-  const [products, setProducts] = useState(productsData);
-  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const baseUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
         const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
@@ -33,7 +34,6 @@ const ShopContextProvider = (props) => {
               has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
               discount_percent: apiProduct.discount_percent || mockProduct.discount_percent || 0,
               collections: apiProduct.collections || mockProduct.collections || (apiProduct.tags ? apiProduct.tags.map(t => typeof t === 'object' ? t.name : t) : []),
-              images: apiProduct.images?.length > 0 ? apiProduct.images : (mockProduct.images || []),
             };
           });
 
@@ -46,8 +46,6 @@ const ShopContextProvider = (props) => {
       }
     };
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLoading(true);
     fetchProducts();
   }, []);
 

@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -22,6 +22,8 @@ import OrderSuccess from './pages/OrderSuccess';
 import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
+  const location = useLocation();
+  const hideFooter = location.pathname === '/login' || location.pathname === '/register';
   return (
     <main>
       <ScrollToTop />
@@ -46,7 +48,7 @@ const App = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
       </Routes>
-      <Footer />
+      {!hideFooter && <Footer />}
     </main>
   );
 }

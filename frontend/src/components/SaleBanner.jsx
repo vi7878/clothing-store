@@ -34,7 +34,7 @@ const SaleBanner = () => {
       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-300"></div>
       <div className="relative z-10 max-w-[1200px] mx-auto w-full px-5 flex flex-col md:flex-row items-center justify-center md:gap-16">
 
-        <h2 className="text-white font-black text-[120px] md:text-[150px] leading-none tracking-tighter">
+        <h2 className="text-white font-black text-[70px] sm:text-[100px] md:text-[150px] leading-none tracking-tighter">
           10%-20%
         </h2>
 
@@ -44,16 +44,16 @@ const SaleBanner = () => {
             Оновіть свій гардероб вигідно. Тільки цього місяця діє спеціальна знижка від 10% до 20% на обрані моделі для неї та для нього.
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 mt-2">
             <button
               onClick={(e) => handleButtonClick('women', e)}
-              className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-3 px-8 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
+              className="bg-white/90 text-[#0B0035] font-bold text-[14px] md:text-[20px] py-3 px-6 md:py-4 md:px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300 active:scale-95 whitespace-nowrap"
             > Для Неї
             </button>
 
             <button
               onClick={(e) => handleButtonClick('men', e)}
-              className="bg-white/90 text-[#0B0035] font-bold text-[20px] py-3 px-8 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
+              className="bg-white/90 text-[#0B0035] font-bold text-[14px] md:text-[20px] py-3 px-6 md:py-4 md:px-12 border-2 border-[#B2412E] hover:bg-[#0B0035] hover:text-white transition-colors duration-300 active:scale-95 whitespace-nowrap"
             > Для Нього
             </button>
           </div>

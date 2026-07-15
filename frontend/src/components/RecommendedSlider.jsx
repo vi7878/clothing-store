@@ -51,18 +51,18 @@ const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
           </h2>
 
           <div className="relative">
-            <button className={`related-prev left-2 md:left-4 ${arrowBtnClass}`}>
+            <button className={`related-prev left-2 md:left-4 ${arrowBtnClass} hidden md:flex`}>
               <FiChevronLeft className="text-2xl" />
             </button>
 
             <Swiper
               modules={[Navigation]}
               navigation={{
-                prevEl: '.related-prev',
+                prevEl: '.related-prev ',
                 nextEl: '.related-next',
               }}
               breakpoints={{
-                320: { slidesPerView: 1.2, spaceBetween: 10 },
+                320: { slidesPerView: 2.2, spaceBetween: 10 },
                 640: { slidesPerView: 2.5, spaceBetween: 10 },
                 1024: { slidesPerView: 3.5, spaceBetween: 10 },
                 1280: { slidesPerView: 4, spaceBetween: 10 },
@@ -76,7 +76,7 @@ const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
               ))}
             </Swiper>
 
-            <button className={`related-next right-2 md:right-4 ${arrowBtnClass}`}>
+            <button className={`related-next right-2 md:right-4 ${arrowBtnClass} hidden md:flex`}>
               <FiChevronRight className="text-2xl" />
             </button>
           </div>
@@ -108,7 +108,7 @@ const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
           )}
 
           <div className="relative">
-            <button className={`recommended-prev left-2 md:left-4 ${arrowBtnClass}`}>
+            <button className={`recommended-prev left-2 md:left-4 ${arrowBtnClass} hidden md:flex`}>
               <FiChevronLeft className="text-2xl" />
             </button>
 
@@ -119,7 +119,7 @@ const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
                 nextEl: '.recommended-next',
               }}
               breakpoints={{
-                320: { slidesPerView: 1.2, spaceBetween: 10 },
+                320: { slidesPerView: 2.2, spaceBetween: 10 },
                 640: { slidesPerView: 2.5, spaceBetween: 10 },
                 1024: { slidesPerView: 3.5, spaceBetween: 10 },
                 1280: { slidesPerView: 4, spaceBetween: 10 },
@@ -133,7 +133,7 @@ const RecommendedSlider = ({ currentProduct, isHomePage = false }) => {
               ))}
             </Swiper>
 
-            <button className={`recommended-next right-2 md:right-4 ${arrowBtnClass}`}>
+            <button className={`recommended-next right-2 md:right-4 ${arrowBtnClass} hidden md:flex`}>
               <FiChevronRight className="text-2xl" />
             </button>
           </div>

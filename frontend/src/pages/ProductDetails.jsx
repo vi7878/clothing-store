@@ -8,23 +8,15 @@ import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
-import { getOptimizedUrl, getResponsiveImageProps } from '../utils/cloudinary';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { products, currency, addToCart, wishlistItems, toggleWishlist } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
 
-  const initialProduct = products?.find((p) => String(p.id) === String(id));
-  const [product, setProduct] = useState(initialProduct || null);
-  const [loading, setLoading] = useState(!initialProduct);
-  const [mainImage, setMainImage] = useState(() => {
-    if (initialProduct && initialProduct.images && initialProduct.images.length > 0) {
-      const firstImg = initialProduct.images[0];
-      return typeof firstImg === 'object' ? firstImg.image : firstImg;
-    }
-    return null;
-  });
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [mainImage, setMainImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [isDescOpen, setIsDescOpen] = useState(true);
@@ -45,9 +37,8 @@ const ProductDetails = () => {
         window.scrollTo(0, 0);
       };
 
-      if (!product) {
-        setLoading(true);
-      }
+      setProduct(null);
+      setLoading(true);
 
       try {
         const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
@@ -62,7 +53,6 @@ const ProductDetails = () => {
             data.has_discount = data.has_discount || mockProduct.has_discount || mockProduct.discount || false;
             data.discount_percent = data.discount_percent || mockProduct.discount_percent || 0;
             data.collections = data.collections || mockProduct.collections || (data.tags ? data.tags.map(t => typeof t === 'object' ? t.name : t) : []);
-            data.images = data.images?.length > 0 ? data.images : (mockProduct.images || []);
           }
 
           initializeProduct(data);
@@ -81,10 +71,9 @@ const ProductDetails = () => {
     };
 
     fetchProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, products]);
 
-  if (loading && !product) {
+  if (loading) {
     return <div className="min-h-screen flex items-center justify-center font-medium">Завантаження товару...</div>;
   }
 
@@ -183,9 +172,8 @@ const ProductDetails = () => {
                 <img
                   key={index}
                   onClick={() => setMainImage(imgSrc)}
-                  src={getOptimizedUrl(imgSrc, 'thumbnail')}
+                  src={imgSrc}
                   alt={`${product.name} thumbnail ${index}`}
-                  loading="lazy"
                   className={`w-20 h-[100px] object-cover cursor-pointer border-2 transition-all flex-shrink-0 ${mainImage === imgSrc ? 'border-black' : 'border-transparent hover:border-gray-300'
                     }`}
                 />
@@ -214,26 +202,11 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <div
-              className="relative w-full flex justify-center items-center overflow-hidden transition-all"
-            >
-              {product.images?.map((img, index) => {
-                const imgSrc = typeof img === 'object' ? img.image : img;
-                const isActive = mainImage === imgSrc;
-                return (
-                  <img
-                    key={index}
-                    {...getResponsiveImageProps(imgSrc, 'details')}
-                    alt={product.name}
-                    fetchPriority={index === 0 ? "high" : "auto"}
-                    loading={index === 0 ? undefined : "lazy"}
-                    className={`w-full h-auto max-h-[700px] object-contain transition-opacity duration-500 ${
-                      isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0'
-                    }`}
-                  />
-                );
-              })}
-            </div>
+            <img
+              src={mainImage}
+              alt={product.name}
+              className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
+            />
 
             {product.images?.length > 1 && (
               <button
@@ -295,12 +268,14 @@ const ProductDetails = () => {
                     key={index}
                     onClick={() => isAvailable && setSelectedColor(color.hex)}
                     disabled={!isAvailable}
-                    className={`w-10 h-10 border-2 flex items-center justify-center p-0.5 relative overflow-hidden ${selectedColor === color.hex ? 'border-black' : 'border-transparent hover:border-gray-300'
-                      } ${!isAvailable ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`w-10 h-10 border-2 rounded-full flex items-center justify-center p-0.5 relative overflow-hidden ${selectedColor === color.hex ?
+                      'border-black' : 'border-transparent hover:border-gray-300'
+                      } ${!isAvailable ?
+                      'cursor-not-allowed opacity-50' : ''}`}
                     title={color.name}
                   >
                     <div
-                      className="w-full h-full border border-gray-200"
+                      className="w-full h-full rounded-full border border-gray-200"
                       style={{ backgroundColor: color.hex }}
                     ></div>
 

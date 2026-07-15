@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { FiHeart } from 'react-icons/fi';
+import { FiHeart, FiShoppingBag, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
@@ -24,6 +24,8 @@ const ProductCard = ({ product, priority = false }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
+
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
   const isSizeAvailable = (size) => {
     if (selectedColor) {
@@ -91,7 +93,6 @@ const ProductCard = ({ product, priority = false }) => {
     setShowError(false);
   };
 
-  // "Quick Buy" button logic
   const handleQuickBuy = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -163,9 +164,8 @@ const ProductCard = ({ product, priority = false }) => {
             {collections.map((collection) => (
               <span
                 key={collection}
-                className={`text-[10px] font-bold uppercase px-2 py-1 tracking-wider text-white shadow-sm ${collection === 'new' ? 'bg-orange-500' :
-                  collection === 'summer' ? 'bg-indigo-300' :
-                    'bg-gray-500'
+                className={`text-[8px] md:text-[10px] font-bold uppercase px-1.5 py-0.5 md:px-2 md:py-1 tracking-wider text-white shadow-sm ${collection === 'new' ? 'bg-orange-500' :
+                  collection === 'summer' ? 'bg-indigo-300' : 'bg-gray-500'
                   }`}
               >
                 {collection === 'new' ? 'Новинка' :
@@ -188,70 +188,79 @@ const ProductCard = ({ product, priority = false }) => {
           />
         </div>
 
-        {isHovered && (
-          <div className="absolute inset-0 z-10 bg-black/40 flex flex-col justify-end p-4 transition-opacity duration-300">
-            {showError && (
-              <p className="text-red-500 text-xs font-bold mb-2 drop-shadow-md">ОБЕРІТЬ РОЗМІР ТА КОЛІР!</p>
-            )}
+        <div
+          className="md:hidden absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 bg-white/90 p-2.5 rounded-full shadow-md text-[#0B0035] transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMobileModalOpen(true);
+          }}
+        >
+          <FiShoppingBag size={20} />
+        </div>
 
-            <div className="flex justify-center gap-1 mb-4">
-              {uniqueSizes.map((size) => {
-                const isAvailable = isSizeAvailable(size);
-                return (
-                  <button
-                    key={size}
-                    onClick={(e) => isAvailable && handleSizeSelect(size, e)}
-                    disabled={!isAvailable}
-                    className={`relative border text-sm px-2 py-1 transition-colors overflow-hidden ${selectedSize === size
-                      ? 'bg-[#B2412E] border-[#B2412E] text-white'
-                      : isAvailable
-                        ? 'border-white text-white hover:bg-white/20'
-                        : 'border-white/30 text-white/30 cursor-not-allowed'
-                      }`}
-                  >
-                    {size}
-                    {!isAvailable && (
-                      <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500/60 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+        <div className={`hidden md:flex absolute inset-0 z-10 bg-black/40 flex-col justify-end p-4 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          {showError && (
+            <p className="text-red-500 text-xs font-bold mb-2 drop-shadow-md">ОБЕРІТЬ РОЗМІР ТА КОЛІР!</p>
+          )}
 
-            <div className="flex gap-2 mb-4">
-              {uniqueColors.map((color, index) => {
-                const isAvailable = isColorAvailable(color.hex);
-                return (
-                  <button
-                    key={index}
-                    onClick={(e) => isAvailable && handleColorSelect(color.hex, e)}
-                    disabled={!isAvailable}
-                    className={`relative w-4 h-4 rounded-full border border-gray-100 transition-all ${selectedColor === color.hex
-                      ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40'
-                      : ''
-                      } ${!isAvailable ? 'opacity-20 cursor-not-allowed' : ''}`}
-                    style={{ backgroundColor: color.hex }}
-                  >
-                    {!isAvailable && (
-                      <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            <button
-              onClick={handleQuickBuy}
-              className="w-full bg-[#f3f3f3] text-black font-bold py-2 hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
-            >
-              Швидка покупка
-            </button>
+          <div className="flex justify-center gap-1 mb-4">
+            {uniqueSizes.map((size) => {
+              const isAvailable = isSizeAvailable(size);
+              return (
+                <button
+                  key={size}
+                  onClick={(e) => isAvailable && handleSizeSelect(size, e)}
+                  disabled={!isAvailable}
+                  className={`relative border text-sm px-2 py-1 transition-colors overflow-hidden ${selectedSize === size
+                    ? 'bg-[#B2412E] border-[#B2412E] text-white'
+                    : isAvailable
+                      ? 'border-white text-white hover:bg-white/20'
+                      : 'border-white/30 text-white/30 cursor-not-allowed'
+                    }`}
+                >
+                  {size}
+                  {!isAvailable && (
+                    <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500/60 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
+                  )}
+                </button>
+              );
+            })}
           </div>
-        )}
+
+          <div className="flex gap-2 mb-4">
+            {uniqueColors.map((color, index) => {
+              const isAvailable = isColorAvailable(color.hex);
+              return (
+                <button
+                  key={index}
+                  onClick={(e) => isAvailable && handleColorSelect(color.hex, e)}
+                  disabled={!isAvailable}
+                  className={`relative w-4 h-4 rounded-full border border-gray-100 transition-all ${selectedColor === color.hex
+                    ? 'ring-2 ring-white ring-offset-1 ring-offset-black/40'
+                    : ''
+                    } ${!isAvailable ? 'opacity-20 cursor-not-allowed' : ''}`}
+                  style={{ backgroundColor: color.hex }}
+                >
+                  {!isAvailable && (
+                    <div className="absolute top-1/2 left-1/2 w-[150%] h-[1px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={handleQuickBuy}
+            className="w-full bg-[#f3f3f3] text-black font-bold py-2 hover:bg-[#0B0035] hover:text-white transition-colors duration-300"
+          >
+            Швидка покупка
+          </button>
+        </div>
       </Link>
 
-        <div className="bg-[#fafafa] p-1 flex flex-col mt-2">
-        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none select-text cursor-text">
+      <div className="bg-[#fafafa] p-1 flex flex-col mt-2">
+        <h3 className="font-bold text-gray-800 text-sm tracking-wide uppercase leading-none select-text cursor-text truncate title-ellipsis">
           {product.name || product.title}
         </h3>
 
@@ -272,6 +281,107 @@ const ProductCard = ({ product, priority = false }) => {
           )}
         </div>
       </div>
+
+      {isMobileModalOpen && createPortal(
+        <div className="fixed inset-0 z-[9999] flex flex-col justify-end md:hidden">
+          <div
+            className="absolute inset-0 bg-black/60 transition-opacity"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMobileModalOpen(false); }}
+          />
+
+          <div
+            className="relative bg-white w-full rounded-t-3xl p-6 pb-8 animate-[fadeInUp_0.3s_ease_both] shadow-[0_-10px_40px_rgba(0,0,0,0.2)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMobileModalOpen(false); }}
+              className="absolute top-5 right-5 text-[#0B0035] p-1"
+            >
+              <FiX size={26} />
+            </button>
+
+            <div className="flex gap-4 mb-5 pr-8">
+              <img src={mainImg} alt="product" className="w-20 h-24 object-cover rounded-md shadow-sm" />
+              <div className="flex flex-col justify-center pt-1">
+                <h3 className="font-bold text-base text-[#0B0035] leading-tight mb-2">{product.name || product.title}</h3>
+                <p className="font-bold text-[#B2412E] text-lg">{finalPrice} UAH</p>
+              </div>
+            </div>
+
+            <hr className="border-gray-100 mb-6" />
+
+            {showError && <p className="text-red-500 text-xs font-bold mb-3 text-center">БУДЬ ЛАСКА, ОБЕРІТЬ РОЗМІР ТА КОЛІР!</p>}
+
+            <div className="mb-6">
+              <p className="text-[12px] font-bold uppercase mb-4 text-gray-500 tracking-widest">Оберіть розмір</p>
+              <div className="flex flex-wrap gap-3">
+                {uniqueSizes.map(size => {
+                  const isAvailable = isSizeAvailable(size);
+                  return (
+                    <button
+                      key={size}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (isAvailable) handleSizeSelect(size, e); }}
+                      disabled={!isAvailable}
+                      className={`relative w-11 h-11 border flex items-center justify-center text-sm font-bold transition-all ${
+                        selectedSize === size
+                          ? 'border-[#0B0035] text-[#0B0035] bg-gray-50 ring-1 ring-[#0B0035]'
+                          : isAvailable
+                            ? 'border-gray-300 text-gray-700 hover:border-gray-400'
+                            : 'border-gray-100 text-gray-300 cursor-not-allowed bg-gray-50'
+                      }`}
+                    >
+                      {size}
+                      {!isAvailable && <div className="absolute top-1/2 left-1/2 w-[120%] h-[1.5px] bg-red-500/60 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <p className="text-[12px] font-bold uppercase mb-4 text-gray-500 tracking-widest">Оберіть колір</p>
+              <div className="flex flex-wrap gap-4">
+                {uniqueColors.map((color, index) => {
+                  const isAvailable = isColorAvailable(color.hex);
+                  return (
+                    <button
+                      key={index}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (isAvailable) handleColorSelect(color.hex, e); }}
+                      disabled={!isAvailable}
+                      className={`relative w-10 h-10 rounded-full border border-gray-300 transition-all shadow-sm ${
+                        selectedColor === color.hex ? 'ring-2 ring-[#0B0035] ring-offset-2' : ''
+                      } ${!isAvailable ? 'opacity-30' : ''}`}
+                      style={{ backgroundColor: color.hex }}
+                    >
+                      {!isAvailable && <div className="absolute top-1/2 left-1/2 w-[120%] h-[1px] bg-red-500 -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={(e) => {
+                  handleQuickBuy(e);
+                  if (selectedSize && selectedColor) setIsMobileModalOpen(false);
+                }}
+                className="w-full bg-[#B2412E] text-white font-bold py-4 active:scale-95 transition-transform uppercase text-[14px] tracking-widest shadow-md"
+              >
+                Швидка покупка
+              </button>
+
+              <Link
+                to={`/product/${product.id}`}
+                className="w-full border-2 border-[#0B0035] text-[#0B0035] flex items-center justify-center font-bold py-3.5 active:scale-95 transition-transform uppercase text-[13px] tracking-widest"
+              >
+                Перейти до товару
+              </Link>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
 
     </div>
   )
