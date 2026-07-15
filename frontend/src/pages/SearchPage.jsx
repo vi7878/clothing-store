@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import { ShopContext } from '../context/ShopContext';
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
@@ -8,6 +9,7 @@ const SearchPage = () => {
   const [genderFilter, setGenderFilter] = useState('all');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { products: contextProducts } = useContext(ShopContext);
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -25,7 +27,12 @@ const SearchPage = () => {
         const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
-          setProducts(Array.isArray(data) ? data : (data.results || []));
+          const items = Array.isArray(data) ? data : (data.results || []);
+          const merged = items.map(apiProduct => {
+            const contextProduct = contextProducts.find(p => p.id === apiProduct.id);
+            return contextProduct || apiProduct;
+          });
+          setProducts(merged);
         } else {
           setProducts([]);
         }
@@ -38,7 +45,7 @@ const SearchPage = () => {
     };
 
     fetchSearchResults();
-  }, [query, genderFilter]);
+  }, [query, genderFilter, contextProducts]);
 
   return (
     <div className="max-w-[1700px] mx-auto px-4 md:px-10 py-10 min-h-[60vh]">
