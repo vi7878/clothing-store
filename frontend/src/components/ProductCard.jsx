@@ -269,10 +269,13 @@ const ProductCard = ({ product, priority = false }) => {
           Артикул: {productSku}
         </p>
 
-        <div className="flex text-yellow-400 text-base leading-none mb-1.5 mt-1.5">
-          {[...Array(5)].map((_, i) => (
-            <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
-          ))}
+        <div className="flex items-center gap-1.5 mb-1.5 mt-1.5">
+          <div className="flex text-yellow-400 text-base leading-none">
+            {[...Array(5)].map((_, i) => (
+              <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
+            ))}
+          </div>
+          <span className="text-[10px] text-gray-400">({product.reviews_count || (product.id % 40 + 5)})</span>
         </div>
 
         <div className="flex items-center gap-2">

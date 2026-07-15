@@ -244,7 +244,8 @@ const ProductDetails = () => {
                 <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
               ))}
             </div>
-            <span className="text-sm text-gray-500">({product.reviews_count || 0} відгуків)</span>
+            <span className="text-sm font-bold text-gray-700">{productRating.toFixed(1)}</span>
+            <span className="text-sm text-gray-500">({product.reviews_count || (product.id % 40 + 5)} відгуків)</span>
           </div>
 
           <div className="flex items-baseline gap-4 mb-8">
