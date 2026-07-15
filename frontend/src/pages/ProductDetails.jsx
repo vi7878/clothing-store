@@ -8,6 +8,7 @@ import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const ProductDetails = () => {
   const { id } = useParams();
