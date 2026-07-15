@@ -47,7 +47,7 @@ const Orders = () => {
     if (item.product_image) {
       return getOptimizedUrl(typeof item.product_image === 'object' ? item.product_image.image : item.product_image, 'thumbnail');
     }
-    const contextProduct = products.find(p => p.id === item.product);
+    const contextProduct = products.find(p => p.name === item.product_name || p.title === item.product_name);
     if (contextProduct?.images?.[0]) {
       const img = contextProduct.images[0];
       return getOptimizedUrl(typeof img === 'object' ? img.image : img, 'thumbnail');
