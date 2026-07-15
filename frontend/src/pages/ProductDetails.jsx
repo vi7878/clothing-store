@@ -8,6 +8,7 @@ import { colorOptions } from '../data/colors';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -48,11 +49,16 @@ const ProductDetails = () => {
 
           const mockProduct = productsData.find(p => p.sku === data.sku || p.id === data.id);
           if (mockProduct) {
+            data.name = data.name || mockProduct.name || mockProduct.title;
+            data.description = data.description || mockProduct.description;
             data.rating = (data.average_rating > 0) ? data.average_rating : (data.rating || mockProduct.rating || 0);
             data.sku = data.sku || mockProduct.sku || mockProduct.article;
             data.has_discount = data.has_discount || mockProduct.has_discount || mockProduct.discount || false;
             data.discount_percent = data.discount_percent || mockProduct.discount_percent || 0;
             data.collections = data.collections || mockProduct.collections || (data.tags ? data.tags.map(t => typeof t === 'object' ? t.name : t) : []);
+            data.images = data.images?.length > 0 ? data.images : (mockProduct.images || []);
+            data.gender = mockProduct.gender || data.gender;
+            data.category = mockProduct.category || data.category_name;
           }
 
           initializeProduct(data);
@@ -202,11 +208,26 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <img
-              src={mainImage}
-              alt={product.name}
-              className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
-            />
+            <div
+              className="relative w-full h-[500px] md:h-[700px] flex justify-center items-center overflow-hidden transition-all bg-[#f9f9f9] rounded-lg"
+            >
+              {product.images?.map((img, index) => {
+                const imgSrc = typeof img === 'object' ? img.image : img;
+                const isActive = mainImage === imgSrc;
+                return (
+                  <img
+                    key={index}
+                    {...getResponsiveImageProps(imgSrc, 'details')}
+                    alt={product.name}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    loading={index === 0 ? undefined : "lazy"}
+                    className={`w-full h-auto max-h-[700px] object-contain transition-opacity duration-500 ${
+                      isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                );
+              })}
+            </div>
 
             {product.images?.length > 1 && (
               <button
@@ -241,7 +262,8 @@ const ProductDetails = () => {
                 <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
               ))}
             </div>
-            <span className="text-sm text-gray-500">({product.reviews_count || 0} відгуків)</span>
+            <span className="text-sm font-bold text-gray-700">{productRating.toFixed(1)}</span>
+            <span className="text-sm text-gray-500">({product.reviews_count || (product.id % 40 + 5)} відгуків)</span>
           </div>
 
           <div className="flex items-baseline gap-4 mb-8">

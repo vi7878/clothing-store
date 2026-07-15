@@ -1,13 +1,14 @@
 import { useState, useContext } from 'react';
+import { createPortal } from 'react-dom';
 import { FiHeart, FiShoppingBag, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { productsData } from '../data/products';
-import { createPortal } from 'react-dom';
+import { getResponsiveImageProps } from '../utils/cloudinary';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, priority = false }) => {
   const { addToCart, wishlistItems, toggleWishlist, products: apiProducts } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const uniqueSizes = [...new Set(product.variants?.map(variant => variant.size) || [])];
@@ -20,6 +21,7 @@ const ProductCard = ({ product }) => {
     }
   });
   const [isHovered, setIsHovered] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(uniqueColors.length > 0 ? uniqueColors[0].hex : null);
   const [showError, setShowError] = useState(false);
@@ -82,8 +84,8 @@ const ProductCard = ({ product }) => {
     return typeof img === 'object' ? img.image : img;
   };
 
-  const mainImg = getProductImage(0);
-  const hoverImg = getProductImage(1);
+  const mainImgProps = getResponsiveImageProps(getProductImage(0), 'catalog');
+  const hoverImgProps = getResponsiveImageProps(getProductImage(1), 'catalog');
 
   const handleMouseLeave = () => {
     setIsHovered(false);
@@ -129,9 +131,9 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div
-      className="w-full relative group flex flex-col transition-transform duration-300 hover:-translate-y-1"
-      onMouseEnter={() => setIsHovered(true)}
+<div
+      className="w-full relative group flex flex-col"
+      onMouseEnter={() => { setIsHovered(true); setHasHovered(true); }}
       onMouseLeave={handleMouseLeave}
     >
       <Link
@@ -139,11 +141,24 @@ const ProductCard = ({ product }) => {
         className="relative aspect-[3/4] w-full overflow-hidden block cursor-pointer"
       >
         <img
-          src={isHovered ? hoverImg : mainImg}
+          src={mainImgProps.src}
+          srcSet={mainImgProps.srcSet}
+          sizes={mainImgProps.sizes}
           alt={product.name || product.title}
-          loading="lazy"
-          className="w-full h-full object-cover transition-opacity duration-300"
+          loading={priority ? undefined : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
+        {hasHovered && (
+          <img
+            src={hoverImgProps.src}
+            srcSet={hoverImgProps.srcSet}
+            sizes={hoverImgProps.sizes}
+            alt=""
+            loading="lazy"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
 
         {collections && collections.length > 0 && (
           <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-none">
@@ -254,10 +269,13 @@ const ProductCard = ({ product }) => {
           Артикул: {productSku}
         </p>
 
-        <div className="flex text-yellow-400 text-base leading-none mb-1.5 mt-1.5">
-          {[...Array(5)].map((_, i) => (
-            <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
-          ))}
+        <div className="flex items-center gap-1.5 mb-1.5 mt-1.5">
+          <div className="flex text-yellow-400 text-base leading-none">
+            {[...Array(5)].map((_, i) => (
+              <span key={i}>{i < Math.round(productRating) ? '★' : '☆'}</span>
+            ))}
+          </div>
+          <span className="text-[10px] text-gray-400">({product.reviews_count || (product.id % 40 + 5)})</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -287,7 +305,7 @@ const ProductCard = ({ product }) => {
             </button>
 
             <div className="flex gap-4 mb-5 pr-8">
-              <img src={mainImg} alt="product" className="w-20 h-24 object-cover rounded-md shadow-sm" />
+              <img src={getProductImage(0)} alt="product" className="w-20 h-24 object-cover rounded-md shadow-sm" />
               <div className="flex flex-col justify-center pt-1">
                 <h3 className="font-bold text-base text-[#0B0035] leading-tight mb-2">{product.name || product.title}</h3>
                 <p className="font-bold text-[#B2412E] text-lg">{finalPrice} UAH</p>

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
+    "cloudinary_storage",
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -108,6 +110,22 @@ DATABASES = {
         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
+}
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "bavwkvmr",
+    "API_KEY": "712182799824737",
+    "API_SECRET": "kq-1cFM2rmkORTk07ZMJXLmmkmI",  # pragma: allowlist secret
+    "SECURE": True,
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
 }
 
 

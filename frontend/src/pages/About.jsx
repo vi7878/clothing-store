@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiPackage, FiRefreshCw, FiShield, FiHeart, FiPhone, FiMail, FiClock, FiMapPin } from 'react-icons/fi';
-import imgAn from '../assets/team/An.png';
-import imgVi from '../assets/team/Vi.png';
-import aboutBg from '../assets/banners/about-bg.jpg';
 
 const values = [
   {
@@ -32,12 +29,12 @@ const team = [
   {
     name: 'AnnaLiulkova',
     role: 'Front-end розробник',
-    img: imgAn
+    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_500,q_auto:good,w_400/v1/wearhouse/team/An"
   },
   {
     name: 'vi7878',
     role: 'Back-end розробник',
-    img: imgVi
+    img: "https://res.cloudinary.com/bavwkvmr/image/upload/c_fill,f_auto,h_500,q_auto:good,w_400/v1/wearhouse/team/Vi"
   },
 ];
 
@@ -85,8 +82,9 @@ const About = () => {
       <section className="relative bg-[#0B0035] text-white min-h-[550px] flex items-center px-6 md:px-16 py-20">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src={aboutBg}
+            src="https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto:good,w_1920/v1/wearhouse/banners/about-bg"
             alt="Wearhouse background"
+            loading="lazy"
             className="w-full h-full object-cover grayscale"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B0035] via-[#B2412E]/20 to-transparent"></div>
@@ -195,7 +193,8 @@ const About = () => {
                   <img
                     src={img}
                     alt={name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-[#0B0035] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                 </div>

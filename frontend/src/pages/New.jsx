@@ -1,16 +1,17 @@
 import { useSearchParams } from 'react-router-dom';
-import { productsData } from '../data/products';
+import { useContext } from 'react';
+import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 
 const New = () => {
+  const { products, loading } = useContext(ShopContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
   const currentTab = genderQuery === 'men' ? 'men' : 'women';
 
-  const filteredProducts = productsData.filter(product =>
-    product.gender === currentTab
-    && product.collections?.includes('new')
+  const filteredProducts = products.filter(product =>
+    product.gender === currentTab && (product.collections?.includes('new') || product.is_new)
   );
 
   const handleTabChange = (gender) => {
@@ -41,10 +42,16 @@ const New = () => {
         </button>
       </div>
 
-      {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-6 md:gap-x-4 md:gap-y-10 mb-12">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="w-full aspect-[3/4] bg-gray-200 animate-pulse rounded"></div>
+          ))}
+        </div>
+      ) : filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} priority={index < 4} />
           ))}
         </div>
       ) : (

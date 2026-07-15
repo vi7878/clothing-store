@@ -1,373 +1,50 @@
-import Main11 from "../assets/products/1_1w.jpg";
-import Hover12 from "../assets/products/1_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_3m" from "../assets/products/13_3m.jpg";
 
-import Main21 from "../assets/products/2_1w.jpg";
-import Hover22 from "../assets/products/2_2w.jpg";
 
-import Main31 from "../assets/products/3_1w.jpg";
-import Hover32 from "../assets/products/3_2w.jpg";
 
-import Main41 from "../assets/products/4_1w.jpg";
-import Hover42 from "../assets/products/4_2w.jpg";
 
-import Main51 from "../assets/products/5_1w.jpg";
-import Hover52 from "../assets/products/5_2w.jpg";
 
-import Main61 from "../assets/products/6_1w.jpg";
-import Hover62 from "../assets/products/6_2w.jpg";
 
-import Main71 from "../assets/products/7_1w.jpg";
-import Hover72 from "../assets/products/7_2w.jpg";
 
-import Main81 from "../assets/products/8_1w.jpg";
-import Hover82 from "../assets/products/8_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_3m" from "../assets/products/20_3m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_4m" from "../assets/products/20_4m.jpg";
 
-import Main91 from "../assets/products/9_1w.jpg";
-import Hover92 from "../assets/products/9_2w.jpg";
 
-import Main101 from "../assets/products/10_1w.jpg";
-import Hover102 from "../assets/products/10_2w.jpg";
 
-import Main111 from "../assets/products/11_1w.jpg";
-import Hover112 from "../assets/products/11_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_3m" from "../assets/products/23_3m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_4m" from "../assets/products/23_4m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_5m" from "../assets/products/23_5m.jpg";
 
-import Main121 from "../assets/products/12_1w.jpg";
-import Hover122 from "../assets/products/12_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_3m" from "../assets/products/24_3m.jpg";
 
-import Main131 from "../assets/products/13_1w.jpg";
-import Hover132 from "../assets/products/13_2w.jpg";
 
-import Main141 from "../assets/products/14_1w.jpg";
-import Hover142 from "../assets/products/14_2w.jpg";
 
-import Main151 from "../assets/products/15_1w.jpg";
-import Hover152 from "../assets/products/15_2w.jpg";
 
-import Main161 from "../assets/products/16_1w.jpg";
-import Hover162 from "../assets/products/16_2w.jpg";
 
-import Main171 from "../assets/products/17_1w.jpg";
-import Hover172 from "../assets/products/17_2w.jpg";
 
-import Main181 from "../assets/products/18_1w.jpg";
-import Hover182 from "../assets/products/18_2w.jpg";
 
-import Main191 from "../assets/products/19_1w.jpg";
-import Hover192 from "../assets/products/19_2w.jpg";
 
-import Main201 from "../assets/products/20_1w.jpg";
-import Hover202 from "../assets/products/20_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/32_1m" from "../assets/products/32_1m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/32_2m" from "../assets/products/32_2m.jpg";
 
-import Main211 from "../assets/products/21_1w.jpg";
-import Hover212 from "../assets/products/21_2w.jpg";
 
-import Main221 from "../assets/products/22_1w.jpg";
-import Hover222 from "../assets/products/22_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_3m" from "../assets/products/34_3m.jpg";
 
-import Main231 from "../assets/products/23_1w.jpg";
-import Hover232 from "../assets/products/23_2w.jpg";
 
-import Main241 from "../assets/products/24_1w.jpg";
-import Hover242 from "../assets/products/24_2w.jpg";
 
-import Main251 from "../assets/products/25_1w.jpg";
-import Hover252 from "../assets/products/25_2w.jpg";
 
-import Main261 from "../assets/products/26_1w.jpg";
-import Hover262 from "../assets/products/26_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_3m" from "../assets/products/38_3m.jpg";
 
-import Main271 from "../assets/products/27_1w.jpg";
-import Hover272 from "../assets/products/27_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_3m" from "../assets/products/39_3m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_4m" from "../assets/products/39_4m.jpg";
 
-import Main281 from "../assets/products/28_1w.jpg";
-import Hover282 from "../assets/products/28_2w.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_3m" from "../assets/products/40_3m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_4m" from "../assets/products/40_4m.jpg";
+// import "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_5m" from "../assets/products/40_5m.jpg";
 
-import Main291 from "../assets/products/29_1w.jpg";
-import Hover292 from "../assets/products/29_2w.jpg";
 
-import Main301 from "../assets/products/30_1w.jpg";
-import Hover302 from "../assets/products/30_2w.jpg";
 
-import Main311 from "../assets/products/31_1w.jpg";
-import Hover312 from "../assets/products/31_2w.jpg";
 
-import Main321 from "../assets/products/32_1w.jpg";
-import Hover322 from "../assets/products/32_2w.jpg";
-
-import Main331 from "../assets/products/33_1w.jpg";
-import Hover332 from "../assets/products/33_2w.jpg";
-
-import Main341 from "../assets/products/34_1w.jpg";
-import Hover342 from "../assets/products/34_2w.jpg";
-
-import Main351 from "../assets/products/35_1w.jpg";
-import Hover352 from "../assets/products/35_2w.jpg";
-
-import Main361 from "../assets/products/36_1w.jpg";
-import Hover362 from "../assets/products/36_2w.jpg";
-
-import Main371 from "../assets/products/37_1w.jpg";
-import Hover372 from "../assets/products/37_2w.jpg";
-
-import Main381 from "../assets/products/38_1w.jpg";
-import Hover382 from "../assets/products/38_2w.jpg";
-
-import Main391 from "../assets/products/39_1w.jpg";
-import Hover392 from "../assets/products/39_2w.jpg";
-
-import Main401 from "../assets/products/40_1w.jpg";
-import Hover402 from "../assets/products/40_2w.jpg";
-
-import Main411 from "../assets/products/41_1w.jpg";
-import Hover412 from "../assets/products/41_2w.jpg";
-
-import Main421 from "../assets/products/42_1w.jpg";
-import Hover422 from "../assets/products/42_2w.jpg";
-
-import Main431 from "../assets/products/43_1w.jpg";
-import Hover432 from "../assets/products/43_2w.jpg";
-
-import Main441 from "../assets/products/44_1w.jpg";
-import Hover442 from "../assets/products/44_2w.jpg";
-
-import Main451 from "../assets/products/45_1w.jpg";
-import Hover452 from "../assets/products/45_2w.jpg";
-
-import Main461 from "../assets/products/46_1w.jpg";
-import Hover462 from "../assets/products/46_2w.jpg";
-
-import Main471 from "../assets/products/47_1w.jpg";
-import Hover472 from "../assets/products/47_2w.jpg";
-
-import Main481 from "../assets/products/48_1w.jpg";
-import Hover482 from "../assets/products/48_2w.jpg";
-
-import Main491 from "../assets/products/49_1w.jpg";
-import Hover492 from "../assets/products/49_2w.jpg";
-
-import Main501 from "../assets/products/50_1w.jpg";
-import Hover502 from "../assets/products/50_2w.jpg";
-
-import Main511 from "../assets/products/51_1w.jpg";
-import Hover512 from "../assets/products/51_2w.jpg";
-
-import Main521 from "../assets/products/52_1w.jpg";
-import Hover522 from "../assets/products/52_2w.jpg";
-
-import Main531 from "../assets/products/53_1w.jpg";
-import Hover532 from "../assets/products/53_2w.jpg";
-
-import Main541 from "../assets/products/54_1w.jpg";
-import Hover542 from "../assets/products/54_2w.jpg";
-
-import Main551 from "../assets/products/55_1w.jpg";
-import Hover552 from "../assets/products/55_2w.jpg";
-
-import Main561 from "../assets/products/56_1w.jpg";
-import Hover562 from "../assets/products/56_2w.jpg";
-
-import Main571 from "../assets/products/57_1w.jpg";
-import Hover572 from "../assets/products/57_2w.jpg";
-
-import Main581 from "../assets/products/58_1w.jpg";
-import Hover582 from "../assets/products/58_2w.jpg";
-
-import Main591 from "../assets/products/59_1w.jpg";
-import Hover592 from "../assets/products/59_2w.jpg";
-
-import Main601 from "../assets/products/60_1w.jpg";
-import Hover602 from "../assets/products/60_2w.jpg";
-
-import Main611 from "../assets/products/61_1w.jpg";
-import Hover612 from "../assets/products/61_2w.jpg";
-
-import Main621 from "../assets/products/62_1w.jpg";
-import Hover622 from "../assets/products/62_2w.jpg";
-
-import Main631 from "../assets/products/63_1w.jpg";
-import Hover632 from "../assets/products/63_2w.jpg";
-
-import Main641 from "../assets/products/64_1w.jpg";
-import Hover642 from "../assets/products/64_2w.jpg";
-
-import Main651 from "../assets/products/65_1w.jpg";
-import Hover652 from "../assets/products/65_2w.jpg";
-
-import Main661 from "../assets/products/66_1w.jpg";
-import Hover662 from "../assets/products/66_2w.jpg";
-
-import Main671 from "../assets/products/67_1w.jpg";
-import Hover672 from "../assets/products/67_2w.jpg";
-
-import Main681 from "../assets/products/68_1w.jpg";
-import Hover682 from "../assets/products/68_2w.jpg";
-
-import Main691 from "../assets/products/69_1w.jpg";
-import Hover692 from "../assets/products/69_2w.jpg";
-
-import Main701 from "../assets/products/70_1w.jpg";
-import Hover702 from "../assets/products/70_2w.jpg";
-
-import Main711 from "../assets/products/71_1w.jpg";
-import Hover712 from "../assets/products/71_2w.jpg";
-
-import Main721 from "../assets/products/72_1w.jpg";
-import Hover722 from "../assets/products/72_2w.jpg";
-
-import Main731 from "../assets/products/73_1w.jpg";
-import Hover732 from "../assets/products/73_2w.jpg";
-
-import Main741 from "../assets/products/74_1w.jpg";
-import Hover742 from "../assets/products/74_2w.jpg";
-
-import Main751 from "../assets/products/75_1w.jpg";
-import Hover752 from "../assets/products/75_2w.jpg";
-
-import Main55_1 from "../assets/products/1_1m.jpg";
-import Main55_2 from "../assets/products/1_2m.jpg";
-
-import Main56_1 from "../assets/products/2_1m.jpg";
-import Main56_2 from "../assets/products/2_2m.jpg";
-
-import Main57_1 from "../assets/products/3_1m.jpg";
-import Main57_2 from "../assets/products/3_2m.jpg";
-
-import Main58_1 from "../assets/products/4_1m.jpg";
-import Main58_2 from "../assets/products/4_2m.jpg";
-
-import Main59_1 from "../assets/products/5_1m.jpg";
-import Main59_2 from "../assets/products/5_2m.jpg";
-
-import Main60_1 from "../assets/products/6_1m.jpg";
-import Main60_2 from "../assets/products/6_2m.jpg";
-
-import Main61_1 from "../assets/products/7_1m.jpg";
-import Main61_2 from "../assets/products/7_2m.jpg";
-
-import Main62_1 from "../assets/products/8_1m.jpg";
-import Main62_2 from "../assets/products/8_2m.jpg";
-
-import Main63_1 from "../assets/products/9_1m.jpg";
-import Main63_2 from "../assets/products/9_2m.jpg";
-
-import Main64_1 from "../assets/products/10_1m.jpg";
-import Main64_2 from "../assets/products/10_2m.jpg";
-
-import Main65_1 from "../assets/products/11_1m.jpg";
-import Main65_2 from "../assets/products/11_2m.jpg";
-
-import Main66_1 from "../assets/products/12_1m.jpg";
-import Main66_2 from "../assets/products/12_2m.jpg";
-
-import Main67_1 from "../assets/products/13_1m.jpg";
-import Main67_2 from "../assets/products/13_2m.jpg";
-// import Main67_3 from "../assets/products/13_3m.jpg";
-
-import Main68_1 from "../assets/products/14_1m.jpg";
-import Main68_2 from "../assets/products/14_2m.jpg";
-
-import Main69_1 from "../assets/products/15_1m.jpg";
-import Main69_2 from "../assets/products/15_2m.jpg";
-
-import Main70_1 from "../assets/products/16_1m.jpg";
-import Main70_2 from "../assets/products/16_2m.jpg";
-
-import Main71_1 from "../assets/products/17_1m.jpg";
-import Main71_2 from "../assets/products/17_2m.jpg";
-
-import Main72_1 from "../assets/products/18_1m.jpg";
-import Main72_2 from "../assets/products/18_2m.jpg";
-
-import Main73_1 from "../assets/products/19_1m.jpg";
-import Main73_2 from "../assets/products/19_2m.jpg";
-
-import Main74_1 from "../assets/products/20_1m.jpg";
-import Main74_2 from "../assets/products/20_2m.jpg";
-// import Main74_3 from "../assets/products/20_3m.jpg";
-// import Main74_4 from "../assets/products/20_4m.jpg";
-
-import Main75_1 from "../assets/products/21_1m.jpg";
-import Main75_2 from "../assets/products/21_2m.jpg";
-
-import Main76_1 from "../assets/products/22_1m.jpg";
-import Main76_2 from "../assets/products/22_2m.jpg";
-
-import Main77_1 from "../assets/products/23_1m.jpg";
-import Main77_2 from "../assets/products/23_2m.jpg";
-// import Main77_3 from "../assets/products/23_3m.jpg";
-// import Main77_4 from "../assets/products/23_4m.jpg";
-// import Main77_5 from "../assets/products/23_5m.jpg";
-
-import Main78_1 from "../assets/products/24_1m.jpg";
-import Main78_2 from "../assets/products/24_2m.jpg";
-// import Main78_3 from "../assets/products/24_3m.jpg";
-
-import Main79_1 from "../assets/products/25_1m.jpg";
-import Main79_2 from "../assets/products/25_2m.jpg";
-
-import Main80_1 from "../assets/products/26_1m.jpg";
-import Main80_2 from "../assets/products/26_2m.jpg";
-
-import Main81_1 from "../assets/products/27_1m.jpg";
-import Main81_2 from "../assets/products/27_2m.jpg";
-
-import Main82_1 from "../assets/products/28_1m.jpg";
-import Main82_2 from "../assets/products/28_2m.jpg";
-
-import Main83_1 from "../assets/products/29_1m.jpg";
-import Main83_2 from "../assets/products/29_2m.jpg";
-
-import Main84_1 from "../assets/products/30_1m.jpg";
-import Main84_2 from "../assets/products/30_2m.jpg";
-
-import Main85_1 from "../assets/products/31_1m.jpg";
-import Main85_2 from "../assets/products/31_2m.jpg";
-
-// import Main86_1 from "../assets/products/32_1m.jpg";
-// import Main86_2 from "../assets/products/32_2m.jpg";
-
-import Main87_1 from "../assets/products/33_1m.jpg";
-import Main87_2 from "../assets/products/33_2m.jpg";
-
-import Main88_1 from "../assets/products/34_1m.jpg";
-import Main88_2 from "../assets/products/34_2m.jpg";
-// import Main88_3 from "../assets/products/34_3m.jpg";
-
-import Main89_1 from "../assets/products/35_1m.jpg";
-import Main89_2 from "../assets/products/35_2m.jpg";
-
-import Main90_1 from "../assets/products/36_1m.jpg";
-import Main90_2 from "../assets/products/36_2m.jpg";
-
-import Main91_1 from "../assets/products/37_1m.jpg";
-import Main91_2 from "../assets/products/37_2m.jpg";
-
-import Main92_1 from "../assets/products/38_1m.jpg";
-import Main92_2 from "../assets/products/38_2m.jpg";
-// import Main92_3 from "../assets/products/38_3m.jpg";
-
-import Main93_1 from "../assets/products/39_1m.jpg";
-import Main93_2 from "../assets/products/39_2m.jpg";
-// import Main93_3 from "../assets/products/39_3m.jpg";
-// import Main93_4 from "../assets/products/39_4m.jpg";
-
-import Main94_1 from "../assets/products/40_1m.jpg";
-import Main94_2 from "../assets/products/40_2m.jpg";
-// import Main94_3 from "../assets/products/40_3m.jpg";
-// import Main94_4 from "../assets/products/40_4m.jpg";
-// import Main94_5 from "../assets/products/40_5m.jpg";
-
-import Main95_1 from "../assets/products/41_1m.jpg";
-import Main95_2 from "../assets/products/41_2m.jpg";
-
-import Main96_1 from "../assets/products/42_1m.jpg";
-import Main96_2 from "../assets/products/42_2m.jpg";
-
-import Main97_1 from "../assets/products/43_1m.jpg";
-import Main97_2 from "../assets/products/43_2m.jpg";
-
-import Main98_1 from "../assets/products/44_1m.jpg";
-import Main98_2 from "../assets/products/44_2m.jpg";
 
 // -SIZES-
 //sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']
@@ -415,7 +92,7 @@ export const productsData = [
     has_discount: false, //if 'has_discount: false', then 'discount_percent' must be '0'
     discount_percent: 0, //in this case 'has_discount: false', then '0'
     rating: 4, // then the logic here may change; a table with reviews will be highlighted in the database
-    images: [Main11, Hover12],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/1_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/1_2w"],
     gender: "women",
     category: "Tracksuits",
     collections: ["new"], //collections: ["new"] or ["summer", "new"] or  [],
@@ -460,7 +137,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main21, Hover22],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/2_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/2_2w"],
     gender: "women",
     category: "Co-ords",
     collections: ["summer"],
@@ -483,7 +160,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 5,
     rating: 4,
-    images: [Main31, Hover32],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/3_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/3_2w"],
     gender: "women",
     category: "Co-ords",
     collections: [],
@@ -507,7 +184,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main41, Hover42],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/4_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/4_2w"],
     gender: "women",
     category: "Co-ords",
     collections: ["new"],
@@ -530,7 +207,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main51, Hover52],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/5_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/5_2w"],
     gender: "women",
     category: "Co-ords",
     collections: [],
@@ -553,7 +230,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main61, Hover62],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/6_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/6_2w"],
     gender: "women",
     category: "Tracksuits",
     collections: [],
@@ -577,7 +254,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main71, Hover72],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/7_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/7_2w"],
     gender: "women",
     category: "Tracksuits",
     collections: ["summer"],
@@ -601,7 +278,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main81, Hover82],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/8_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/8_2w"],
     gender: "women",
     category: "Outerwear",
     collections: ["new"],
@@ -625,7 +302,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main91, Hover92],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/9_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/9_2w"],
     gender: "women",
     category: "Outerwear",
     collections: [],
@@ -649,7 +326,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main101, Hover102],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/10_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/10_2w"],
     gender: "women",
     category: "Coats",
     collections: [],
@@ -673,7 +350,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main111, Hover112],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/11_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/11_2w"],
     gender: "women",
     category: "Coats",
     collections: [],
@@ -697,7 +374,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 4,
-    images: [Main121, Hover122],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/12_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/12_2w"],
     gender: "women",
     category: "Coats",
     collections: [],
@@ -721,7 +398,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main131, Hover132],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: [],
@@ -745,7 +422,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main141, Hover142],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/14_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/14_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: [],
@@ -769,7 +446,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main151, Hover152],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/15_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/15_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: ["new"],
@@ -793,7 +470,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main161, Hover162],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/16_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/16_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: [],
@@ -817,7 +494,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main171, Hover172],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/17_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/17_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: ["summer"],
@@ -841,7 +518,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main181, Hover182],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/18_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/18_2w"],
     gender: "women",
     category: "Jackets & Vests",
     collections: [],
@@ -865,7 +542,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main191, Hover192],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/19_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/19_2w"],
     gender: "women",
     category: "Jeans",
     collections: [],
@@ -889,7 +566,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main201, Hover202],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_2w"],
     gender: "women",
     category: "Jeans",
     collections: ["new"],
@@ -913,7 +590,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main211, Hover212],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/21_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/21_2w"],
     gender: "women",
     category: "Jeans",
     collections: ["summer"],
@@ -936,7 +613,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main221, Hover222],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/22_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/22_2w"],
     gender: "women",
     category: "Jeans",
     collections: [],
@@ -956,7 +633,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main231, Hover232],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_2w"],
     gender: "women",
     category: "Jeans",
     collections: ["summer"],
@@ -979,7 +656,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main241, Hover242],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_2w"],
     gender: "women",
     category: "Jeans",
     collections: [],
@@ -1003,7 +680,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main251, Hover252],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/25_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/25_2w"],
     gender: "women",
     category: "Jeans",
     collections: ["new"],
@@ -1026,7 +703,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main261, Hover262],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/26_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/26_2w"],
     gender: "women",
     category: "Jumpsuits",
     collections: ["summer"],
@@ -1050,7 +727,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main271, Hover272],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/27_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/27_2w"],
     gender: "women",
     category: "Jumpsuits",
     collections: [],
@@ -1074,7 +751,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main281, Hover282],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/28_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/28_2w"],
     gender: "women",
     category: "Jumpsuits",
     collections: [],
@@ -1098,7 +775,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main291, Hover292],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/29_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/29_2w"],
     gender: "women",
     category: "Jumpsuits",
     collections: ["summer"],
@@ -1122,7 +799,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main301, Hover302],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/30_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/30_2w"],
     gender: "women",
     category: "Socks",
     collections: [],
@@ -1146,7 +823,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main311, Hover312],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/31_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/31_2w"],
     gender: "women",
     category: "Socks",
     collections: [],
@@ -1169,7 +846,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main321, Hover322],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/32_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/32_2w"],
     gender: "women",
     category: "Socks",
     collections: [],
@@ -1186,7 +863,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main331, Hover332],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/33_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/33_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: ["new"],
@@ -1210,7 +887,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main341, Hover342],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: [],
@@ -1234,7 +911,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main351, Hover352],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/35_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/35_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: ["new"],
@@ -1258,7 +935,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main361, Hover362],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/36_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/36_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: [],
@@ -1282,7 +959,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main371, Hover372],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/37_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/37_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: [],
@@ -1306,7 +983,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main381, Hover382],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: [],
@@ -1330,7 +1007,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main391, Hover392],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_2w"],
     gender: "women",
     category: "Hoodies & Sweatshirts",
     collections: ["new"],
@@ -1354,7 +1031,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main401, Hover402],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_2w"],
     gender: "women",
     category: "Sweaters & Cardigans",
     collections: [],
@@ -1378,7 +1055,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main411, Hover412],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/41_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/41_2w"],
     gender: "women",
     category: "Sweaters & Cardigans",
     collections: [],
@@ -1402,7 +1079,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main421, Hover422],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/42_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/42_2w"],
     gender: "women",
     category: "Sweaters & Cardigans",
     collections: [],
@@ -1425,7 +1102,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main431, Hover432],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/43_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/43_2w"],
     gender: "women",
     category: "Sweaters & Cardigans",
     collections: [],
@@ -1449,7 +1126,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main441, Hover442],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/44_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/44_2w"],
     gender: "women",
     category: "Sweaters & Cardigans",
     collections: ["new"],
@@ -1472,7 +1149,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main451, Hover452],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/45_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/45_2w"],
     gender: "women",
     category: "Skirts",
     collections: [],
@@ -1496,7 +1173,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main461, Hover462],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/46_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/46_2w"],
     gender: "women",
     category: "Skirts",
     collections: ["summer"],
@@ -1520,7 +1197,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main471, Hover472],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/47_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/47_2w"],
     gender: "women",
     category: "Skirts",
     collections: [],
@@ -1543,7 +1220,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main481, Hover482],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/48_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/48_2w"],
     gender: "women",
     category: "Skirts",
     collections: ["summer"],
@@ -1566,7 +1243,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 4,
-    images: [Main491, Hover492],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/49_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/49_2w"],
     gender: "women",
     category: "Skirts",
     collections: ["summer"],
@@ -1589,7 +1266,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main501, Hover502],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/50_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/50_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["new"],
@@ -1613,7 +1290,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main511, Hover512],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/51_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/51_2w"],
     gender: "women",
     category: "Dresses",
     collections: [],
@@ -1637,7 +1314,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main521, Hover522],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/52_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/52_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["new"],
@@ -1661,7 +1338,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main531, Hover532],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/53_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/53_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["summer"],
@@ -1684,7 +1361,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main541, Hover542],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/54_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/54_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["summer"],
@@ -1708,7 +1385,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main551, Hover552],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/55_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/55_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["summer"],
@@ -1731,7 +1408,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main561, Hover562],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/56_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/56_2w"],
     gender: "women",
     category: "Dresses",
     collections: ["summer"],
@@ -1755,7 +1432,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main571, Hover572],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/57_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/57_2w"],
     gender: "women",
     category: "Shorts",
     collections: [],
@@ -1779,7 +1456,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main581, Hover582],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/58_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/58_2w"],
     gender: "women",
     category: "Shorts",
     collections: ["summer"],
@@ -1803,7 +1480,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main591, Hover592],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/59_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/59_2w"],
     gender: "women",
     category: "Shorts",
     collections: ["summer"],
@@ -1827,7 +1504,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main601, Hover602],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/60_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/60_2w"],
     gender: "women",
     category: "Shorts",
     collections: ["summer"],
@@ -1851,7 +1528,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main611, Hover612],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/61_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/61_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: ["new"],
@@ -1875,7 +1552,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main621, Hover622],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/62_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/62_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: [],
@@ -1898,7 +1575,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main631, Hover632],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/63_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/63_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: [],
@@ -1922,7 +1599,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main641, Hover642],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/64_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/64_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: ["summer"],
@@ -1945,7 +1622,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main651, Hover652],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/65_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/65_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: [],
@@ -1969,7 +1646,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main661, Hover662],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/66_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/66_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: ["new"],
@@ -1993,7 +1670,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main671, Hover672],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/67_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/67_2w"],
     gender: "women",
     category: "Pants & Leggings",
     collections: ["summer"],
@@ -2016,7 +1693,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main681, Hover682],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/68_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/68_2w"],
     gender: "women",
     category: "T-shirts & Tank Tops",
     collections: ["summer"],
@@ -2040,7 +1717,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main691, Hover692],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/69_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/69_2w"],
     gender: "women",
     category: "T-shirts & Tank Tops",
     collections: ["summer"],
@@ -2064,7 +1741,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main701, Hover702],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/70_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/70_2w"],
     gender: "women",
     category: "T-shirts & Tank Tops",
     collections: ["summer"],
@@ -2088,7 +1765,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 4,
-    images: [Main711, Hover712],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/71_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/71_2w"],
     gender: "women",
     category: "T-shirts & Tank Tops",
     collections: [],
@@ -2112,7 +1789,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main721, Hover722],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/72_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/72_2w"],
     gender: "women",
     category: "Blouses & Shirts",
     collections: ["new"],
@@ -2136,7 +1813,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main731, Hover732],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/73_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/73_2w"],
     gender: "women",
     category: "Blouses & Shirts",
     collections: [],
@@ -2160,7 +1837,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 4,
-    images: [Main741, Hover742],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/74_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/74_2w"],
     gender: "women",
     category: "Blouses & Shirts",
     collections: ["summer"],
@@ -2183,7 +1860,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main751, Hover752],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/75_1w", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/75_2w"],
     gender: "women",
     category: "Blouses & Shirts",
     collections: ["new"],
@@ -2208,7 +1885,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 4,
-    images: [Main55_1, Main55_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/1_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/1_2m"],
     gender: "men",
     category: "Beachwear",
     collections: ["summer"],
@@ -2230,7 +1907,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main56_1, Main56_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/2_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/2_2m"],
     gender: "men",
     category: "Beachwear",
     collections: ["summer"],
@@ -2252,7 +1929,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 11,
     rating: 4,
-    images: [Main57_1, Main57_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/3_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/3_2m"],
     gender: "men",
     category: "Beachwear",
     collections: ["summer"],
@@ -2274,7 +1951,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 15,
     rating: 5,
-    images: [Main58_1, Main58_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/4_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/4_2m"],
     gender: "men",
     category: "Coats",
     collections: [],
@@ -2296,7 +1973,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main59_1, Main59_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/5_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/5_2m"],
     gender: "men",
     category: "Coats",
     collections: [],
@@ -2318,7 +1995,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main60_1, Main60_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/6_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/6_2m"],
     gender: "men",
     category: "Coats",
     collections: [],
@@ -2340,7 +2017,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main61_1, Main61_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/7_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/7_2m"],
     gender: "men",
     category: "Hoodies & Sweatshirts",
     collections: [],
@@ -2362,7 +2039,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main62_1, Main62_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/8_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/8_2m"],
     gender: "men",
     category: "Hoodies & Sweatshirts",
     collections: ["new"],
@@ -2384,7 +2061,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main63_1, Main63_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/9_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/9_2m"],
     gender: "men",
     category: "Outerwear",
     collections: [],
@@ -2406,7 +2083,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main64_1, Main64_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/10_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/10_2m"],
     gender: "men",
     category: "Outerwear",
     collections: [],
@@ -2428,7 +2105,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main65_1, Main65_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/11_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/11_2m"],
     gender: "men",
     category: "Shirts",
     collections: [],
@@ -2450,7 +2127,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main66_1, Main66_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/12_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/12_2m"],
     gender: "men",
     category: "Shirts",
     collections: [],
@@ -2469,7 +2146,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main67_1, Main67_2], //, Main67_3
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_2m"], //, "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/13_3m"
     gender: "men",
     category: "Shirts",
     collections: ["new"],
@@ -2491,7 +2168,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 40,
     rating: 5,
-    images: [Main68_1, Main68_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/14_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/14_2m"],
     gender: "men",
     category: "Suits & Blazers",
     collections: [],
@@ -2513,7 +2190,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 17,
     rating: 5,
-    images: [Main69_1, Main69_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/15_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/15_2m"],
     gender: "men",
     category: "Suits & Blazers",
     collections: [],
@@ -2535,7 +2212,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main70_1, Main70_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/16_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/16_2m"],
     gender: "men",
     category: "Suits & Blazers",
     collections: [],
@@ -2557,7 +2234,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main71_1, Main71_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/17_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/17_2m"],
     gender: "men",
     category: "Sweaters",
     collections: [],
@@ -2579,7 +2256,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main72_1, Main72_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/18_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/18_2m"],
     gender: "men",
     category: "Sweaters",
     collections: ["new"],
@@ -2601,7 +2278,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main73_1, Main73_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/19_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/19_2m"],
     gender: "men",
     category: "Sweaters",
     collections: [],
@@ -2623,7 +2300,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main74_1, Main74_2], //, Main74_3, Main74_4
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_2m"], //, "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_3m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/20_4m"
     gender: "men",
     category: "T-shirts & Polos",
     collections: ["summer"],
@@ -2645,7 +2322,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main75_1, Main75_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/21_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/21_2m"],
     gender: "men",
     category: "T-shirts & Polos",
     collections: ["summer"],
@@ -2664,7 +2341,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 10,
     rating: 5,
-    images: [Main76_1, Main76_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/22_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/22_2m"],
     gender: "men",
     category: "T-shirts & Polos",
     collections: ["summer"],
@@ -2686,7 +2363,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main77_1, Main77_2], //, Main77_3, Main77_4, Main77_5
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_2m"], //, "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_3m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_4m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/23_5m"
     gender: "men",
     category: "T-shirts & Polos",
     collections: ["summer"],
@@ -2708,7 +2385,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main78_1, Main78_2], //, Main78_3
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_2m"], //, "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/24_3m"
     gender: "men",
     category: "T-shirts & Polos",
     collections: ["summer"],
@@ -2730,7 +2407,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 17,
     rating: 5,
-    images: [Main79_1, Main79_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/25_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/25_2m"],
     gender: "men",
     category: "Jeans",
     collections: [],
@@ -2752,7 +2429,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main80_1, Main80_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/26_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/26_2m"],
     gender: "men",
     category: "Jeans",
     collections: [],
@@ -2774,7 +2451,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main81_1, Main81_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/27_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/27_2m"],
     gender: "men",
     category: "Pants",
     collections: [],
@@ -2796,7 +2473,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main82_1, Main82_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/28_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/28_2m"],
     gender: "men",
     category: "Pants",
     collections: ["new"],
@@ -2818,7 +2495,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main83_1, Main83_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/29_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/29_2m"],
     gender: "men",
     category: "Pants",
     collections: [],
@@ -2840,7 +2517,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main84_1, Main84_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/30_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/30_2m"],
     gender: "men",
     category: "Pants",
     collections: [],
@@ -2862,7 +2539,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main85_1, Main85_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/31_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/31_2m"],
     gender: "men",
     category: "Pants",
     collections: [],
@@ -2884,7 +2561,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main87_1, Main87_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/33_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/33_2m"],
     gender: "men",
     category: "Pants",
     collections: [],
@@ -2906,7 +2583,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main88_1, Main88_2], //, Main88_3
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_2m"], //, "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/34_3m"
     gender: "men",
     category: "Shorts",
     collections: ["new"],
@@ -2928,7 +2605,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 14,
     rating: 5,
-    images: [Main89_1, Main89_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/35_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/35_2m"],
     gender: "men",
     category: "Shorts",
     collections: [],
@@ -2950,7 +2627,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main90_1, Main90_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/36_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/36_2m"],
     gender: "men",
     category: "Shorts",
     collections: [],
@@ -2972,7 +2649,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main91_1, Main91_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/37_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/37_2m"],
     gender: "men",
     category: "Shorts",
     collections: [],
@@ -2994,7 +2671,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 14,
     rating: 5,
-    images: [Main92_1, Main92_2], //Main92_3
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_2m"], //"https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/38_3m"
     gender: "men",
     category: "Socks",
     collections: [],
@@ -3016,7 +2693,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main93_1, Main93_2], // Main93_3, Main93_4]
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_2m"], // "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_3m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/39_4m"]
     gender: "men",
     category: "Socks",
     collections: ["new"],
@@ -3038,7 +2715,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main94_1, Main94_2], // Main94_3, Main94_4, Main94_5],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_2m"], // "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_3m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_4m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/40_5m"],
     gender: "men",
     category: "Tracksuits",
     collections: [],
@@ -3060,7 +2737,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main95_1, Main95_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/41_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/41_2m"],
     gender: "men",
     category: "Tracksuits",
     collections: [],
@@ -3082,7 +2759,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main96_1, Main96_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/42_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/42_2m"],
     gender: "men",
     category: "Tracksuits",
     collections: [],
@@ -3104,7 +2781,7 @@ export const productsData = [
     has_discount: true,
     discount_percent: 20,
     rating: 5,
-    images: [Main97_1, Main97_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/43_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/43_2m"],
     gender: "men",
     category: "Tracksuits",
     collections: [],
@@ -3126,7 +2803,7 @@ export const productsData = [
     has_discount: false,
     discount_percent: 0,
     rating: 5,
-    images: [Main98_1, Main98_2],
+    images: ["https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/44_1m", "https://res.cloudinary.com/bavwkvmr/image/upload/c_limit,f_auto,q_auto,w_800/v1/wearhouse/products/44_2m"],
     gender: "men",
     category: "Tracksuits",
     collections: ["new"],

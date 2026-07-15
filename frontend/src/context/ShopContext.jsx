@@ -29,11 +29,16 @@ const ShopContextProvider = (props) => {
 
             return {
               ...apiProduct,
+              name: apiProduct.name || mockProduct.name || mockProduct.title,
+              description: apiProduct.description || mockProduct.description,
               rating: (apiProduct.average_rating > 0) ? apiProduct.average_rating : (apiProduct.rating || mockProduct.rating || 0),
               sku: apiProduct.sku || mockProduct.sku || mockProduct.article,
               has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
               discount_percent: apiProduct.discount_percent || mockProduct.discount_percent || 0,
               collections: apiProduct.collections || mockProduct.collections || (apiProduct.tags ? apiProduct.tags.map(t => typeof t === 'object' ? t.name : t) : []),
+              images: apiProduct.images?.length > 0 ? apiProduct.images : (mockProduct.images || []),
+              gender: mockProduct.gender || apiProduct.gender,
+              category: mockProduct.category || apiProduct.category_name,
             };
           });
 

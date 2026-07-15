@@ -8,7 +8,7 @@ import { Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const NewArrivals = () => {
-  const { products } = useContext(ShopContext);
+  const { products, loading } = useContext(ShopContext);
   const [activeTab, setActiveTab] = useState('women');
 
   const filteredProducts = products.filter(product => {
@@ -58,38 +58,46 @@ const NewArrivals = () => {
         </button>
 
         {/* SWIPER*/}
-        <Swiper
-          modules={[Navigation]}
-          navigation={{
-            prevEl: '.custom-prev',
-            nextEl: '.custom-next',
-          }}
-          breakpoints={{
-            320: {
-              slidesPerView: 2.2,
-              spaceBetween: 10,
-            },
-            640: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
-            },
-            1024: {
-              slidesPerView: 3.5,
-              spaceBetween: 10,
-            },
-            1280: {
-              slidesPerView: 4,
-              spaceBetween: 10,
-            },
-          }}
-          className="pb-10"
-        >
-          {filteredProducts.map((product) => (
-            <SwiperSlide key={product.id}>
-              <ProductCard product={product} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {loading ? (
+          <div className="flex gap-2.5 overflow-hidden pb-10">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="min-w-[45%] sm:min-w-[40%] md:min-w-[28%] lg:min-w-[25%] aspect-[3/4] bg-gray-200 animate-pulse rounded"></div>
+            ))}
+          </div>
+        ) : (
+          <Swiper
+            modules={[Navigation]}
+            navigation={{
+              prevEl: '.custom-prev',
+              nextEl: '.custom-next',
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 2.2,
+                spaceBetween: 10,
+              },
+              640: {
+                slidesPerView: 2.5,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 3.5,
+                spaceBetween: 10,
+              },
+              1280: {
+                slidesPerView: 4,
+                spaceBetween: 10,
+              },
+            }}
+            className="pb-10"
+          >
+            {filteredProducts.map((product, index) => (
+              <SwiperSlide key={product.id}>
+                <ProductCard product={product} priority={index < 4} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
 
         <button className="custom-next absolute right-2 md:right-4 top-[40%] -translate-y-1/2 z-20 flex items-center justify-center
         w-10 h-10 bg-white text-black rounded-full shadow-md hover:bg-gray-100

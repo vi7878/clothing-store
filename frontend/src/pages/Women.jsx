@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { useFilteredProducts } from '../hooks/useFilteredProducts';
-import { productsData } from '../data/products';
+import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 import CatalogSidebar from '../components/CatalogSidebar';
 import CatalogFilterBar from '../components/CatalogFilterBar';
@@ -28,14 +28,15 @@ const categoriesMap = [
 ];
 
 const Women = () => {
+  const { products } = useContext(ShopContext);
   const scrollDirection = useScrollDirection();
+  const [activeCollection, setActiveCollection] = useState('all');
 
+  // Read category from URL query parameters with Home page and set it as active category
   const [searchParams] = useSearchParams();
   const categoryQuery = searchParams.get('category') || 'all';
-  const collectionQuery = searchParams.get('collection') || 'all';
   const searchQuery = searchParams.get('search') || '';
 
-  const [activeCollection, setActiveCollection] = useState(collectionQuery);
   const [activeCategory, setActiveCategory] = useState(categoryQuery);
   const [isSalesActive, setIsSalesActive] = useState(false);
 
@@ -46,19 +47,18 @@ const Women = () => {
   const [priceMin, setPriceMin] = useState('');
   const [priceMax, setPriceMax] = useState('');
 
+  // PAGINATION
   const [visibleCount, setVisibleCount] = useState(9);
 
+  // Sync URL query without triggering cascading renders in useEffect and without reading refs during render
   const [prevCategoryQuery, setPrevCategoryQuery] = useState(categoryQuery);
-  const [prevCollectionQuery, setPrevCollectionQuery] = useState(collectionQuery);
-  if (categoryQuery !== prevCategoryQuery || collectionQuery !== prevCollectionQuery) {
+  if (categoryQuery !== prevCategoryQuery) {
     setPrevCategoryQuery(categoryQuery);
-    setPrevCollectionQuery(collectionQuery);
     setActiveCategory(categoryQuery);
-    setActiveCollection(collectionQuery);
     setVisibleCount(9);
   }
 
-  const womenProducts = useMemo(() => productsData.filter(p => p.gender === 'women'), []);
+  const womenProducts = useMemo(() => products.filter(p => p.gender === 'women'), [products]);
 
   const newCategories = useMemo(() => {
     const newProds = womenProducts.filter(p => p.collections?.includes('new'));
@@ -106,6 +106,7 @@ const Women = () => {
     };
   }, [womenProducts]);
 
+  // slice only the visible products (for example, the first 9)
   const displayedProducts = useMemo(() => {
     return filteredProducts.slice(0, visibleCount);
   }, [filteredProducts, visibleCount]);
@@ -136,6 +137,7 @@ const Women = () => {
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
+  // FUNCTION: Add 9 more products to the visible products when "Load More" is clicked
   const handleLoadMore = () => {
     setVisibleCount(prevCount => prevCount + 9);
   };
@@ -183,9 +185,9 @@ const Women = () => {
 
           {/* PRODUCT GRID */}
           {displayedProducts.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-6 md:gap-x-4 md:gap-y-10 mb-12">
-              {displayedProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10 mb-12">
+              {displayedProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} priority={index < 4} />
               ))}
             </div>
           ) : (

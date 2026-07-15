@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ProductCard from './ProductCard';
+import { ShopContext } from '../context/ShopContext';
 
 const SearchModal = ({ isOpen, onClose, query }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { products: contextProducts } = useContext(ShopContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -25,7 +27,11 @@ const SearchModal = ({ isOpen, onClose, query }) => {
           if (response.ok) {
             const data = await response.json();
             const items = Array.isArray(data) ? data : (data.results || []);
-            setSuggestions(items.slice(0, 4));
+            const merged = items.slice(0, 4).map(apiProduct => {
+              const contextProduct = contextProducts.find(p => p.id === apiProduct.id);
+              return contextProduct || apiProduct;
+            });
+            setSuggestions(merged);
           }
         } catch (error) {
           console.error('SearchModal: Error fetching defaults:', error);
@@ -40,7 +46,11 @@ const SearchModal = ({ isOpen, onClose, query }) => {
         if (response.ok) {
           const data = await response.json();
           const items = Array.isArray(data) ? data : (data.results || []);
-          setSuggestions(items.slice(0, 4));
+          const merged = items.slice(0, 4).map(apiProduct => {
+            const contextProduct = contextProducts.find(p => p.id === apiProduct.id);
+            return contextProduct || apiProduct;
+          });
+          setSuggestions(merged);
         } else {
           setSuggestions([]);
         }
@@ -57,7 +67,7 @@ const SearchModal = ({ isOpen, onClose, query }) => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [query, isOpen]);
+  }, [query, isOpen, contextProducts]);
 
   if (!isOpen) return null;
 
