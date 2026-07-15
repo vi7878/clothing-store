@@ -205,11 +205,26 @@ const ProductDetails = () => {
               </button>
             )}
 
-            <img
-              src={mainImage}
-              alt={product.name}
-              className="w-full h-auto max-h-[700px] object-contain transition-opacity duration-300"
-            />
+            <div
+              className="relative w-full h-[500px] md:h-[700px] flex justify-center items-center overflow-hidden transition-all bg-[#f9f9f9] rounded-lg"
+            >
+              {product.images?.map((img, index) => {
+                const imgSrc = typeof img === 'object' ? img.image : img;
+                const isActive = mainImage === imgSrc;
+                return (
+                  <img
+                    key={index}
+                    {...getResponsiveImageProps(imgSrc, 'details')}
+                    alt={product.name}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    loading={index === 0 ? undefined : "lazy"}
+                    className={`w-full h-auto max-h-[700px] object-contain transition-opacity duration-500 ${
+                      isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                );
+              })}
+            </div>
 
             {product.images?.length > 1 && (
               <button
