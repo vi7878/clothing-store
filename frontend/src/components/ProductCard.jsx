@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { createPortal } from 'react-dom';
 import { FiHeart, FiShoppingBag, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
@@ -301,7 +302,7 @@ const ProductCard = ({ product, priority = false }) => {
             </button>
 
             <div className="flex gap-4 mb-5 pr-8">
-              <img src={mainImg} alt="product" className="w-20 h-24 object-cover rounded-md shadow-sm" />
+              <img src={getProductImage(0)} alt="product" className="w-20 h-24 object-cover rounded-md shadow-sm" />
               <div className="flex flex-col justify-center pt-1">
                 <h3 className="font-bold text-base text-[#0B0035] leading-tight mb-2">{product.name || product.title}</h3>
                 <p className="font-bold text-[#B2412E] text-lg">{finalPrice} UAH</p>
