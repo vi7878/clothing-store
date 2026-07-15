@@ -48,6 +48,8 @@ const ProductDetails = () => {
 
           const mockProduct = productsData.find(p => p.sku === data.sku || p.id === data.id);
           if (mockProduct) {
+            data.name = data.name || mockProduct.name || mockProduct.title;
+            data.description = data.description || mockProduct.description;
             data.rating = (data.average_rating > 0) ? data.average_rating : (data.rating || mockProduct.rating || 0);
             data.sku = data.sku || mockProduct.sku || mockProduct.article;
             data.has_discount = data.has_discount || mockProduct.has_discount || mockProduct.discount || false;

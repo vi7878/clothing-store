@@ -29,6 +29,8 @@ const ShopContextProvider = (props) => {
 
             return {
               ...apiProduct,
+              name: apiProduct.name || mockProduct.name || mockProduct.title,
+              description: apiProduct.description || mockProduct.description,
               rating: (apiProduct.average_rating > 0) ? apiProduct.average_rating : (apiProduct.rating || mockProduct.rating || 0),
               sku: apiProduct.sku || mockProduct.sku || mockProduct.article,
               has_discount: apiProduct.has_discount || mockProduct.has_discount || mockProduct.discount || false,
