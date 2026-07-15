@@ -4,7 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import ProductCard from '../components/ProductCard';
 
 const New = () => {
-  const { products } = useContext(ShopContext);
+  const { products, loading } = useContext(ShopContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const genderQuery = searchParams.get('gender');
 
@@ -42,7 +42,13 @@ const New = () => {
         </button>
       </div>
 
-      {filteredProducts.length > 0 ? (
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="w-full aspect-[3/4] bg-gray-200 animate-pulse rounded"></div>
+          ))}
+        </div>
+      ) : filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} priority={index < 4} />
