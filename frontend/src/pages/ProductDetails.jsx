@@ -54,6 +54,8 @@ const ProductDetails = () => {
             data.discount_percent = data.discount_percent || mockProduct.discount_percent || 0;
             data.collections = data.collections || mockProduct.collections || (data.tags ? data.tags.map(t => typeof t === 'object' ? t.name : t) : []);
             data.images = data.images?.length > 0 ? data.images : (mockProduct.images || []);
+            data.gender = mockProduct.gender || data.gender;
+            data.category = mockProduct.category || data.category_name;
           }
 
           initializeProduct(data);
